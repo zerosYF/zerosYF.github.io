@@ -145,6 +145,54 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-添加右键菜单选项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
+  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章的来由要感谢hexo了，在我配置hexo的时候，要在hexo初始化的目录下对_config.yml文件进行编辑，由于本人比较懒，并不想cd命令各种url，因此想到文件目录下使用gitbash，于是鼠标右键，我去，竟然没有gitbash，哎，看来只能自己加一下了，接下来就说一下具体的添加方法。<br>我用的是win10，那么要找到注册表编辑器，在搜索框中输入：<br>    regedit<br>然后就会出现注册表的选项，点击进入。<br>进入以后，再进入HKEY_CLASSES_ROOT目录，<br>再依次进入Directory目录，Background目录，shell目录，<br>右键点击新建，命名即为自己在右键菜单中显示的命名，<br>在自己创建的目录中再新建一个名为command的选项，编辑此command项，<br>将数据这一项编辑为：<br>    “F:\Git\git-bash.exe”<br>上面这一句是填自己的git-bash的路径，读者要依照自己的情况填写。<br>然后关闭注册表，右键就能看到自己设置的选项了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/14/添加右键菜单选项/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
