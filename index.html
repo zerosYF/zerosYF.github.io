@@ -145,6 +145,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-拼图游戏-N-puzzle问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
+  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/12/拼图游戏-N-puzzle问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-Failed-to-resolve-junit-junit-4-12解决方案-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
+  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经过一个月没电脑，两个月没网的假期，我终于可以继续在网上浪了，赶快来记录一下这个假期遇到的问题吧。<br>电脑换了主板，修好以后，换了系统，我电脑里好多东西都gg了。包括android studio…<br>打开以前的项目，耐心等待加载后，便跳出了这个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to resolve: junit:junit:4.12</div></pre></td></tr></table></figure></p>
+<p>百度以后，首先发现一个解决方案。<br>错误显示是加载junit失败，那就打开gradle把加载选项删掉就好了呗！试了一下，错误是没了，但是，这完全是掩耳盗铃。<br>其实正确的方法很简单，无法加载junit，是因为缺少junit4.12这个文件，那么只要完善就好了。<br>打开项目的gradle文件，在allprojects的repositories添加下面这条语句即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">maven &#123; url &apos;http://repo1.maven.org/maven2&apos; &#125;</div></pre></td></tr></table></figure></p>
+<p>这样资源库就正常导入可以使用了。对了，记得联网才能有效哦，我假期没网所以一直没成功！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-拼图游戏-android7-0使用系统相机拍照" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
