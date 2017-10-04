@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>&lt;学习笔记&gt; 堆排序 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="堆可以分为最大堆最小堆，是一棵完全二叉树。我们如果想要对一个序列进行非递减的排序，需要使用的是最大堆的结构。堆排序可以分为两个步骤：1.根据初始输入数据，形成初始堆；2.通过一系列的元素交换和重新调整进行排序；我们要进行堆排序，首先就要建立的我们的工具，最大堆。建堆的核心在于对它的调整，使我们的二叉树满足每个子节点的值都不大于其父节点的值。调堆的过程要从最后一个非叶子节点开始。假定有序列1 7 6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; 堆排序">
+<meta property="og:url" content="http://yoursite.com/2017/10/04/学习笔记-堆排序/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="堆可以分为最大堆最小堆，是一棵完全二叉树。我们如果想要对一个序列进行非递减的排序，需要使用的是最大堆的结构。堆排序可以分为两个步骤：1.根据初始输入数据，形成初始堆；2.通过一系列的元素交换和重新调整进行排序；我们要进行堆排序，首先就要建立的我们的工具，最大堆。建堆的核心在于对它的调整，使我们的二叉树满足每个子节点的值都不大于其父节点的值。调堆的过程要从最后一个非叶子节点开始。假定有序列1 7 6">
+<meta property="og:image" content="http://yoursite.com/images/mypic.png">
+<meta property="og:image" content="http://yoursite.com/images/mupic2.png">
+<meta property="og:updated_time" content="2017-10-04T12:52:45.527Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; 堆排序">
+<meta name="twitter:description" content="堆可以分为最大堆最小堆，是一棵完全二叉树。我们如果想要对一个序列进行非递减的排序，需要使用的是最大堆的结构。堆排序可以分为两个步骤：1.根据初始输入数据，形成初始堆；2.通过一系列的元素交换和重新调整进行排序；我们要进行堆排序，首先就要建立的我们的工具，最大堆。建堆的核心在于对它的调整，使我们的二叉树满足每个子节点的值都不大于其父节点的值。调堆的过程要从最后一个非叶子节点开始。假定有序列1 7 6">
+<meta name="twitter:image" content="http://yoursite.com/images/mypic.png">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,238 +150,139 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-学习笔记-堆排序" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; 堆排序
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
+
+        
+        <a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
   	<time datetime="2017-10-04T05:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/04/学习笔记-堆排序/">&lt;学习笔记&gt; 堆排序</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>堆可以分为最大堆最小堆，是一棵完全二叉树。我们如果想要对一个序列进行非递减的排序，需要使用的是最大堆的结构。<br>堆排序可以分为两个步骤：<br>1.根据初始输入数据，形成初始堆；<br>2.通过一系列的元素交换和重新调整进行排序；<br>我们要进行堆排序，首先就要建立的我们的工具，最大堆。建堆的核心在于对它的调整，使我们的二叉树满足每个子节点的值都不大于其父节点的值。<br>调堆的过程要从最后一个非叶子节点开始。<br>假定有序列1 7 6 4 3 5 2 9 8；<br>那么我么要经历以下变换：<br><img src="/images/mypic.png" alt=""><br><img src="/images/mupic2.png" alt=""><br>那么我们可以用以下代码进行调堆：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">void swap(int &amp;a,int &amp;b)&#123;     //元素交换；</div><div class="line">  int temp;</div><div class="line">  temp=a;</div><div class="line">  a=b;</div><div class="line">  b=temp;</div><div class="line">&#125;</div><div class="line">void adjheap(int list[],int heaplen)&#123;</div><div class="line">  for(int i=heaplen/2;i&gt;=0;i--)&#123;</div><div class="line">    getmaxheap(list,heaplen,i);     //建堆入口；从第一个非叶子节点开始；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void getmaxheap(int list[],int heaplen,int i)&#123;</div><div class="line">  int left=2*i;</div><div class="line">  int right=2*i+1;   //获取左子节点和右子节点的索引；</div><div class="line">  int max=i;         //假设现在最大的节点是此时的父节点；</div><div class="line">  if(i&lt;=heaplen/2)&#123;       //i的边界，也就是第一个非叶子节点；</div><div class="line">    if(left&lt;=heaplen&amp;&amp;list[left]&gt;list[max])&#123;</div><div class="line">      max=left;           //左子节点比此时假设的大；</div><div class="line">    &#125;</div><div class="line">    if(right&lt;=heaplen&amp;&amp;list[right]&gt;list[max])&#123;</div><div class="line">      max=right;          //右子节点比此时假设的大；</div><div class="line">    &#125;</div><div class="line">    if(max!=i)&#123;           //如果此时最大的不是最初假设的父节点；</div><div class="line">      swap(list[max],list[i]);    //交换子节点和父节点的位置；</div><div class="line">      getmaxheap(list,heaplen,max);   //向下递归，将目前的子节点当作父节点来进行相同的比较，直到到达i的边界；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void heapsort(int list[],int heaplen)&#123;</div><div class="line">  adjheap(list,heaplen);     //在排序前进行堆的建立；</div><div class="line">  for(int i=heaplen-1;i&gt;=0;i--)&#123;</div><div class="line">    swap(list[0],list[i]);   //将最后一个元素与第一个交换；</div><div class="line">    getmaxheap(list,i-1,0);  //再进行堆的调整，变为我们所要的最大堆；</div><div class="line">    //很明显，堆排序的过程就是最大堆的不断重建和根元素和当前最后一个元素交换的过程；</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/10/04/学习笔记-堆排序/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-归并排序与快速排序/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-归并排序与快速排序/">&lt;学习笔记&gt;归并排序与快速排序</a>
-    </h1>
+  
+    <a href="/2017/10/03/学习笔记-归并排序与快速排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt;归并排序与快速排序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">&lt;学习笔记&gt;深度优先算法与广度优先算法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
-  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
-  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/08/hello-world/" class="archive-article-date">
-  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/08/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -397,8 +305,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
