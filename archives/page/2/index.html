@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Zeros</title>
+  <title>Archives | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
 <meta property="og:site_name" content="Zeros">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zeros">
@@ -145,503 +145,130 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-学习笔记-动态规划——中级进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
+  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
+      <a class="archive-article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
     </h1>
   
 
-        
-        <a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章我们开始考虑二维的问题了。<br>示例一<br>平面上有n*m个方格，每个格子中放一定数量苹果，我们从左上角的第一个格子开始走，接下来我们的每一步只能向下或者向右走，每到一个格子，<br>就把里面的苹果收集起来，走啊走，问最后最多可以收集多少个苹果。<br>所有的dp问题其实都大同小异，我们要求到达某个格子收集到的苹果的数量，就要求上一个格子已有的苹果的数量，这其实就好像一个逆推的<br>过程，最后就一直推到左上角的那个格子了。一回头，一步一步，我们的结果就出来了。<br>设格子的行row,列为col,某个格子最多收集到的苹果数量为s[i][j],某个格子放的苹果数量为a[i][j];<br>假设当前到达了i行j列的格子，那么到达这个方格的路径只有两种，就是它的上面和左面的格子，<br>那么我们就很容易写出我们的递推公式，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=a[i][j]+max&#123;a[i-1][j],a[i][j-1];i&gt;0,j&gt;0,0&#125;;</div></pre></td></tr></table></figure></p>
-<p>依然根据递推公式写出代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">	int a[6][7] = &#123;</div><div class="line">	&#123;12,14,3,5,6,8,21&#125;,</div><div class="line">	&#123;3,5,7,1,9,34,12&#125;,</div><div class="line">	&#123;4,6,7,18,1,23,11&#125;,</div><div class="line">	&#123;9,11,13,24,6,5,3&#125;,</div><div class="line">	&#123;21,22,3,4,17,9,5&#125;,</div><div class="line">	&#123;12,3,5,8,22,9,10&#125;</div><div class="line">	&#125;;</div><div class="line">	int s[6][7];</div><div class="line">	s[0][0] = a[0][0];</div><div class="line">	for (int i = 0; i &lt; 6; i++) &#123;</div><div class="line">		for (int j = 0; j &lt; 7; j++) &#123;</div><div class="line">			if (i &gt; 0 &amp;&amp; j &gt; 0) &#123;</div><div class="line">				if (s[i][j - 1] &gt; s[i - 1][j]) &#123;</div><div class="line">					s[i][j] = a[i][j] + s[i][j - 1];</div><div class="line">				&#125;</div><div class="line">				else&#123;</div><div class="line">					s[i][j] = a[i][j] + s[i - 1][j];</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			else if (i == 0&amp;&amp;j&gt;0) &#123;</div><div class="line">				s[i][j] = a[i][j]+s[i][j-1];</div><div class="line">			&#125;</div><div class="line">			else if(j==0&amp;&amp;i&gt;0)&#123;</div><div class="line">				s[i][j] = a[i][j] + s[i-1][j];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; s[5][6] &lt;&lt; endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>写到这里，似乎发现，我们做dp问题其实最重要的就是要找出递推方程，剩下的就是小case了。<br>示例二<br>这个问题和示例一太像了。。<br>有一个矩形滑雪场，可以用r行c列来表示它的地形，地形较高那么元素就较大一些，反之。<br>为了得到更快的滑雪速度，滑雪的方向必须是向下倾斜的，规定可以从上下左右四个方向来寻求路径。<br>我们要求的结果是要找到一条最长的路径溜下去。<br>先看我们的常规思路。<br>那么我们第一步肯定是要找到这块地形最高的位置了。<br>接下来，我们依然沿用求子问题的方式来进行求解。我们如果求最高位置为起点的最长路径，那么就是要求其周围四个<br>邻接位置的路径，然后取其中最大的那一条。<br>以此类推，假如我们找到了四个中的那个所谓的子问题解，那么就以这个邻接位置为当前位置，继续重复上述过程，求解<br>此时的邻接路径的最长的那一条。<br>设s[i][j]=k，表示在i行j列的位置取得的最长路径为k；<br>那么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=max&#123;s[i-1][j],s[i+1][j],s[i][j-1],s[i][j+1]&#125;+1;</div></pre></td></tr></table></figure></p>
-<p>通过记忆化搜索深度递归即可。<br>接下来我们看另一种思路。<br>对比一下求最长非降子序列的问题，其实我们可以将这道题进行化归。<br>我们仔细推敲一下，我们先把这个二维的矩阵化为一个一维的是数组，这一步实现了降维。<br>阅读我们问题，很明显有两个要点，一个是邻接，一个是下降。<br>那么我们必须将原来的二维数组的索引记录下来，为了判定是否相邻，还要高度，就是我们一数组的值。<br>那么我们可以定义一个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class pos&#123;</div><div class="line">  int h;</div><div class="line">  int x;</div><div class="line">  int y;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>我们将这个pos进行排序，排序的依据是高度。<br>降维后，我们得到一个存储着若干个pos对象的数组，然后依据对象的x和y属性，判断原矩阵的元素是否相邻进行处理。<br>类比最长非降序子列的问题，我们可以结合上述改造写出代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;algorithm&gt;</div><div class="line">#include&lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">class pos &#123;</div><div class="line">public:</div><div class="line">	int h;</div><div class="line">	int x;</div><div class="line">	int y;</div><div class="line">&#125;;</div><div class="line">bool operator&lt;(pos p1, pos p2) &#123;</div><div class="line">	return p1.h &lt; p2.h;</div><div class="line">&#125;</div><div class="line">bool check(pos p1,pos p2) &#123;</div><div class="line">	if (((p1.x == p2.x&amp;&amp;abs(p1.y-p2.y) == 1)</div><div class="line">		||(p1.y == p2.y&amp;&amp;abs(p1.x - p2.x) == 1))</div><div class="line">		&amp;&amp;p1.h&gt;p2.h) &#123;</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line">	return false;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">	int a[5][5] = &#123;</div><div class="line">	&#123;1,2,3,4,5&#125;,</div><div class="line">	&#123;16,17,18,19,6&#125;,</div><div class="line">	&#123;15,24,25,20,7&#125;,</div><div class="line">	&#123;14,23,22,21,8&#125;,</div><div class="line">	&#123;13,12,11,10,9&#125;</div><div class="line">	&#125;;</div><div class="line">	pos ps[25];</div><div class="line">	int dp[25];</div><div class="line">	int k = 0;</div><div class="line">	for (int i = 0; i &lt; 5; i++) &#123;</div><div class="line">		for (int j=0; j &lt; 5; j++) &#123;</div><div class="line">			pos p;</div><div class="line">			p.x = i;</div><div class="line">			p.y = j;</div><div class="line">			p.h = a[i][j];</div><div class="line">			ps[k++]=p;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	int maxlen = 1;</div><div class="line">	sort(ps,ps+25);</div><div class="line">	for (int i = 0; i &lt; 25; i++) &#123;</div><div class="line">		dp[i] = 1;</div><div class="line">		for (int j = 0; j &lt; i; j++) &#123;</div><div class="line">			if (check(ps[i], ps[j])) &#123;</div><div class="line">				dp[i] =max(dp[i],dp[j]+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if (dp[i] &gt; maxlen)maxlen = dp[i];</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; maxlen;</div><div class="line">	int o;</div><div class="line">	cin &gt;&gt; o;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/22/学习笔记-动态规划——中级进阶/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
   
-    <article id="post-学习笔记-动态规划——初级入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
     
-      <header class="article-header">
-        
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
+  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/学习笔记-动态规划——初级入门/">&lt;学习笔记&gt;动态规划——初级入门</a>
+      <a class="archive-article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
     </h1>
   
 
-        
-        <a href="/2017/10/22/学习笔记-动态规划——初级入门/" class="archive-article-date">
-  	<time datetime="2017-10-22T03:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最长非降子序列<br>给定序列a[1],a[2],…a[n],求出最长非降子序列的长度。<br>沿用求最少硬币的方法，如果我们考虑a[1],a[2],…a[i]的最长非降子序列，其中i<n,那么上面的问题就变成了他的子问题， 同质不同量，解决起来容易一些。="" 为了便于研究，我们定义d(i)="j,表示对于前i个元素来说，最长非降子序列长度为j。" 假定我们给定序列：5，3，4，8，6，7="" 那么我们还是从第一个开始，="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">d(1)=1;序列5;子列为5</div><div class="line">d(2)=1;序列5,3;子列为5或3</div><div class="line">d(3)=2;序列5,3,4;子列为3,4</div><div class="line">d(4)=3;序列5,3,4,8;子列为3,4,8</div><div class="line">d(5)=3;序列5,3,4,8,6;子列为3,4,8</div><div class="line">d(6)=3;序列5,3,4,8,6,7;子列为3,4,8或5,6,7</div></pre></td></tr></table></n,那么上面的问题就变成了他的子问题，></p>
-<p>我们观察这个递推过程，同时思考我们求解这个问题的过程，其实如果求当前前i个元素的结果，就是将前面的子序列中，列尾不大于a[i]<br>的序列长度加1，如果列尾都大于a[i],那么就要将其置1，产生一个长度为1新的被求子序列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d(i)=max&#123;1,d(j)+1&#125;;</div><div class="line">//j&lt;i;a[j]&lt;=a[i];</div></pre></td></tr></table></figure></p>
-<p>根据上面的叙述，我们就可以很容易的写出代码来了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">int a[6] = &#123;5,3,4,8,6,7&#125;;</div><div class="line">int d[6];//存储过程中的序列长度；</div><div class="line">int len = 1;//初始化长度为1；</div><div class="line">for (int i = 0; i &lt; 6; i++) &#123;</div><div class="line">  d[i] = 1;//遍历到一个新的数字，那么假设它比前面的都小，初始化为1；</div><div class="line">  for (int j = 0; j &lt; i; j++) &#123;</div><div class="line">    if (a[j] &lt;= a[i] &amp;&amp; d[j] + 1 &gt; d[i]) &#123;</div><div class="line">      d[i] = d[j] + 1;</div><div class="line">      //从前面的子列中，找到那个列尾不大于a[i]的序列长度加1；</div><div class="line">      //有更长的就要继续更新；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (d[i] &gt; len) &#123;</div><div class="line">    len = d[i];//找到更长的，就要更新；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">cout &lt;&lt; len &lt;&lt; endl;</div><div class="line">return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/22/学习笔记-动态规划——初级入门/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
   
-    <article id="post-学习笔记-动态规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
     
-      <header class="article-header">
-        
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
+  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/学习笔记-动态规划/">&lt;学习笔记&gt;动态规划————开篇理解</a>
+      <a class="archive-article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
     </h1>
   
 
-        
-        <a href="/2017/10/21/学习笔记-动态规划/" class="archive-article-date">
-  	<time datetime="2017-10-21T05:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>声明：本文参考了Hawstein的文章，我觉得写的非常好，可以好好研读一下。<br>原文链接<a href="http://hawstein.com/posts/dp-novice-to-advanced.html" target="_blank" rel="external">http://hawstein.com/posts/dp-novice-to-advanced.html</a><br>动态规划，Dynamic Programming,这里的programming并不是我们所理解的编程，计算机程序，而是表格的意思。<br>在我们开始学习的时候，就会理解为什么这么说了。<br>动态规划通常基于一个递推公式以及若干个初始状态，将一个大问题分解为子问题，当前子问题的解由上一个子问题的解推出。<br>很多问题我们选择动态规划是因为即使他有其他的方法，譬如回溯法，暴力求解，但是动态规划只需要多项式时间复杂度解决问题。<br>原文用了这么一个例子，<br>我么手中有1元，3元，5元的硬币，如何用最少的硬币来凑够11元。<br>类似数学归纳法，分治法，我们总是考虑一些理解起来比较容易，看上去比较直观的情况，然后采用化归的思想，先去考虑一些规模较小的问题，如何去解决。<br>首先，我们来看一个看似滑稽但基础的情况，凑够0元。<br>很明显，我们手里只有1元，3元，5元，并没有0元面值的，那么至少需要0个硬币。<br>当我们要凑够1元的时候，我们只需要1个1元的硬币即可。但是从一个奇特的角度想，当凑够1元时，还剩下0元，归纳为解决凑0元的问题，再需要0个硬币。<br>当我们要凑够2元的时候，看看手里，只有1元硬币可以用，我们拿起一个1元先凑1元，然后还差1元，归纳为解决凑1元的问题，然后再拿1元就好。<br>当我们要凑够3元的时候，这时候就要考虑我们所要面值了，有两种情况，<br>我们继续使用1元的硬币，先凑1元，那么还需要两元，此时其实就时相当于归纳为解决凑2元的问题了，回去看就好了。<br>我们使用3元的硬币，此时拿起一个3元硬币，那么我们还需要再凑0元，又归纳为凑0元的问题。<br>考虑这两种情况，我们的问题是最少，那么很明显就是选择1个3元硬币方案了。<br>从数学的角度去看，我们来抽象归纳一下上面的叙述。<br>记d(m)=n:表示凑够m元最少需要n个硬币。<br>那么有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">d(0)=0;</div><div class="line">d(1)=d(1-1)+1=0+1=1;</div><div class="line">d(2)=d(2-1)+1=d(1)+1=d(1-1)+1+1=2;</div><div class="line">d(3)=min&#123;d(3-1)+1,d(3-3)+1&#125;;</div><div class="line">//那么我们所要求的问题就是d(11)了呗；</div><div class="line">//其实前三种情况和d(3)可以写成相同的形式；</div></pre></td></tr></table></figure></p>
-<p>很容易我们就可以归结出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d(i)=min&#123;d(i-vj)+1&#125;</div><div class="line">//其中vj表示第j个硬币的面值，i-vj&gt;=0；</div></pre></td></tr></table></figure></p>
-<p>根据这一条，我们就很容易写出代码了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">int min[12];</div><div class="line">for (int i = 0; i &lt; 12; i++) &#123;</div><div class="line">  min[i] = 10000;//假设要好多好多硬币才行，进行初始化；</div><div class="line">&#125;</div><div class="line">int v[3];//三种不同面值；</div><div class="line">v[0] = 1;</div><div class="line">v[1] = 3;</div><div class="line">v[2] = 5;</div><div class="line">min[0] = 0;</div><div class="line">for (int i = 1; i &lt;=11; i++) &#123;</div><div class="line">  for (int j = 0; j &lt; 3; j++) &#123;</div><div class="line">    if (v[j] &lt;= i&amp;&amp;min[i - v[j]] + 1 &lt; min[i]) &#123;</div><div class="line">      min[i] = min[i - v[j]] + 1;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">cout &lt;&lt; min[11] &lt;&lt; endl;</div><div class="line">return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/学习笔记-动态规划/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
   
-    <article id="post-编译原理-NFA确定化与DFA最小化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
     
-      <header class="article-header">
-        
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/05/08/hello-world/" class="archive-article-date">
+  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
+      <a class="archive-article-title" href="/2017/05/08/hello-world/">Hello World</a>
     </h1>
   
 
-        
-        <a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>NFA确定化<br>定理：对于一个给定的非确定的有限自动机，一定存在一个确定的有限自动机，是这两个有限自动机所识别的语言相同。<br>因此，我们可以由非确定的有限自动机构造与其等价的确定的有限自动机，也称为有限自动机的确定化。<br>构造的方法为：<br>用确定的有限自动机的一个状态对应不确定的有限自动机的多个状态。这种方法称为子集构造法。<br>在我们学习这种构造法之前，首先要了解两个定义。<br>1.ε-闭包<br>设非确定的有限自动机M=(∑，S,S0,Z,f),假设I为M的状态集S的一个子集，则定义：<br>ε-closure(I):<br>a.若q∈I, 则q∈ ε-closure(I)；<br>b.若q∈I，则对任意q’∈f(q,ε),有q’∈ε-closure(I)；<br>2.集合Ia的闭包<br>设非确定的有限自动机M=(Q,∑,f,q0,Z)，假定I属于Q，a∈∑，则定义Ia=ε-closure({p∈f(q,a)|q∈ε-closure(I)})，<br>通俗的讲，就是从I的ε-闭包出发，经过一条a弧而到达的状态集的闭包。<br>非确定的有限自动机的确定化算法——子集法。<br>1.若p为NFA初态，则DFA的初态A为ε-closure({p})。<br>2.若q为已生成的状态，对NFA的每一个弧进行标记，那么求ε-closure(f(q,m))。如果所求集合不为空，那么继续重复这一过程，直到不在出现新的集合。<br>DFA最小化<br>说在前面：<br>1.无关状态<br>如果从DFA的初态开始，识别任何输入序列都不能到达的那些状态称为无关状态。<br>2.最小的确定的有限自动机<br>如果确定的有限自动机既没有多余的状态，又没有互相等价的状态，即称为确定的有限自动机为最小的。<br>3.等价状态<br>设DFA的两个不同状态，如果对于任何输入序列从这两个状态出发，总是同时到达接受状态或拒绝状态，则称这两个状态为等价的。<br>确定的的有限自动机的最小化步骤：<br>1.消除无关状态<br>主要包含两种情况，第一种从该自动机的开始状态出发，输入任何输入串都不能到达的那个状态；<br>第二种是从某个状态出发都不能到达终结状态的道路。<br>2.消除等价状态<br>消除等价状态采用划分法。就是将已经去掉无关状态的DFA的状态分为一些不相关的子集。<br>一般第一步将终结状态与非终结状态进行基本划分，<br>接下来根据状态转换矩阵进行划分，对于两个状态来说，分别分析对于不同输入，如果他们到达的状态分属不同的子集中(上一步划分的集合)，那么就可以将它们分在不同的子集中，<br>对已划分的子集重复上述过程，最终所有子集中的状态全部等价，即可。</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
   
-    <article id="post-学习笔记-迪克斯彻算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/学习笔记-迪克斯彻算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-线性查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个算法解决问题一般是选取一个序列的第k小哥元素，那么我们很容易想到，当我们将n个数排序好以后，那么排在第k个位置的即为我们要找的元素。<br>通过算法学家们的研究，可以很巧妙的做到即使是最坏情况下，依然可以再线性时间内完成。<br>这种方法的步骤是：<br>1.将这n个每5个一组，不够5个的剩下的元素再组成一组。<br>2.取出每一组的中位数，采取任意排序方法，进行排序。<br>3.递归调用函数查找上一步中的所有中位数的中位数，设为x。<br>4.用x来分割数组，设小于x的个数为k，大于x的个数n-k。<br>5.若i与x相等，那么返回x；若i小于k，那么在小于x的元素中继续递归查找，否则反之。<br>6.当n等于1时，我们终止算法，返回元素即为所求。<br>依据我们的步骤，很轻易就写出代码了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void myswap(T &amp;a, T &amp;b) &#123;    //交换元素；</div><div class="line">  T temp;</div><div class="line">  temp = a;</div><div class="line">  a = b;</div><div class="line">  b = temp;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">T partition(T list[], int a, int b, int x) &#123;    //划分方法；</div><div class="line">  int i = a;  </div><div class="line">  int j = b + 1;</div><div class="line">  while (true) &#123;</div><div class="line">    while (list[++i]&lt;x&amp;&amp;i&lt;b);</div><div class="line">    while (list[--j]&gt;x);</div><div class="line">    if (i &gt;= j)break;</div><div class="line">    myswap(list[i], list[j]);</div><div class="line">  &#125;</div><div class="line">  list[a] = list[j];</div><div class="line">  list[j] = x;</div><div class="line">  return j;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">void bablesort(T list[], int size) &#123;</div><div class="line">  for (int p = 0; p&lt;size; p++) &#123;      //冒泡排序；</div><div class="line">    for (int q = p + 1; q&lt;size; q++) &#123;</div><div class="line">      if (list[q]&lt;list[p]) &#123;</div><div class="line">        myswap(list[q], list[p]);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">T select(T list[], int a, int b, int k) &#123;   //核心方法；</div><div class="line">  if (b ==a) &#123;     //当只有一个元素时，返回此时的值即为所寻值；</div><div class="line">    return list[a];</div><div class="line">  &#125;</div><div class="line">  int groupnum = (b - a + 1) / 5;    //每5个元素一组，分的组数；不包括不足5个的那一组；</div><div class="line">  int restnumb = (b - a + 1) % 5;    //5元组划分完毕后剩下的元素；</div><div class="line">  for (int i = 0; i &lt;groupnum; i++) &#123;</div><div class="line">    bablesort(list+a+i*5,5);         //对每个5元组进行排序；</div><div class="line">  &#125;</div><div class="line">  if (restnumb != 0) &#123;</div><div class="line">    bablesort(list+a+groupnum*5,restnumb);  //对剩下的元素进行排序；</div><div class="line">  &#125;</div><div class="line">  T *mids;                           //new一个数组来储存我们在每组中找到的中位数；</div><div class="line">  if (restnumb == 0) &#123;</div><div class="line">    mids = new T[groupnum];          </div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    mids = new T[groupnum+1];        //有剩余元素的情况要多一组；</div><div class="line">  &#125;</div><div class="line">  for (int i = 0; i &lt; groupnum; i++) &#123;</div><div class="line">    mids[i] = list[a+i*5+2];         //将中位数放入数组中；</div><div class="line">  &#125;</div><div class="line">  if (restnumb != 0) &#123;</div><div class="line">    mids[groupnum] = list[a+groupnum*5+(restnumb-1)/2];  </div><div class="line">  &#125;</div><div class="line">  T x;</div><div class="line">  if(restnumb==0)&#123;                     //利用递归找中位数的中位数；</div><div class="line">    x = select(mids, 0, groupnum-1, (groupnum-1)/2+1);</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    x = select(mids, 0, groupnum, (groupnum) / 2 + 1);</div><div class="line">  &#125;</div><div class="line">  delete[]mids;                       //释放我们的临时空间mids；</div><div class="line">  int i = partition(list, a, b,x);    //以x为划分基准；</div><div class="line">  int j = i + 1 - a;</div><div class="line">  if (k &lt;= j) &#123;</div><div class="line">    return select(list, a, i, k);     //左子串递归搜寻第k小；</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    return select(list, i + 1, b, k - j);</div><div class="line">  &#125;                                   //右子串递归搜寻第k-j小，即为整个串的第k小；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/学习笔记-线性查找算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-堆排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/04/学习笔记-堆排序/">&lt;学习笔记&gt; 堆排序</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
-  	<time datetime="2017-10-04T05:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>堆可以分为最大堆最小堆，是一棵完全二叉树。我们如果想要对一个序列进行非递减的排序，需要使用的是最大堆的结构。<br>堆排序可以分为两个步骤：<br>1.根据初始输入数据，形成初始堆；<br>2.通过一系列的元素交换和重新调整进行排序；<br>我们要进行堆排序，首先就要建立的我们的工具，最大堆。建堆的核心在于对它的调整，使我们的二叉树满足每个子节点的值都不大于其父节点的值。<br>调堆的过程要从最后一个非叶子节点开始。<br>假定有序列1 7 6 4 3 5 2 9 8；<br>那么我么要经历以下变换：<br><img src="/images/mypic.png" alt=""><br><img src="/images/mypic2.png" alt=""><br>那么我们可以用以下代码进行调堆：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">void swap(int &amp;a,int &amp;b)&#123;     //元素交换；</div><div class="line">  int temp;</div><div class="line">  temp=a;</div><div class="line">  a=b;</div><div class="line">  b=temp;</div><div class="line">&#125;</div><div class="line">void adjheap(int list[],int heaplen)&#123;</div><div class="line">  for(int i=heaplen/2;i&gt;=0;i--)&#123;</div><div class="line">    getmaxheap(list,heaplen,i);     //建堆入口；从第一个非叶子节点开始；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void getmaxheap(int list[],int heaplen,int i)&#123;</div><div class="line">  int left=2*i;</div><div class="line">  int right=2*i+1;   //获取左子节点和右子节点的索引；</div><div class="line">  int max=i;         //假设现在最大的节点是此时的父节点；</div><div class="line">  if(i&lt;=heaplen/2)&#123;       //i的边界，也就是第一个非叶子节点；</div><div class="line">    if(left&lt;=heaplen&amp;&amp;list[left]&gt;list[max])&#123;</div><div class="line">      max=left;           //左子节点比此时假设的大；</div><div class="line">    &#125;</div><div class="line">    if(right&lt;=heaplen&amp;&amp;list[right]&gt;list[max])&#123;</div><div class="line">      max=right;          //右子节点比此时假设的大；</div><div class="line">    &#125;</div><div class="line">    if(max!=i)&#123;           //如果此时最大的不是最初假设的父节点；</div><div class="line">      swap(list[max],list[i]);    //交换子节点和父节点的位置；</div><div class="line">      getmaxheap(list,heaplen,max);   //向下递归，将目前的子节点当作父节点来进行相同的比较，直到到达i的边界；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void heapsort(int list[],int heaplen)&#123;</div><div class="line">  adjheap(list,heaplen);     //在排序前进行堆的建立；</div><div class="line">  for(int i=heaplen-1;i&gt;=0;i--)&#123;</div><div class="line">    swap(list[0],list[i]);   //将最后一个元素与第一个交换；</div><div class="line">    getmaxheap(list,i-1,0);  //再进行堆的调整，变为我们所要的最大堆；</div><div class="line">    //很明显，堆排序的过程就是最大堆的不断重建和根元素和当前最后一个元素交换的过程；</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/04/学习笔记-堆排序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-归并排序与快速排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/03/学习笔记-归并排序与快速排序/">&lt;学习笔记&gt;归并排序与快速排序</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/03/学习笔记-归并排序与快速排序/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 归并排序和快速排序的核心思想都是分治法。<br> 由于本人并不是专于研究算法的，所以对于这两种算法的复杂度分析不进行研究与探讨。<br> 这篇文章主要讨论这两种算法的原理理解与c++的描述。<br> 归并排序：<br> 假如给定序列21，25，49，25<em>，16，8，31，41，<br> 那么我们利用分治法的思想，大问题化成规模较小的相同的子问题，将序列进行划分，8个元素，好麻烦，那么我们就排4个吧？<br> 最简单的情况呢，1个放在哪里，就是排好的咯。<br>    21   25   49  25</em>  16   08   31   41<br>    21   25   49  25<em>| 16   08   31   41   //划分过程；<br>    21   25 | 49  25</em>| 16   08 | 31   41<br>    21 | 25 | 49  25<em>| 16 | 08 | 31 | 41<br>    21   25 | 25</em>  49| 08   16 | 31   41<br>    21   25   25<em>  49| 08   16   31   41   //归并过程；<br>    08   16   21   25  25</em>  31   41   49<br>那么接下来就是我们要根据原理写出实现的代码了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void merge(T list1[],T list2[],const int left,const int right,const int mid)&#123;</div><div class="line">  for(int k=left;k&lt;=right;k++)&#123;</div><div class="line">    list2[k]=list1[k];    //list2是一个辅助数组，我们将list1的值拷贝到list2中，然后在归并到list1中；</div><div class="line">  &#125;</div><div class="line">  int s1=left,s2=mid+1,t=left;  //s1，s2为list2的游标，t为list1的游标；list2分割为两个子表；</div><div class="line">  while(s1&lt;=mid&amp;&amp;s2&lt;=right)&#123;</div><div class="line">    if(list2[s1]&lt;=list2[s2]) list1[t++]=list2[s1++];   //将两个子表的值进行比较，较小的放在新形成的母表的游标值较小的地方，也就是靠前放；</div><div class="line">    else list1[t++]=list2[s2++];</div><div class="line">  &#125;</div><div class="line">  while(s1&lt;=mid) list1[t++]=list2[s1++];</div><div class="line">  while(s2&lt;=right) list[t++]=list2[s2++];//两个子表剩下的值再放入母表中；</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">void mergesort(T list[],T list2[],int left,int right)&#123;</div><div class="line">  if(left&gt;=right)return;</div><div class="line">  int mid=(left+right)/2;</div><div class="line">  mergesort(list,list2,left,mid);   //递归划分；</div><div class="line">  mergesort(list,list2,mid+1,right);</div><div class="line">  merge(list,list2,mid,right);  //合并；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>所有的讲解都放在注释里了，思想很简单。<br>快速排序：<br>依然是上面的序列：21，25，49，25<em>，16，8，31，41，<br>快速排序同样基于分治法。她的基本思想是任意取待排序列中的一个元素作为一个基准，依据这个基准的大小，将序列分为左右两个子序列，<br>左侧的都比她小，右侧的都比她大或者和她一样大。基准放在这两个子列中间就好了。重复上述方法，直到所有的元都待在它该待得位置<br>就好了。<br>   [21   25    49    25</em>   16    08    31    41]      //(p)所指即为基准；<br>                                                   //p的个数相当于递归到子序列的深度；p-&gt;21;<br>   [08   16]   21   [25    49    25<em>   31    41]<br>                                                   //pp1-&gt;08,pp2-&gt;25;<br>   08   [16]   21   25    [49    25</em>   31    41]<br>                                                   //ppp1=16,ppp2=49;<br>   08    16    21   25    [41    25<em>   31]   49<br>                                                   //pppp=41;<br>   08    16    21   25    [31   25</em>]   41    49<br>                                                   //ppppp=31;<br>   08    16    21   25    25*    31    41    49</p>
-<p>放代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void quicksort(T list[], int a,int b)&#123;</div><div class="line">  if(a&lt;b)&#123;</div><div class="line">    int i=partition(list,a,b);//划分；</div><div class="line">    quicksort(list,a,i-1);//递归左子列排序；</div><div class="line">    quicksort(list,i+1,b);//递归右子列排序；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">int partition(T list[],int p,int r)&#123;</div><div class="line">  int i=p;             //向右走的一个游标；</div><div class="line">  int j=r+1;           //向左走的一个游标；</div><div class="line">  T x=list[p];         //基准；</div><div class="line">  while(true)&#123;</div><div class="line">    while(list[++i]&lt;x&amp;&amp;i&lt;r);  //自左向右找寻第一个比基准大的位置；</div><div class="line">    while(list[--j]&gt;x);       //自右向左找寻第一个比基准小的位置；</div><div class="line">    if(i&gt;=j)break;            //边界；</div><div class="line">    int temp=list[i];         //找到了就交换位置呗；</div><div class="line">    list[i]=list[j];</div><div class="line">    list[j]=temp;</div><div class="line">  &#125;</div><div class="line">  list[p]=list[j];     //将基准与所找到的满足上述目标特性的最后一个元进行位置交换；</div><div class="line">  list[j]=x;           </div><div class="line">  return j;            //返回此时的母串的基准的位置，为了进行子序列的递归排序；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这就是我对这两种基于分治法的排序方法的理解，如有错误，那一定是个意外哦。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/03/学习笔记-归并排序与快速排序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-深度优先算法与广度优先算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">&lt;学习笔记&gt;深度优先算法与广度优先算法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本人这两种算法在课上没好好学过，只能通过读别人写的书和博客进行学习，如有个别雷同，希望见谅(那说明那个人写的一定很好a)。<br>在网上和书上看了不同的实现方法，我觉得有一种基于邻接矩阵的方法不错，那就做做笔记吧。<br>在我们讨论这两种图的基本搜索方法时，我们先来定义一下我们的图吧，确定一下图的存储结构。</p>
-<p><img src="/images/IMG_2644.JPG" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">struct Graph&#123;</div><div class="line">  int numofvert;</div><div class="line">  int numofedge;</div><div class="line">  int matrix[20][20];</div><div class="line">&#125;;</div><div class="line">//先把这个图初始化一下了；</div><div class="line">void initgraph(Graph &amp;G)&#123;</div><div class="line">  G.numofedge=5;</div><div class="line">  G.numofvert=5;</div><div class="line"></div><div class="line">  G.matrix[0][2]=1;</div><div class="line">  G.matrix[2][0]=1;</div><div class="line">  G.matrix[0][3]=1;</div><div class="line">  G.matrix[3][0]=1;</div><div class="line">  G.matrix[1][2]=1;</div><div class="line">  G.matrix[2][1]=1;</div><div class="line">  G.matrix[1][4]=1;</div><div class="line">  G.matrix[4][1]=1;</div><div class="line">  G.matrix[2][4]=1;</div><div class="line">  G.matrix[4][2]=1;    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>深度优先遍历算法(DFS)<br>深度优先搜索的思想大致可以这么说：<br>这是一个不断的探查与回溯的过程。在探查的每一步，都会有一个当前顶点v，每一步探查，都会先访问当前顶点，然后将其设一个标志来标记已访问过。接着在它的邻接顶点中，找出未访问的一个，将其作为下一个当前顶点v’，如果所有的邻接顶点都被访问过了，那么我们返回上上步，将前一步所访问的顶点作为当前顶点，重复上述过程即可。<br>通俗点讲，就是我们每做的一步都要一探到底，到了底在掉头回去找其他路，优先纵向搜索。<br>那么我们一边看代码一边再做一次理解吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">bool visited[20];</div><div class="line">void DFS(Graph&amp; g,int v)&#123;    //核心方法；</div><div class="line">  visited[v]=true;                //将开始顶点设置为已经访问过；</div><div class="line">  printf(&quot;%d &quot;,v);                 //打印当前节顶；</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;           </div><div class="line">    if(g.matrix[v][i]==1&amp;&amp;visited[i]==false)&#123; //获取当前节点未访问过的邻接顶点;</div><div class="line">      DFS(g,i);//递归调用，所有顶点都访问过后，进行回溯。</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void DFST(Graph g)&#123;    //主方法，也就是看作遍历的入口方法；</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    visited[i]=false;     //将每个顶点初始化，都未访问过；</div><div class="line">  &#125;</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    if(visited[i]==false)&#123;</div><div class="line">      DFS(g,i);      //挑选没有访问的第一个顶点，进行遍历；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>广度优先遍历算法(BFS)<br>广度优先遍历是一个逐层遍历的过程。<br>在这个过程中，图中有多少个顶点就要重复多少步，在每一步中，规定一个当前顶点v，并设置它是被访问过的，接着依次访问v的各个未曾被访问过的邻接顶点，然后再顺序访问这些邻接顶点的未访问过的邻接节点。再从这些未访问过的顶点中，继续重复上述步骤。直到所有的顶点都被访问过为止。<br>通俗点讲，就是逐层递进，优先横向搜索。<br>贴代码；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#include&lt;queue&gt;</div><div class="line">using namespace std;</div><div class="line">void BFST(Graph g)&#123;</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    visited[i]=false;     //先将所有的顶点的初始状态都设置为未访问过；</div><div class="line">  &#125;</div><div class="line">  queue&lt;int&gt; myq;</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    if(visited[i]==false)&#123;     //如果该顶点未访问过；</div><div class="line">      myq.push(i);             //将其下标入队；</div><div class="line">      visited[i]=true;</div><div class="line">      while(!myq.empty())&#123;      //队列未空，那么遍历就不结束；</div><div class="line">        int t=myq.front();      //将队列头取出；</div><div class="line">        myq.pop();</div><div class="line">        printf(&quot;%d &quot;, t);       //打印出当前访问的顶点；</div><div class="line">        for(int j=0;j&lt;g.numofvert;j++)&#123;     //将其未访问过的邻接节点加入队列；</div><div class="line">          if(g.matrix[t][j]==1&amp;&amp;visited[j]==false)&#123;</div><div class="line">            myq.push(j);</div><div class="line">            visited[j]=true;//push()与设置为true成对达到标志访问的作用。</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>设顶点数为n，那么这两种遍历方法的时间复杂度都是O(n^2);</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-拼图游戏-N-puzzle问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题1</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
-  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们平常所见的拼图游戏是一堆被打乱的图片碎片，我们要做的就是通过有限的步骤把它们还原为一个完整的图片。<br>其实我们可以将每一个图片碎片看作一个个数字模块，拼好的拼图的数字模块是按照数字的次序排列的。<br>那么我们的拼图游戏其实就是将打乱的数字阵列通过一定的步骤转换为有顺序的阵列。<br>这个就是所谓的n-puzzle问题，常见的有8puzzle(九宫)和15puzzle(十五迷)，其实就是还原3<em>3和4</em>4拼图嘛。<br>今天我所要介绍的是关于n puzzle问题的可解性的判断；<br>我们看如下矩阵：<br>          12  01  10  02<br>          07  11  04  14<br>          05  xx  09  15<br>          08  13  06  03<br>我们将这个矩阵写成一维数组：<br>  A={12,1,10,2,7,11,4,14,5,xx,9,15,8,13,6,3};<br>接下来，我们定义一个Ti表示位于数组A中在第i位后，比Ai小的元素的个数，不包括xx;<br>那么我们依据上述描述，又可以写出一个序列：<br>  B=[11,0,8,0,4,6,1,6,1,3,4,2,2,1]<br>然后求他们的和：sumB=49;<br>那么判断是否这个十五迷问题是否有解的依据有下面两条：<br>1.如果序列A的宽度为奇数，那么每个可解的问题所定义的sumB必须是偶数。<br>2.如果序列A的宽度为偶数，那么当空格xx位于从下往上数的奇数行中时，sumB必须为偶数，<br>当空格xx位于从下往上数的偶数行中时，sumB必须为奇数。<br>对于证明，大家可以看这里：<br>十五迷问题<a href="http://blog.csdn.net/mindhawk/article/details/1445013；" target="_blank" rel="external">http://blog.csdn.net/mindhawk/article/details/1445013；</a><br>代码很简单，我就不往这里写了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/拼图游戏-N-puzzle问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-  
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
     </nav>
   
 
@@ -665,9 +292,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
