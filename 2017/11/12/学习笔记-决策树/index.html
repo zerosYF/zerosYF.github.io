@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>&lt;学习笔记&gt; 决策树 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="决策树所做的工作：读取数据集合，获取其中蕴含的知识信息，使用不熟悉的数据集合，并从中提取出一系列的规则，然后机器学习算法最终将使用这些机器从数据集中创造规则。优点：计算复杂度不高，输出结果便于理解，对中间值的缺失不敏感，可以处理不相关的特征数据。缺点：可能会产生过度匹配的问题。构造决策树的方法：首先我们要搞清楚哪个特征在划分数据分类时起到了决定性的作用。为了找到决定性的特征，得到最优的结果，我们要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; 决策树">
+<meta property="og:url" content="http://yoursite.com/2017/11/12/学习笔记-决策树/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="决策树所做的工作：读取数据集合，获取其中蕴含的知识信息，使用不熟悉的数据集合，并从中提取出一系列的规则，然后机器学习算法最终将使用这些机器从数据集中创造规则。优点：计算复杂度不高，输出结果便于理解，对中间值的缺失不敏感，可以处理不相关的特征数据。缺点：可能会产生过度匹配的问题。构造决策树的方法：首先我们要搞清楚哪个特征在划分数据分类时起到了决定性的作用。为了找到决定性的特征，得到最优的结果，我们要">
+<meta property="og:updated_time" content="2017-11-20T09:42:26.372Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; 决策树">
+<meta name="twitter:description" content="决策树所做的工作：读取数据集合，获取其中蕴含的知识信息，使用不熟悉的数据集合，并从中提取出一系列的规则，然后机器学习算法最终将使用这些机器从数据集中创造规则。优点：计算复杂度不高，输出结果便于理解，对中间值的缺失不敏感，可以处理不相关的特征数据。缺点：可能会产生过度匹配的问题。构造决策树的方法：首先我们要搞清楚哪个特征在划分数据分类时起到了决定性的作用。为了找到决定性的特征，得到最优的结果，我们要">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,268 +147,154 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-学习笔记-决策树" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; 决策树
+    </h1>
+  
+
+        
+        <a href="/2017/11/12/学习笔记-决策树/" class="archive-article-date">
+  	<time datetime="2017-11-12T13:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>决策树所做的工作：<br>读取数据集合，获取其中蕴含的知识信息，使用不熟悉的数据集合，并从中提取出一系列的规则，然后机器学习算法最终将使用这些机器<br>从数据集中创造规则。<br>优点：<br>计算复杂度不高，输出结果便于理解，对中间值的缺失不敏感，可以处理不相关的特征数据。<br>缺点：<br>可能会产生过度匹配的问题。<br>构造决策树的方法：<br>首先我们要搞清楚哪个特征在划分数据分类时起到了决定性的作用。<br>为了找到决定性的特征，得到最优的结果，我们要对每一个特征值进行评估，完成这样的测试之后，原始的数据集就依据上面的特征划分为几个数据集。<br>这些数据集分布在我们的第一个决策点的各个分支上，接下来，我们还要检查，在同一个分支上是否都是同一个类型，如果子集中的数据集已经是同一<br>类型，我们就达到目的了，相反，我们要依照上面的方法，重复划分的过程，直到每个分支上的数据的类型不能再分。<br>信息增益<br>我们划分数据集的大原则：将无序的数据变得更加有序。<br>我们要了解一些信息论的术语了。<br>熵：信息的期望值。<br>信息：如果待分类的事务可能划分在多个分类之中， 则x的信息定义为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">l(x)=-logp(x)</div></pre></td></tr></table></figure></p>
+<p>其中p(x)为选择某个分类的概率。<br>那么我们的熵就可以定义为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">H=-∑p(x)logp(x)</div></pre></td></tr></table></figure></p>
+<p>也就是每个x的信息与选取这个信息的概率的乘积，然后将所有总体上所取的期望值。<br>我们来计算香农熵：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">def cshannon(dataset):</div><div class="line">    num=len(dataset)  #将数据集总数记录；</div><div class="line">    labelcounts=&#123;&#125;  #创建一个字典保存每种类型的数据出现的次数；</div><div class="line">    for featvec in dataset:</div><div class="line">        currentlabel=featvec[-1]  #取最后一列作为label</div><div class="line">        if currentlabel not in labelcounts.keys():   #如果字典中不存在当前加入的label</div><div class="line">            labelcounts[currentlabel]=1</div><div class="line">        labelcounts[currentlabel]+=1  #添加进去</div><div class="line">    shannon=0.0</div><div class="line">    for key in labelcounts:   #利用公式计算熵值</div><div class="line">        prob=float(labelcounts[key])/num</div><div class="line">        shannon-=prob*log(prob,2)</div><div class="line">    return shannon</div></pre></td></tr></table></figure></p>
+<p>通过测试，我们很容易发现，熵越高，我们混合的数据也就越多。<br>划分数据集<br>我们需要对每个特征划分的数据集计算一次香农熵，然后判断哪个特征划分数据集是最好的划分方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">def splitdata(dataset,axis,value):</div><div class="line">    rtndataset=[]</div><div class="line">    for featvec in dataset:</div><div class="line">        if featvec[axis]==value:</div><div class="line">            reducedfeatvec=featvec[:axis]</div><div class="line">            reducedfeatvec.extends(featvec[axis+1:])</div><div class="line">            rtndataset.append(reducedfeatvec)</div><div class="line">    return rtndataset</div></pre></td></tr></table></figure></p>
+<p>向我们的方法中传入三个参数：数据集，特征，特征的返回值<br>我们遍历数据集中的每一列向量，发现符合我们要求的值，我们就把它加入我们要得到的集合当中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">def choosebestfeaturetosplit(dataset):</div><div class="line">    numfeatures=len(dataset[0])-1;#获得数据集的长度；其实是一个由各种属性组成的矩阵；</div><div class="line">    baseentropy=cshannon(dataset)#调用计算香农熵的函数计算</div><div class="line">    bestinfogain=0.0#初始化划分最好的香农熵和最好的参考特征；</div><div class="line">    bestfeature=-1</div><div class="line">    for i in range(numfeatures):#遍历所有特征值；</div><div class="line">        featlist=[example[i] for example in dataset]</div><div class="line">        uniquevals=set(featlist)</div><div class="line">        newentropy=0.0</div><div class="line">        for value in uniquevals:</div><div class="line">            subdataset=splitdata(dataset,i,value)</div><div class="line">            prob=len(subdataset)/float(len(dataset))</div><div class="line">            newentropy+=prob*cshannon(subdataset)</div><div class="line">        infogain=baseentropy-newentropy</div><div class="line">        if(infogain&gt;bestinfogain):#更新；</div><div class="line">            bestinfogain=infogain</div><div class="line">            bestfeature=i</div><div class="line">    return bestfeature</div></pre></td></tr></table></figure></p>
+<p>在这个函数调用的数据要符合以下条件：<br>1.数据必须要是由列表元素组成的的列表<br>2.所有的列表元素都要具有相同的数据长度<br>3.数据的最后一列或者每个实例的最后一个元素是当前实例的label<br>如果数据集处理了所有的属性，但是类标签仍然不是唯一的，这时候，我们要继续进行”分叉”,去思考如何定义该叶子节点，<br>这种情况，我们就会采取多数表决的方法来决定分类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def majoritycnt(classlist):</div><div class="line">    classcount=&#123;&#125;</div><div class="line">    for vote in classlist:</div><div class="line">        if vote not in classcount.keys():</div><div class="line">            classcount[vote]=0</div><div class="line">        classcount[vote]+=1</div><div class="line">    #统计每种分类的数目，表决器</div><div class="line">    sortedclasscount=sorted(classcount,key=operator.itemgetter(1),reverse=True)</div><div class="line">    return sortedclasscount[0][0]#排序返回出现次数最多的</div></pre></td></tr></table></figure></p>
+<p>最后就是利用递归法建一棵树了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">def createtree(dataset,labels):</div><div class="line">    classlist=[example[-1] for example in dataset]#创建包含所有类标签的一个list</div><div class="line">    if classlist.count(classlist[0])==len(classlist):#递归边界一：所有的类标签都相同；</div><div class="line">        return classlist[0]</div><div class="line">    if len(dataset[0])==1:#递归边界二：使用了所有特征进行划分，选取出现次数最多的返回；</div><div class="line">        return majoritycnt(classlist)</div><div class="line">    bestfeat=choosebestfeaturetosplit(dataset)#选取最优特征；</div><div class="line">    bestfeatlabel=labels[bestfeat]</div><div class="line">    mytree=&#123;bestfeatlabel:&#123;&#125;&#125;</div><div class="line">    del(labels[bestfeat])#删除引用；</div><div class="line">    featvalues=[example[bestfeat] for example in dataset]</div><div class="line">    uniquevals=set(featvalues)#得到列表中的所有属性值；</div><div class="line">    for value in uniquevals:</div><div class="line">        sublabels=labels[:]#复制类标签，防止改变原始列表的内容；</div><div class="line">        mytree[bestfeatlabel][value]=createtree(splitdata(dataset,bestfeat,value),sublabels)</div><div class="line">    return mytree</div></pre></td></tr></table></figure></p>
+<p>ps:感谢&lt;机器学习实战&gt;一书的讲解！</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/11/12/学习笔记-决策树/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
-  	<time datetime="2017-10-04T05:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/04/学习笔记-堆排序/">&lt;学习笔记&gt; 堆排序</a>
-    </h1>
+    <a href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          &lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/10/学习笔记-k-近邻算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt; k-近邻算法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-归并排序与快速排序/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-归并排序与快速排序/">&lt;学习笔记&gt;归并排序与快速排序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">&lt;学习笔记&gt;深度优先算法与广度优先算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
-  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
-  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/08/hello-world/" class="archive-article-date">
-  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/08/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -428,8 +318,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

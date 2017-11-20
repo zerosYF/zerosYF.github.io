@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>&lt;学习笔记&gt; 范数 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="虽然这次的笔记是关于范数的，但是还是忍不住想把某个理解记录下来：求解一个矩阵方程的解：对于方程Ax=b：为了分析方程有多少个解，我们可以将A的列向量看作从原点出发的不同向量，确定有多少种方法可以到达向量b。在这个观点下，向量x中的每个元素表示的就是我们朝着A中的每个向量最多远。一般而言，这种操作被称为线性组合。一组向量的生成子空间就是原始向量线性组合后所能抵达的点的集合。确定Ax=b是否有解，相当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; 范数">
+<meta property="og:url" content="http://yoursite.com/2017/11/05/学习笔记-范数/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="虽然这次的笔记是关于范数的，但是还是忍不住想把某个理解记录下来：求解一个矩阵方程的解：对于方程Ax=b：为了分析方程有多少个解，我们可以将A的列向量看作从原点出发的不同向量，确定有多少种方法可以到达向量b。在这个观点下，向量x中的每个元素表示的就是我们朝着A中的每个向量最多远。一般而言，这种操作被称为线性组合。一组向量的生成子空间就是原始向量线性组合后所能抵达的点的集合。确定Ax=b是否有解，相当">
+<meta property="og:updated_time" content="2017-11-05T09:44:54.866Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; 范数">
+<meta name="twitter:description" content="虽然这次的笔记是关于范数的，但是还是忍不住想把某个理解记录下来：求解一个矩阵方程的解：对于方程Ax=b：为了分析方程有多少个解，我们可以将A的列向量看作从原点出发的不同向量，确定有多少种方法可以到达向量b。在这个观点下，向量x中的每个元素表示的就是我们朝着A中的每个向量最多远。一般而言，这种操作被称为线性组合。一组向量的生成子空间就是原始向量线性组合后所能抵达的点的集合。确定Ax=b是否有解，相当">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,268 +147,150 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-学习笔记-范数" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; 范数
+    </h1>
+  
+
+        
+        <a href="/2017/11/05/学习笔记-范数/" class="archive-article-date">
+  	<time datetime="2017-11-05T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然这次的笔记是关于范数的，但是还是忍不住想把某个理解记录下来：<br>求解一个矩阵方程的解：<br>对于方程Ax=b：为了分析方程有多少个解，我们可以将A的列向量看作从原点出发的不同向量，确定有多少种方法可以到达向量b。<br>在这个观点下，向量x中的每个元素表示的就是我们朝着A中的每个向量最多远。一般而言，这种操作被称为线性组合。<br>一组向量的生成子空间就是原始向量线性组合后所能抵达的点的集合。<br>确定Ax=b是否有解，相当于确定向量b是否在A列向量的生成子空间中。<br>嗯，这是我见过对矩阵方程的最直观的理解，比那些高端到不行的书里的讲解要强多了。<br>这个就说到这里。<br>有时我们需要衡量一个向量的大小。在机器学习中，我们会经常使用被称为范数的函数来衡量向量的大小。<br>Lp范数的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">||x||p=(∑|xi|^p)^(1/p),其中p∈R，p&gt;=1</div></pre></td></tr></table></figure></p>
+<p>范数是将向量映射到非负值的函数。<br>直观的讲，向量x的范数就是从原点到x的距离。<br>规范的讲，范数是符合以下性质的任意函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f(x)=0 =&gt;x=0;</div><div class="line">f(x+y)&lt;=f(x)+f(y);</div><div class="line">任意α∈R，f(αx)=|α|f(x);</div></pre></td></tr></table></figure></p>
+<p>当p=2时，L2称为欧几里得范数，他表示从原点出发到向量x确定的点的欧几里得距离。<br>我们将p=2带入，很明显就是我们可以看到平面二维空间以及三维空间的距离的表示法。<br>平方L2范数在数学上要比L2范数本身更加方便(开方这种东西一直不是看起来很头疼么)。<br>平方L2范数对于x中的每个元素的导数只取决于对应的元素，<br>而L2范数对于每个元素的导数和整个向量有关。<br>在机器学习当中，我们为了区分0和接近0的很小的值的时候，我们会用到L1范数。<br>有时候我们也要衡量一个矩阵的大小。最常见的做法是使用Frobenius范数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">||A||=(∑∑|aij|^2)^(1/2)</div></pre></td></tr></table></figure></p>
+<p>说白了就是对应元素平方和再开方。<br>对于范数的使用情况还有很多，深入学习会遇到更多的，到时候再深入讨论吧。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/11/05/学习笔记-范数/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
-  	<time datetime="2017-10-04T05:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/04/学习笔记-堆排序/">&lt;学习笔记&gt; 堆排序</a>
-    </h1>
+    <a href="/2017/11/05/学习笔记-最小生成树/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          &lt;学习笔记&gt; 最小生成树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/22/学习笔记-动态规划——中级进阶/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt;动态规划——中级进阶</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-归并排序与快速排序/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-归并排序与快速排序/">&lt;学习笔记&gt;归并排序与快速排序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">&lt;学习笔记&gt;深度优先算法与广度优先算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
-  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
-  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/08/hello-world/" class="archive-article-date">
-  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/08/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -428,8 +314,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

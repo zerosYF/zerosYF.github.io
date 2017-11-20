@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。1.WM_PAINT消息：LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。2.滚动条消息,WM_VSCROLL和WM_HSCROLL：LOWORD(wParam)指出了鼠标对滚动条的各种操作。3.击键消息,WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结">
+<meta property="og:url" content="http://yoursite.com/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。1.WM_PAINT消息：LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。2.滚动条消息,WM_VSCROLL和WM_HSCROLL：LOWORD(wParam)指出了鼠标对滚动条的各种操作。3.击键消息,WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KE">
+<meta property="og:updated_time" content="2017-11-17T08:44:04.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结">
+<meta name="twitter:description" content="这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。1.WM_PAINT消息：LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。2.滚动条消息,WM_VSCROLL和WM_HSCROLL：LOWORD(wParam)指出了鼠标对滚动条的各种操作。3.击键消息,WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KE">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,268 +147,138 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-学习笔记-各种消息下的wParam与lParam的含义总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结
+    </h1>
+  
+
+        
+        <a href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" class="archive-article-date">
+  	<time datetime="2017-11-17T07:55:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-17</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。<br>1.WM_PAINT消息：<br>LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。<br>2.滚动条消息,<br>WM_VSCROLL和WM_HSCROLL：<br>LOWORD(wParam)指出了鼠标对滚动条的各种操作。<br>3.击键消息,<br>WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KEYDOWN:<br>wParam为虚拟键代码,lParam包含一些关于击键的其他消息。<br>4.子符消息，<br>WM_CHAR,WM_DEADCHAR,WM_SYSCHAR,WM_SYSDEADCHAR:<br>wParam为ASCII或Unicode的字符代码，lParam是包含关于击键的其他消息。<br>5.客户区鼠标消息，<br>WM_LBUTTONDOWN、WM_LBUTTONUP、WM_RBUTTONDOWN、WM_RBUTTONUP、WM_MBUTTONDOWN、WM_MBUTTONUP:<br>lParam参数的低位是鼠标在客户区的x坐标，高位是客户区的y坐标，<br>wParam参数是指示鼠标键  以及CTRL和shift键的状态。<br>wParam&amp;MK_SHIFT或者wParam&amp;MK_CTRL,如果返回值为true，就意味着对应的按键按下了。<br>6.非客户区的消息：<br>wParam参数指明了移动或点击了鼠标的非客户区位置，以HT开头，<br>lParam参数的低位则指明了屏幕坐标的横坐标，高位指明了鼠标在屏幕上的纵坐标。<br>7.鼠标滚轮消息，<br>WM_MOUSEWHEEL：<br>lParam获得鼠标的坐标位置，<br>wParam参数的低位则表明了ctrl和shift键的状态。<br>wParam参数的高位有一个“delta”值，该值可正可负，指出了滚轮的活动使屏幕滚动了几行。<br>8.计时器消息，<br>WM_TIMER:<br>wParam参数是计时器的id，lparam的值为0.<br>9.按钮子窗口的WM_COMMAND消息：<br>wParam参数低位是子窗口的id，高位是通知码，<br>lParam是子窗口的handle。<br>10.焦点消息，<br>对于正在失去焦点的窗口，会收到WM_KILLFOCUS消息：<br>wParam是即将接受输入焦点的窗口的handle，<br>对于即将获得焦点的窗口，会收到WM_SETFOCUS消息：<br>wParam是即将失去焦点的窗口的handle。<br>11.编辑控制的WM_COMMAND消息：<br>wParam参数的低位是子窗口的id，高位是通知码，<br>lParam参数是子窗口的handle。<br>12.列表框的WM_COMMAND消息：<br>wParam参数的低位是子窗口ID，高位是通知码，<br>lParam参数是子窗口handle。<br>13.菜单消息，<br>WM_INITMENU消息：<br>wParam为主菜单的handle，lParam是0.<br>WM_MENUSELECTX消息：<br>菜单跟踪消息，向窗口发送指针移动过程的消息，<br>wParam参数的低位是选中项菜单的id或者弹出式菜单的handle，高位是选择标识，<br>lParam参数是包含选中项的菜单的句柄。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
-  	<time datetime="2017-10-04T05:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/04/学习笔记-堆排序/">&lt;学习笔记&gt; 堆排序</a>
-    </h1>
+  
+    <a href="/2017/11/12/学习笔记-决策树/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt; 决策树</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-归并排序与快速排序/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-归并排序与快速排序/">&lt;学习笔记&gt;归并排序与快速排序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">&lt;学习笔记&gt;深度优先算法与广度优先算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
-  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
-  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/08/hello-world/" class="archive-article-date">
-  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/08/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -428,8 +302,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
