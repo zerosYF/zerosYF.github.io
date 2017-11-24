@@ -145,6 +145,54 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-随笔-NASA编写代码的十条规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/24/随笔-NASA编写代码的十条规则/">&lt;随笔&gt; NASA编写代码的十条规则</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/24/随笔-NASA编写代码的十条规则/" class="archive-article-date">
+  	<time datetime="2017-11-24T07:01:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天复习java，突然看到了一篇博文，那就终止复习记下来吧。<br>文章介绍了美国宇航局喷气推进实验室首席科学家G.Holzmann提出的，侧重与安全系数的十条代码编写的基本原则。<br>原则一.简化控制流程<br>原则二.为循环使用固定的次数上限<br>原则三.不使用动态内存分配<br>原则四.不使用冗长的函数<br>原则五.低断言密度<br>原则六.以最小返回级别声明数据对象<br>原则七.检查参数与返回值<br>原则八.限制预处理程序的使用<br>原则九.限制指针的使用<br>原则十.编译所有代码</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/24/随笔-NASA编写代码的十条规则/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-学习笔记-各种消息下的wParam与lParam的含义总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -581,54 +629,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-迪克斯彻算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Dijkstra是荷兰科学家艾兹格.迪科斯彻发明的。这个算法解决的是有向单源最短路径问题。<br>这个算法的核心思想是贪心算法。也就是每一步都做出当前看似最好的选择。不从整体上优先考虑，仅作一种局部的最优解。<br>结合我们的贪心的思想和我们的问题来分析构造我们的算法。<br>初始时，原点的路径长度值赋值为0，同时把其他顶点的路径长度设置为无穷大(就是很大很大嘛),也就是表示一开始我们并不知道如何<br>从原点到达其他顶点的路径。当我们计算完成后，一方面得到从起点到终点的最短路径，如果路径不存在的话那么则得到无穷大的答案。<br>通过贪心选择，如果存在一个中间顶点到另一个中间顶点的路径，那么我们可以通过将这条路径添加到起点到第一个中间顶点的尾部，构成一条<br>更长的路径，如果这个值比目前已知的路径的长度要小，那么我们就要用新的值来代替旧的值，贪心的选择当前最短的路径。这个操作一直执行到<br>我们的第二个中间顶点变为终点，那么我们的答案就得到了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;cstring&gt;</div><div class="line">using namespace std;</div><div class="line">const int MAXL = 10000;//假想的无穷大；</div><div class="line">const int MAXN=2505;</div><div class="line">int co[MAXN][MAXN];</div><div class="line">void dkst(int n,int v,int dist[],int prev[],int c[][MAXN]) &#123;</div><div class="line">	//dist存储从原点到某个顶点的最短路径；</div><div class="line">	//c存储从某个顶点到另一个顶点的权；</div><div class="line">	//prev存储从原点到到顶点的最短路径上的前一个顶点；</div><div class="line">	//s为了区分两个集合；</div><div class="line">	//初始化；</div><div class="line">	bool s[MAXN];//区分集合；</div><div class="line">	for (int i = 1; i &lt;= n; i++) &#123;</div><div class="line">		dist[i] = c[v][i];//从起点到顶点i的最短路径初始化；</div><div class="line">		s[i] = false;//添加入未计算过集合；</div><div class="line">		if (dist[i] == MAXL) &#123;</div><div class="line">			prev[i] = 0;//如果从原点到某顶点没有直接路径；</div><div class="line">							//前顶点初始化为0；</div><div class="line">		&#125;</div><div class="line">		else &#123;</div><div class="line">			prev[i] = v;//前顶点初始化为原点；</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	dist[v] = 0;//从原点到原点长度为0啊；</div><div class="line">	s[v] = true;//将原点放入已计算顶点集；</div><div class="line">	for (int i = 1; i &lt; n; i++) &#123;</div><div class="line">		int t = MAXL;//先初始化为无穷大；</div><div class="line">		int u = v;</div><div class="line">		for (int j = 1; j &lt;= n; j++) &#123;</div><div class="line">			if ((!s[j]) &amp;&amp; (dist[j] &lt; t)) &#123;//如果顶点j未计算且找到了到顶点j的更短的路径；</div><div class="line">				u = j;</div><div class="line">				t = dist[j];//到顶点j的距离更新;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">        s[u] = true;//将顶点u放入已计算顶点集；</div><div class="line">		for (int j = 1; j &lt;= n; j++) &#123;</div><div class="line">			if ((!s[j]) &amp;&amp; (c[u][j] &lt; MAXL)) &#123;</div><div class="line">				int newdist = dist[u] + c[u][j];</div><div class="line">				if (newdist &lt; dist[j]) &#123;//更新最短路径长度；</div><div class="line">					dist[j] = newdist;</div><div class="line">					prev[j] = u;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">	int t, c, ts, te;</div><div class="line">	cin &gt;&gt; t &gt;&gt; c &gt;&gt; ts &gt;&gt; te;</div><div class="line">    memset(co,MAXL,sizeof(co));</div><div class="line">	for (int i = 1; i &lt;= c; i++) &#123;</div><div class="line">		int rs, re, ci;</div><div class="line">    cin&gt;&gt;rs&gt;&gt;re&gt;&gt;ci;</div><div class="line">		co[rs][re] = ci;</div><div class="line">    co[re][rs] = ci;//双向道路就要这么初始化；</div><div class="line">	&#125;</div><div class="line">	int dist[MAXN];</div><div class="line">	int prev[MAXN];</div><div class="line">	dkst(t,ts,dist,prev,co);</div><div class="line">	cout &lt;&lt; dist[te] &lt;&lt; endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/学习笔记-迪克斯彻算法/">展开全文 >></a>
         </p>
       
 
