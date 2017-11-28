@@ -145,6 +145,67 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-我怕忘记-LAMP环境的搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">&lt;我怕忘记&gt; LAMP环境的搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/28/我怕忘记-LAMP环境的搭建/" class="archive-article-date">
+  	<time datetime="2017-11-28T08:49:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我这是在Ubuntu上装的。<br>之前的一个自己的小练手是用wamp，为了迎合潮流，照着网上的试了lamp。<br>废话不多说，直接上步骤：<br>安装过程<br>1.安装apache2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install apache2</div></pre></td></tr></table></figure></p>
+<p>2.安装php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php5</div></pre></td></tr></table></figure></p>
+<p>3.安装mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mysql-server</div><div class="line">sudo apt-get install mysql-client</div></pre></td></tr></table></figure></p>
+<p>4.其他用去粘合的模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libapache2-mod-php5</div><div class="line">sudo apt-get install libapache2-mod-auth-mysql</div><div class="line">sudo apt-get install php5-mysql</div><div class="line">sudo apt-get install php5-gd</div></pre></td></tr></table></figure></p>
+<p>5.检测apache是否正常工作<br>打开浏览器，输入localhost，如果显示了“it works！”,说明成功。<br>6.修改目录文件的权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod 777 /var/www</div></pre></td></tr></table></figure></p>
+<p>7.安装phpadmin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install phpmyadmin</div></pre></td></tr></table></figure></p>
+<p>安装过程的提示框选择apache2，之后的对话框就是配置数据库，输入密码了.<br>8.测试phpadmin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/share/phpmyadmin/var/www</div></pre></td></tr></table></figure></p>
+<p>然后运行<a href="http://localhost/phpmyadmin是否可以运行。" target="_blank" rel="external">http://localhost/phpmyadmin是否可以运行。</a><br>配置过程<br>1.启用mod_rewrite模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo a2enmod rewrite</div></pre></td></tr></table></figure></p>
+<p>接下来会提示重启阿帕奇才可以保存设置，那么我们就重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/apache2 restart</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service apache2 restart</div></pre></td></tr></table></figure></p>
+<p>2.设置apache支持我们的文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apache2/apache2/conf&amp;</div></pre></td></tr></table></figure></p>
+<p>打开编辑器，输入以下文本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AddType application/x-httpd-php.php.htm.html</div></pre></td></tr></table></figure></p>
+<p>3.测试我们的后台php<br>文件还是我们的www文件夹里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$link = mysql_connect(&quot;localhost&quot;, &quot;root&quot;, &quot;password&quot;);</div><div class="line">if(!$link)</div><div class="line">  die(&apos;Could not connect: &apos; . mysql_error());</div><div class="line">else</div><div class="line">  echo &quot;Mysql ok!&quot;;</div><div class="line">mysql_close($link);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>然后访问我们的页面就好。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-随笔-NASA编写代码的十条规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -595,57 +656,9 @@
 
 
   
-    <article id="post-编译原理-NFA确定化与DFA最小化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>NFA确定化<br>定理：对于一个给定的非确定的有限自动机，一定存在一个确定的有限自动机，是这两个有限自动机所识别的语言相同。<br>因此，我们可以由非确定的有限自动机构造与其等价的确定的有限自动机，也称为有限自动机的确定化。<br>构造的方法为：<br>用确定的有限自动机的一个状态对应不确定的有限自动机的多个状态。这种方法称为子集构造法。<br>在我们学习这种构造法之前，首先要了解两个定义。<br>1.ε-闭包<br>设非确定的有限自动机M=(∑，S,S0,Z,f),假设I为M的状态集S的一个子集，则定义：<br>ε-closure(I):<br>a.若q∈I, 则q∈ ε-closure(I)；<br>b.若q∈I，则对任意q’∈f(q,ε),有q’∈ε-closure(I)；<br>2.集合Ia的闭包<br>设非确定的有限自动机M=(Q,∑,f,q0,Z)，假定I属于Q，a∈∑，则定义Ia=ε-closure({p∈f(q,a)|q∈ε-closure(I)})，<br>通俗的讲，就是从I的ε-闭包出发，经过一条a弧而到达的状态集的闭包。<br>非确定的有限自动机的确定化算法——子集法。<br>1.若p为NFA初态，则DFA的初态A为ε-closure({p})。<br>2.若q为已生成的状态，对NFA的每一个弧进行标记，那么求ε-closure(f(q,m))。如果所求集合不为空，那么继续重复这一过程，直到不在出现新的集合。<br>DFA最小化<br>说在前面：<br>1.无关状态<br>如果从DFA的初态开始，识别任何输入序列都不能到达的那些状态称为无关状态。<br>2.最小的确定的有限自动机<br>如果确定的有限自动机既没有多余的状态，又没有互相等价的状态，即称为确定的有限自动机为最小的。<br>3.等价状态<br>设DFA的两个不同状态，如果对于任何输入序列从这两个状态出发，总是同时到达接受状态或拒绝状态，则称这两个状态为等价的。<br>确定的的有限自动机的最小化步骤：<br>1.消除无关状态<br>主要包含两种情况，第一种从该自动机的开始状态出发，输入任何输入串都不能到达的那个状态；<br>第二种是从某个状态出发都不能到达终结状态的道路。<br>2.消除等价状态<br>消除等价状态采用划分法。就是将已经去掉无关状态的DFA的状态分为一些不相关的子集。<br>一般第一步将终结状态与非终结状态进行基本划分，<br>接下来根据状态转换矩阵进行划分，对于两个状态来说，分别分析对于不同输入，如果他们到达的状态分属不同的子集中(上一步划分的集合)，那么就可以将它们分在不同的子集中，<br>对已划分的子集重复上述过程，最终所有子集中的状态全部等价，即可。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
