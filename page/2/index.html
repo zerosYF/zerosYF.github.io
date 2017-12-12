@@ -145,6 +145,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-动态规划——初级入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/22/学习笔记-动态规划——初级入门/">&lt;学习笔记&gt;动态规划——初级入门</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/22/学习笔记-动态规划——初级入门/" class="archive-article-date">
+  	<time datetime="2017-10-22T03:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最长非降子序列<br>给定序列a[1],a[2],…a[n],求出最长非降子序列的长度。<br>沿用求最少硬币的方法，如果我们考虑a[1],a[2],…a[i]的最长非降子序列，其中i<n,那么上面的问题就变成了他的子问题， 同质不同量，解决起来容易一些。="" 为了便于研究，我们定义d(i)="j,表示对于前i个元素来说，最长非降子序列长度为j。" 假定我们给定序列：5，3，4，8，6，7="" 那么我们还是从第一个开始，="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">d(1)=1;序列5;子列为5</div><div class="line">d(2)=1;序列5,3;子列为5或3</div><div class="line">d(3)=2;序列5,3,4;子列为3,4</div><div class="line">d(4)=3;序列5,3,4,8;子列为3,4,8</div><div class="line">d(5)=3;序列5,3,4,8,6;子列为3,4,8</div><div class="line">d(6)=3;序列5,3,4,8,6,7;子列为3,4,8或5,6,7</div></pre></td></tr></table></n,那么上面的问题就变成了他的子问题，></p>
+<p>我们观察这个递推过程，同时思考我们求解这个问题的过程，其实如果求当前前i个元素的结果，就是将前面的子序列中，列尾不大于a[i]<br>的序列长度加1，如果列尾都大于a[i],那么就要将其置1，产生一个长度为1新的被求子序列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d(i)=max&#123;1,d(j)+1&#125;;</div><div class="line">//j&lt;i;a[j]&lt;=a[i];</div></pre></td></tr></table></figure></p>
+<p>根据上面的叙述，我们就可以很容易的写出代码来了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">int a[6] = &#123;5,3,4,8,6,7&#125;;</div><div class="line">int d[6];//存储过程中的序列长度；</div><div class="line">int len = 1;//初始化长度为1；</div><div class="line">for (int i = 0; i &lt; 6; i++) &#123;</div><div class="line">  d[i] = 1;//遍历到一个新的数字，那么假设它比前面的都小，初始化为1；</div><div class="line">  for (int j = 0; j &lt; i; j++) &#123;</div><div class="line">    if (a[j] &lt;= a[i] &amp;&amp; d[j] + 1 &gt; d[i]) &#123;</div><div class="line">      d[i] = d[j] + 1;</div><div class="line">      //从前面的子列中，找到那个列尾不大于a[i]的序列长度加1；</div><div class="line">      //有更长的就要继续更新；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (d[i] &gt; len) &#123;</div><div class="line">    len = d[i];//找到更长的，就要更新；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">cout &lt;&lt; len &lt;&lt; endl;</div><div class="line">return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/22/学习笔记-动态规划——初级入门/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-学习笔记-动态规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/21/学习笔记-动态规划/">&lt;学习笔记&gt;动态规划————开篇理解</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/21/学习笔记-动态规划/" class="archive-article-date">
+  	<time datetime="2017-10-21T05:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>声明：本文参考了Hawstein的文章，我觉得写的非常好，可以好好研读一下。<br>原文链接<a href="http://hawstein.com/posts/dp-novice-to-advanced.html" target="_blank" rel="external">http://hawstein.com/posts/dp-novice-to-advanced.html</a><br>动态规划，Dynamic Programming,这里的programming并不是我们所理解的编程，计算机程序，而是表格的意思。<br>在我们开始学习的时候，就会理解为什么这么说了。<br>动态规划通常基于一个递推公式以及若干个初始状态，将一个大问题分解为子问题，当前子问题的解由上一个子问题的解推出。<br>很多问题我们选择动态规划是因为即使他有其他的方法，譬如回溯法，暴力求解，但是动态规划只需要多项式时间复杂度解决问题。<br>原文用了这么一个例子，<br>我么手中有1元，3元，5元的硬币，如何用最少的硬币来凑够11元。<br>类似数学归纳法，分治法，我们总是考虑一些理解起来比较容易，看上去比较直观的情况，然后采用化归的思想，先去考虑一些规模较小的问题，如何去解决。<br>首先，我们来看一个看似滑稽但基础的情况，凑够0元。<br>很明显，我们手里只有1元，3元，5元，并没有0元面值的，那么至少需要0个硬币。<br>当我们要凑够1元的时候，我们只需要1个1元的硬币即可。但是从一个奇特的角度想，当凑够1元时，还剩下0元，归纳为解决凑0元的问题，再需要0个硬币。<br>当我们要凑够2元的时候，看看手里，只有1元硬币可以用，我们拿起一个1元先凑1元，然后还差1元，归纳为解决凑1元的问题，然后再拿1元就好。<br>当我们要凑够3元的时候，这时候就要考虑我们所要面值了，有两种情况，<br>我们继续使用1元的硬币，先凑1元，那么还需要两元，此时其实就时相当于归纳为解决凑2元的问题了，回去看就好了。<br>我们使用3元的硬币，此时拿起一个3元硬币，那么我们还需要再凑0元，又归纳为凑0元的问题。<br>考虑这两种情况，我们的问题是最少，那么很明显就是选择1个3元硬币方案了。<br>从数学的角度去看，我们来抽象归纳一下上面的叙述。<br>记d(m)=n:表示凑够m元最少需要n个硬币。<br>那么有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">d(0)=0;</div><div class="line">d(1)=d(1-1)+1=0+1=1;</div><div class="line">d(2)=d(2-1)+1=d(1)+1=d(1-1)+1+1=2;</div><div class="line">d(3)=min&#123;d(3-1)+1,d(3-3)+1&#125;;</div><div class="line">//那么我们所要求的问题就是d(11)了呗；</div><div class="line">//其实前三种情况和d(3)可以写成相同的形式；</div></pre></td></tr></table></figure></p>
+<p>很容易我们就可以归结出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d(i)=min&#123;d(i-vj)+1&#125;</div><div class="line">//其中vj表示第j个硬币的面值，i-vj&gt;=0；</div></pre></td></tr></table></figure></p>
+<p>根据这一条，我们就很容易写出代码了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">int min[12];</div><div class="line">for (int i = 0; i &lt; 12; i++) &#123;</div><div class="line">  min[i] = 10000;//假设要好多好多硬币才行，进行初始化；</div><div class="line">&#125;</div><div class="line">int v[3];//三种不同面值；</div><div class="line">v[0] = 1;</div><div class="line">v[1] = 3;</div><div class="line">v[2] = 5;</div><div class="line">min[0] = 0;</div><div class="line">for (int i = 1; i &lt;=11; i++) &#123;</div><div class="line">  for (int j = 0; j &lt; 3; j++) &#123;</div><div class="line">    if (v[j] &lt;= i&amp;&amp;min[i - v[j]] + 1 &lt; min[i]) &#123;</div><div class="line">      min[i] = min[i - v[j]] + 1;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">cout &lt;&lt; min[11] &lt;&lt; endl;</div><div class="line">return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/21/学习笔记-动态规划/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-编译原理-NFA确定化与DFA最小化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -524,109 +624,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-拼图游戏-android7-0使用系统相机拍照" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近闲来无聊，读了徐宜生的android群英传，里面有两个最后的实例提高，于是便开始了学习，第一个是一个拼图游戏，关于这个项目，我先看了作者的部分代码，大致的结构框架我是看这他的给的源码写的，接下来的几天就要往里面加我自己的东西了，这篇文章我先来讨论一下我遇到的第一个坑吧。<br>当我们选图片的时候，可以在最后的一个选项中选择手机图库的图片已经进行调用系统的相机进行实时的拍照和照片的使用。<br>书中给的方法（网上百度可以直接找到）我试过了但是竟然抛出了FileUriExposedException的错误，二话不说，直接进行了百度，原来是这种方法在android7.0中已经不用了，据说是与安全相关的问题挂钩，所以被废掉了（仅在7.0版本）。<br>但是，在7.0中，系统提供给了我们了另一种实现目的的方法。<br>废话少说，接下来，我就直接说步骤了。</p>
-<p>第一步：<br>在Manifest.xml文件中添加provider，以及读写权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> &lt;application&gt;</div><div class="line">...</div><div class="line">&lt;provider</div><div class="line">     android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">     android:authorities=&quot;com.example.mymaze.fileprovider&quot;</div><div class="line">     android:exported=&quot;false&quot;</div><div class="line">     android:grantUriPermissions=&quot;true&quot;&gt;</div><div class="line">     &lt;meta-data</div><div class="line">         android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">         android:resource=&quot;@xml/file_paths&quot;&gt;</div><div class="line">     &lt;/meta-data&gt;</div><div class="line"> &lt;/provider&gt;</div><div class="line"> ...</div></pre></td></tr></table></figure></p>
-<p>第二步：<br>对应于meta-data，我们要编写file_paths文件：<br>在res文件夹中创建一个xml文件夹，将我们的文件放在里面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">  &lt;external-path name=&quot;my_images&quot; path=&quot;mytemp/&quot;/&gt;</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure></p>
-<p>第三步：<br>在activity中编写我们的逻辑代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Temp_path=Environment.getExternalStorageDirectory().getAbsolutePath();</div><div class="line">Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</div><div class="line">file = new File(Temp_path + &quot;/mytemp/Temp.jpg&quot;);</div><div class="line">file.getParentFile().mkdirs();</div><div class="line">//改变Uri  com.xykj.customview.fileprovider注意和xml中的一致</div><div class="line">Uri uri = FileProvider.getUriForFile(this, &quot;com.example.mymaze.fileprovider&quot;, file);</div><div class="line">//添加权限</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);</div><div class="line">intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);</div><div class="line">startActivityForResult(intent, REQUEST_CAMERA);</div><div class="line">//onactivityresult()方法中识别的REQUEST_CAMERA的code;</div></pre></td></tr></table></figure></p>
-<p>第四步：<br>重写onActivityvResult()方法，来获得我们的图片;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</div><div class="line">  super.onActivityResult(requestCode, resultCode, data);</div><div class="line">  if (requestCode == REQUEST_CAMERA &amp;&amp; resultCode == RESULT_OK) &#123;</div><div class="line">      Log.e(&quot;TAG&quot;,FileProvider</div><div class="line">      .getUriForFile(this,&quot;com.example.mymaze.fileprovider&quot;, file));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以说第三步是区别旧方法和新方法的最主要的地方，如果我们为了迎合一些老android系统，可以在自己的方法中进行一个if_else的逻辑判断，来选择适用于不同系统的更好的方法。<br>其实，看完网上的文章，再对照自己的项目，我有一个疑问，在添加权限的过程中，网上是要求添加android.permission.CAMERA的权限，但是我添加以后会报错，去掉反而没了问题，我很纳闷，接下来还得寻找我的答案了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-添加右键菜单选项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章的来由要感谢hexo了，在我配置hexo的时候，要在hexo初始化的目录下对_config.yml文件进行编辑，由于本人比较懒，并不想cd命令各种url，因此想到文件目录下使用gitbash，于是鼠标右键，我去，竟然没有gitbash，哎，看来只能自己加一下了，接下来就说一下具体的添加方法。<br>我用的是win10，那么要找到注册表编辑器，在搜索框中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">regedit</div></pre></td></tr></table></figure></p>
-<p>然后就会出现注册表的选项，点击进入。<br>进入以后，再进入HKEY_CLASSES_ROOT目录，<br>再依次进入Directory目录，Background目录，shell目录，<br>右键点击新建，命名即为自己在右键菜单中显示的命名，<br>在自己创建的目录中再新建一个名为command的选项，编辑此command项，<br>将数据这一项编辑为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;F:\Git\git-bash.exe&quot;</div></pre></td></tr></table></figure></p>
-<p>上面这一句是填自己的git-bash的路径，读者要依照自己的情况填写。<br>然后关闭注册表，右键就能看到自己设置的选项了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/14/添加右键菜单选项/">展开全文 >></a>
         </p>
       
 

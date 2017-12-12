@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Zeros</title>
+  <title>&lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+  <meta name="description" content="今天下午折腾linux的系统分区，然后看到了磁盘冗余阵列，于是就照着书做。按书上的方法，利用mdadm成功将md0挂载至文件夹RAID下，然后设置了fstab文件让它下次开机自动挂载。弄完了，然后我尝试重启。然后启动页面上写着一行字，总体意思就是我们的的冗余阵列挂载失败了。然后跳过安装我就进去了，开机后，我逐一检查，1./RAID文件在；2.挂载列表里md0那行消失了；3.消失就消失了，重新设置一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败">
+<meta property="og:url" content="http://yoursite.com/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="今天下午折腾linux的系统分区，然后看到了磁盘冗余阵列，于是就照着书做。按书上的方法，利用mdadm成功将md0挂载至文件夹RAID下，然后设置了fstab文件让它下次开机自动挂载。弄完了，然后我尝试重启。然后启动页面上写着一行字，总体意思就是我们的的冗余阵列挂载失败了。然后跳过安装我就进去了，开机后，我逐一检查，1./RAID文件在；2.挂载列表里md0那行消失了；3.消失就消失了，重新设置一">
+<meta property="og:updated_time" content="2017-12-12T19:21:32.574Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败">
+<meta name="twitter:description" content="今天下午折腾linux的系统分区，然后看到了磁盘冗余阵列，于是就照着书做。按书上的方法，利用mdadm成功将md0挂载至文件夹RAID下，然后设置了fstab文件让它下次开机自动挂载。弄完了，然后我尝试重启。然后启动页面上写着一行字，总体意思就是我们的的冗余阵列挂载失败了。然后跳过安装我就进去了，开机后，我逐一检查，1./RAID文件在；2.挂载列表里md0那行消失了；3.消失就消失了，重新设置一">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,37 +147,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-拼图游戏-android7-0使用系统相机拍照" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
+    <h1 class="article-title" itemprop="name">
+      &lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败
     </h1>
   
 
         
-        <a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
+        <a href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/" class="archive-article-date">
+  	<time datetime="2017-12-12T18:57:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近闲来无聊，读了徐宜生的android群英传，里面有两个最后的实例提高，于是便开始了学习，第一个是一个拼图游戏，关于这个项目，我先看了作者的部分代码，大致的结构框架我是看这他的给的源码写的，接下来的几天就要往里面加我自己的东西了，这篇文章我先来讨论一下我遇到的第一个坑吧。<br>当我们选图片的时候，可以在最后的一个选项中选择手机图库的图片已经进行调用系统的相机进行实时的拍照和照片的使用。<br>书中给的方法（网上百度可以直接找到）我试过了但是竟然抛出了FileUriExposedException的错误，二话不说，直接进行了百度，原来是这种方法在android7.0中已经不用了，据说是与安全相关的问题挂钩，所以被废掉了（仅在7.0版本）。<br>但是，在7.0中，系统提供给了我们了另一种实现目的的方法。<br>废话少说，接下来，我就直接说步骤了。</p>
-<p>第一步：<br>在Manifest.xml文件中添加provider，以及读写权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> &lt;application&gt;</div><div class="line">...</div><div class="line">&lt;provider</div><div class="line">     android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">     android:authorities=&quot;com.example.mymaze.fileprovider&quot;</div><div class="line">     android:exported=&quot;false&quot;</div><div class="line">     android:grantUriPermissions=&quot;true&quot;&gt;</div><div class="line">     &lt;meta-data</div><div class="line">         android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">         android:resource=&quot;@xml/file_paths&quot;&gt;</div><div class="line">     &lt;/meta-data&gt;</div><div class="line"> &lt;/provider&gt;</div><div class="line"> ...</div></pre></td></tr></table></figure></p>
-<p>第二步：<br>对应于meta-data，我们要编写file_paths文件：<br>在res文件夹中创建一个xml文件夹，将我们的文件放在里面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">  &lt;external-path name=&quot;my_images&quot; path=&quot;mytemp/&quot;/&gt;</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure></p>
-<p>第三步：<br>在activity中编写我们的逻辑代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Temp_path=Environment.getExternalStorageDirectory().getAbsolutePath();</div><div class="line">Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</div><div class="line">file = new File(Temp_path + &quot;/mytemp/Temp.jpg&quot;);</div><div class="line">file.getParentFile().mkdirs();</div><div class="line">//改变Uri  com.xykj.customview.fileprovider注意和xml中的一致</div><div class="line">Uri uri = FileProvider.getUriForFile(this, &quot;com.example.mymaze.fileprovider&quot;, file);</div><div class="line">//添加权限</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);</div><div class="line">intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);</div><div class="line">startActivityForResult(intent, REQUEST_CAMERA);</div><div class="line">//onactivityresult()方法中识别的REQUEST_CAMERA的code;</div></pre></td></tr></table></figure></p>
-<p>第四步：<br>重写onActivityvResult()方法，来获得我们的图片;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</div><div class="line">  super.onActivityResult(requestCode, resultCode, data);</div><div class="line">  if (requestCode == REQUEST_CAMERA &amp;&amp; resultCode == RESULT_OK) &#123;</div><div class="line">      Log.e(&quot;TAG&quot;,FileProvider</div><div class="line">      .getUriForFile(this,&quot;com.example.mymaze.fileprovider&quot;, file));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以说第三步是区别旧方法和新方法的最主要的地方，如果我们为了迎合一些老android系统，可以在自己的方法中进行一个if_else的逻辑判断，来选择适用于不同系统的更好的方法。<br>其实，看完网上的文章，再对照自己的项目，我有一个疑问，在添加权限的过程中，网上是要求添加android.permission.CAMERA的权限，但是我添加以后会报错，去掉反而没了问题，我很纳闷，接下来还得寻找我的答案了。</p>
+        <p>今天下午折腾linux的系统分区，然后看到了磁盘冗余阵列，于是就照着书做。<br>按书上的方法，利用mdadm成功将md0挂载至文件夹RAID下，然后设置了fstab文件让它下次开机自动挂载。<br>弄完了，然后我尝试重启。然后启动页面上写着一行字，总体意思就是我们的的冗余阵列挂载失败了。<br>然后跳过安装我就进去了，开机后，我逐一检查，<br>1./RAID文件在；<br>2.挂载列表里md0那行消失了；<br>3.消失就消失了，重新设置一遍就好了呗；<br>4.然后mdadm -Cv….，下面出来提示消息，说我的/dev/sdc正处于忙碌状态？<br>5.哇，它竟然还在？<br>6.cat /proc/mdstat；<br>7.raid配置信息了竟然有一个md127，然后我之前的磁盘都属于这个阵列。。。<br>8.二话不说，无脑乱搞；<br>9.我的ubuntu崩了…<br>10.上网一查，嗯，和我想的一样，我的md0变成了md127！<br>11.用了人家的方法，成功解决了(书上并没有提到);</p>
+<p>在我们重启之前：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mdadm --detail /dev/md0</div></pre></td></tr></table></figure></p>
+<p>会看到我们这个分配的阵列的详细信息，里面有一条UUID，我们将这行id复制下来。<br>然后修改配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/mdadm/mdadm.conf</div></pre></td></tr></table></figure></p>
+<p>在这个文件里面靠前的一行加上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ARRAY /dev/md0 UUID=上面复制下来的id</div></pre></td></tr></table></figure></p>
+<p>保存退出。<br>最后最重要的一步就是要更新initramfs使你的的mdadm配置保存zai启动配置过程中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">update-initramfs -u</div></pre></td></tr></table></figure></p>
+<p>重新来过，我的问题终于解决了，睡觉…</p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -182,122 +205,74 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-添加右键菜单选项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
   
-
-        
-        <a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章的来由要感谢hexo了，在我配置hexo的时候，要在hexo初始化的目录下对_config.yml文件进行编辑，由于本人比较懒，并不想cd命令各种url，因此想到文件目录下使用gitbash，于是鼠标右键，我去，竟然没有gitbash，哎，看来只能自己加一下了，接下来就说一下具体的添加方法。<br>我用的是win10，那么要找到注册表编辑器，在搜索框中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">regedit</div></pre></td></tr></table></figure></p>
-<p>然后就会出现注册表的选项，点击进入。<br>进入以后，再进入HKEY_CLASSES_ROOT目录，<br>再依次进入Directory目录，Background目录，shell目录，<br>右键点击新建，命名即为自己在右键菜单中显示的命名，<br>在自己创建的目录中再新建一个名为command的选项，编辑此command项，<br>将数据这一项编辑为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;F:\Git\git-bash.exe&quot;</div></pre></td></tr></table></figure></p>
-<p>上面这一句是填自己的git-bash的路径，读者要依照自己的情况填写。<br>然后关闭注册表，右键就能看到自己设置的选项了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/14/添加右键菜单选项/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
+    <a href="/2017/11/29/学习笔记-朴素贝叶斯/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt; 朴素贝叶斯</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/08/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/08/hello-world/" class="archive-article-date">
-  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/08/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -305,9 +280,10 @@
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -330,8 +306,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
