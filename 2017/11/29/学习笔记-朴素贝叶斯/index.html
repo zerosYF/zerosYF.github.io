@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/29/学习笔记-朴素贝叶斯/index.html">
 <meta property="og:site_name" content="Zeros">
 <meta property="og:description" content="经过分类器产生的结果有时可能产生错误(就比如基于决策树的分类器),这时我们可以要求分类器给出我们一个最优的猜测结果，同时给出这个猜测的概率估计值。这时候我们的概率论就要排上用场了。这次笔记的内容时朴素贝叶斯，因为其最原始，最简单的假设方法，所以称其为朴素。朴素贝叶斯的优缺点.优点：在数据比较少的情况下仍然有着效果，可以处理多类别的问题。缺点：对于输入数据的准备方式比较敏感。适用数据类型：标称型数据">
-<meta property="og:updated_time" content="2017-12-11T13:34:47.824Z">
+<meta property="og:updated_time" content="2017-12-13T04:24:51.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="&lt;学习笔记&gt; 朴素贝叶斯">
 <meta name="twitter:description" content="经过分类器产生的结果有时可能产生错误(就比如基于决策树的分类器),这时我们可以要求分类器给出我们一个最优的猜测结果，同时给出这个猜测的概率估计值。这时候我们的概率论就要排上用场了。这次笔记的内容时朴素贝叶斯，因为其最原始，最简单的假设方法，所以称其为朴素。朴素贝叶斯的优缺点.优点：在数据比较少的情况下仍然有着效果，可以处理多类别的问题。缺点：对于输入数据的准备方式比较敏感。适用数据类型：标称型数据">
@@ -171,12 +171,12 @@
 <p>我们结合上面的问题和贝叶斯准则，我们可以写成以下公式：<br>p(c|x,y):给定某个由xy表示的点，那么这个点来自分类c的概率是多少。<br>那么我们改写上面的定义：<br>如果p(c1|x,y)&gt;p(c2|x,y),那么数据点属于分类c1。<br>如果p(c1|x,y)<p(c2|x,y),那么数据点属于分类c2。 利用贝叶斯准则，我们就可以计算出我们想得到的结果。="" 介绍完基本的概念，我们就可以到底如何运用上述的知识了。="" 例：使用朴素贝叶斯进行文档归类="" 通过观察文档中的出现的词，并把文档中的词汇的出现或者不出现作为一个特征。="" 第一个假设：特征之间相互独立，即一个特征或单词出现的可能性与其他单词的相邻没有关系。="" 第二个假设：每个特征同等重要。="" 我们仔细考量这两个假设，其实感觉和我们的生活好像有那么些出入。="" 但是这个分类方法的效果却非常好，瑕不掩瑜嘛。="" 使用python来进行文档分类="" 要想从文本中获得特征，我们需要先拆分文本。我们的特征来自文本的词条，一个词条是字符的任意组合。="" 我们可以将词条理解为一个个的单词，也可以看作是url，ip和其他字符串。="" 然后将每个文本片段表示为一个文本向量。="" 其中1表示词条出现在文档中，0表示未出现。="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">训练算法</div><div class="line">通过前面的方法，我们已经将一组单词转换为一组数字，接下来我们看看如何通过这些数字来求概率。</div><div class="line">我们将贝叶斯准则进行修改：</div></pre></td></tr></table></p(c2|x,y),那么数据点属于分类c2。></p>
 <p>p(ci|w)=p(w|ci)p(ci)/p(w)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">其中w是一个向量，由多个值组成。</div><div class="line">用到我们上面的第二个假设，如果w展开为一个个的独立的特征，那么我们可以这么写：</div></pre></td></tr></table></figure></p>
 <p>p(w|ci)=p(w0|ci)p(w1|ci)p(w2|ci)…p(wn|ci)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">代入上述的准则当中，我们就可以很轻易的进行计算了。</div><div class="line">talk is cheap，I will show you the code：</div></pre></td></tr></table></figure></p>
-<p>from numpy import *<br>def loaddataset():#加载我们的6个词段，和类别标签，人工标注；<br>    postinglist=[[‘my’,’dog’,’has’,’flea’,’problems’,’help’,’please’],<br>                 [‘maybe’,’not’,’take’,’him’,’to’,’dog’,’park’,’stupid’],<br>                 [‘my’,’dalmation’,’is’,’so’,’cute’,’I’,’love’,’him’],<br>                 [‘stop’,’posting’,’stupid’,’worthless’,’garbage’],<br>                 [‘mr’,’licks’,’ate’,’my’,’steak’,’how’,’to’,’stop’,’him’],<br>                 [‘quit’,’buying’,’worthless’,’dog’,’food’,’stupid’]]<br>    classvec=[0,1,0,1,0,1]</p>
+<p>  from numpy import *<br>  def loaddataset():#加载我们的6个词段，和类别标签，人工标注；<br>      postinglist=[[‘my’,’dog’,’has’,’flea’,’problems’,’help’,’please’],<br>                  [‘maybe’,’not’,’take’,’him’,’to’,’dog’,’park’,’stupid’],<br>                  [‘my’,’dalmation’,’is’,’so’,’cute’,’I’,’love’,’him’],<br>                  [‘stop’,’posting’,’stupid’,’worthless’,’garbage’],<br>                  [‘mr’,’licks’,’ate’,’my’,’steak’,’how’,’to’,’stop’,’him’],<br>                  [‘quit’,’buying’,’worthless’,’dog’,’food’,’stupid’]]<br>      classvec=[0,1,0,1,0,1]</p>
 <pre><code>#1代表侮辱性的文字
 #0代表正常言论
 return postinglist,classvec
-</code></pre><p>def createvocablist(dataset):#创建一个包含所有文档中不重复词的列表；<br>    vocabset=set([])<br>    for document in dataset:<br>        vocabset=vocabset|set(document)#求并集；<br>    return list(vocabset)</p>
-<p>def setofwords2vec(vocalist,inputset):<br>    rtnvec=[0]*len(vocalist)</p>
+</code></pre><p>  def createvocablist(dataset):#创建一个包含所有文档中不重复词的列表；<br>        vocabset=set([])<br>        for document in dataset:<br>        vocabset=vocabset|set(document)#求并集；<br>        return list(vocabset)</p>
+<p>  def setofwords2vec(vocalist,inputset):<br>        rtnvec=[0]*len(vocalist)</p>
 <pre><code>#创建一个所含元素都为0的元素；
 for word in inputset:
     if word in vocalist:
@@ -184,9 +184,10 @@ for word in inputset:
     else:
         print(&quot;the word:%s is not in my vocublary!&quot;%word)
 return rtnvec
-</code></pre><p>def bagofwords2vecMN(vocalist,inputset):<br>    rtnvec=[0]*len(vocalist)<br>    for word in inputset:<br>            rtnvec[vocalist.index(word)]+=1<br>    return rtnvec</p>
-<p>#将一个输入字符串集表示为一个包含出现频率的向量，</p>
-<h1 id="每当一个词出现一次，那么在对应的位置加一；"><a href="#每当一个词出现一次，那么在对应的位置加一；" class="headerlink" title="每当一个词出现一次，那么在对应的位置加一；"></a>每当一个词出现一次，那么在对应的位置加一；</h1><p>def trainNB0(trainmatrix,traincategory):<br>    numtrainDocs=len(trainmatrix)</p>
+</code></pre><p>  def bagofwords2vecMN(vocalist,inputset):<br>        rtnvec=[0]*len(vocalist)<br>        for word in inputset:<br>                rtnvec[vocalist.index(word)]+=1<br>        return rtnvec</p>
+<pre><code>#将一个输入字符串集表示为一个包含出现频率的向量，
+# 每当一个词出现一次，那么在对应的位置加一；
+</code></pre><p>  def trainNB0(trainmatrix,traincategory):<br>      numtrainDocs=len(trainmatrix)</p>
 <pre><code>#使用我们的预设集即为6
 numwords=len(trainmatrix[0])
 #我们的预设集的值为32
@@ -204,7 +205,7 @@ for i in range(numtrainDocs):
     else:
         p0Num+=trainmatrix[i]
         p0Denom+=sum(trainmatrix[i])
-    #向量相加；
+  #向量相加；
 #通过上述的向量相加我们就可以统计每个词在所属类别的出现的次数了；
 p1Vec=log(p1Num/p1Denom)
 p0Vec=log(p0Num/p0Denom)
@@ -212,8 +213,8 @@ p0Vec=log(p0Num/p0Denom)
 #为了避免过多的过小的数相乘产生下溢出，我们取自然对数。
 return p1Vec,p0Vec,pAbusive
 #返回两个向量和一个概率；
-</code></pre><p>def classifyNB(vec2Classify,p0Vec,p1Vec,pClass1):<br>    p1=sum(vec2Classify<em>p1Vec)+log(pClass1)<br>    p0=sum(vec2Classify</em>p0Vec)+log(1.0-pClass1)<br>    if p1&gt;p0:<br>        return 1<br>    else:<br>        return 0</p>
-<p>def testingNB():<br>    listOposts,listclasses=loaddataset()</p>
+</code></pre><p> def classifyNB(vec2Classify,p0Vec,p1Vec,pClass1):<br>    p1=sum(vec2Classify<em>p1Vec)+log(pClass1)<br>    p0=sum(vec2Classify</em>p0Vec)+log(1.0-pClass1)<br>    if p1&gt;p0:<br>        return 1<br>    else:<br>        return 0</p>
+<p> def testingNB():<br>    listOposts,listclasses=loaddataset()</p>
 <pre><code>#返回每个文档以及其对应的类别
 myvocablist=createvocablist(listOposts)
 #构造单词表
@@ -240,7 +241,7 @@ return rtnvec
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">改进后的代码如下：</div></pre></td></tr></table></figure>
 <p>def bagofwords2vecMN(vocalist,inputset):<br>    rtnvec=[0]*len(vocalist)<br>    for word in inputset:<br>            rtnvec[vocalist.index(word)]+=1<br>    return rtnvec</p>
 <p>#将一个输入字符串集表示为一个包含出现频率的向量，</p>
-<h1 id="每当一个词出现一次，那么在对应的位置加一；-1"><a href="#每当一个词出现一次，那么在对应的位置加一；-1" class="headerlink" title="每当一个词出现一次，那么在对应的位置加一；"></a>每当一个词出现一次，那么在对应的位置加一；</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">我们注意到我们的输入是一个词集，并不是我们生活中的所谓的字符串，我们可以通过以下函数将我们的我们的字符串转换我们</div><div class="line">可以使用的词集，我们要考虑以下的问题：</div><div class="line">1.对于文本中的标点符号，并没有使用价值</div><div class="line">2.文本中的大小写，可能会使我们的学习经验出一些问题.</div><div class="line">那么我们可以通过以下方式进行解决：</div></pre></td></tr></table></figure>
+<h1 id="每当一个词出现一次，那么在对应的位置加一；"><a href="#每当一个词出现一次，那么在对应的位置加一；" class="headerlink" title="每当一个词出现一次，那么在对应的位置加一；"></a>每当一个词出现一次，那么在对应的位置加一；</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">我们注意到我们的输入是一个词集，并不是我们生活中的所谓的字符串，我们可以通过以下函数将我们的我们的字符串转换我们</div><div class="line">可以使用的词集，我们要考虑以下的问题：</div><div class="line">1.对于文本中的标点符号，并没有使用价值</div><div class="line">2.文本中的大小写，可能会使我们的学习经验出一些问题.</div><div class="line">那么我们可以通过以下方式进行解决：</div></pre></td></tr></table></figure>
 <p>def textparse(bigstring):<br>    import re<br>    listoftokens=re.split(r’\W*’,bigstring)<br>    return [tok.lower() for tok in listoftokens if len(tok)&gt;1]</p>
 <pre><code>#通过正则表达式筛去标点符号，然后在将单词所有小写并且去掉空字符串的列表返回；
 </code></pre><p>```</p>
