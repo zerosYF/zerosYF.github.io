@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>&lt;学习笔记&gt; Logistic回归 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到目的点；如何用最少的背包装最多的东西….接下来我们需要稍微理解一下回归这个词。假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。我们的这条线可以写成一个函数，这个过程当中，我们通过不断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; Logistic回归">
+<meta property="og:url" content="http://yoursite.com/2017/12/13/学习笔记-Logistic回归/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到目的点；如何用最少的背包装最多的东西….接下来我们需要稍微理解一下回归这个词。假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。我们的这条线可以写成一个函数，这个过程当中，我们通过不断">
+<meta property="og:updated_time" content="2017-12-13T08:25:54.997Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; Logistic回归">
+<meta name="twitter:description" content="这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到目的点；如何用最少的背包装最多的东西….接下来我们需要稍微理解一下回归这个词。假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。我们的这条线可以写成一个函数，这个过程当中，我们通过不断">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,295 +147,152 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-学习笔记-Logistic回归" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/14/学习笔记-MFC-OnTimer初入/" class="archive-article-date">
-  	<time datetime="2017-12-14T07:33:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">&lt;学习笔记&gt; MFC OnTimer初入</a>
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; Logistic回归
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/13/学习笔记-Logistic回归/" class="archive-article-date">
+        
+        <a href="/2017/12/13/学习笔记-Logistic回归/" class="archive-article-date">
   	<time datetime="2017-12-13T06:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/13/学习笔记-Logistic回归/">&lt;学习笔记&gt; Logistic回归</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取<br>最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到<br>目的点；如何用最少的背包装最多的东西….<br>接下来我们需要稍微理解一下回归这个词。<br>假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。<br>我们的这条线可以写成一个函数，这个过程当中，我们通过不断地调整我们函数中的各种参数，使得我们的<br>数据点们平均最大化的接近我们的这条直线。<br>Logistic回归的思想：<br>根据现有数据对分类边界线建立回归公式，以此进行分类。<br>优点：<br>计算代价不高，易理解易实现；<br>缺点：<br>容易欠拟合，分类的精度可能不高；<br>适用类型：数值型和标称型的数据类型。<br>我们想要得到的函数是能够接受所有的输入然后做出分类。<br>在两个类的情况下，我们很容易想到一个函数，赫维赛德跃迁函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">连续形式：</div><div class="line">H(x)=&#123;0,if x&lt;0;1,x&gt;0;1/2,x=0&#125;</div><div class="line">离散形式：</div><div class="line">Hn=&#123;0,n&lt;0;1,n&gt;=0;n为整数&#125;</div></pre></td></tr></table></figure></p>
+<p>函数可以接受所有输出然后输出0或1，这样我们可以测出类别。<br>但是这个函数在0和1跃迁的这个瞬间过程不容易处理，所以我们选择另一个函数,Sigmoid函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">σ(z)=1/(1+exp(-z))</div></pre></td></tr></table></figure></p>
+<p>根据这个函数的图像，我们可以做出以下分析：<br>当z为0时，我们的函数值为0.5；<br>随着z的增大，函数值趋近于1，随着z的减小，函数值趋近于0；如果我们从一个很大的尺度看这个函数的图像，<br>他其实很像一个跃迁函数。<br>为了实现我们的分类器，我们可以在每个特征上都乘以一个回归系数，然后把所有得到的结果求和，代入到<br>我们的Sigmoid函数，得到一个范围在0，1之间的数。<br>然后将大于0.5的归于“1类”,将小于0.5的归于“0类”.<br>确定分类函数形式后，我们下一个要解决的问题是确定最佳回归系数。<br>Sigmoid函数的输入记为z，可由下列公式得出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z=w0x0+w1x1+w2x2+...+wnxn</div></pre></td></tr></table></figure></p>
+<p>将上述公式写成向量的形式：z=w^Tx,即将w转置乘x。<br>向量x为我们的输入，向量w即是我们要找的最佳参数。<br>为了寻找最佳参数，我们要用到最优化理论的一些知识。<br>1.梯度上升法<br>主要思想：如果想要找到某个函数的最大值，那就  沿着该函数的梯度方向探寻。<br>在高等数学中，函数f(x,y)的梯度看作一个向量，记作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grad(f)=(∂f/∂x,∂f/∂y)</div></pre></td></tr></table></figure></p>
+<p>函数f必须在待计算的点上有定义并且可微。<br>梯度上升算法每到达一个点的时候都会重新估计下次的移动方向。<br>梯度算子总是指向函数增长最快的方向。我们将每次在方向上的移动量称为步长，记作α，如果用向量的方式表示，<br>我们的的梯度算法的迭代公式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">w:=w+αgrad(f(w))</div></pre></td></tr></table></figure></p>
+<p>这个公式在达到终止条件前会一直迭代。<br>以上就是我们进行分类器构造的理论工具。<br>接下来我们用python来实现我们的算法。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/13/学习笔记-Logistic回归/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/" class="archive-article-date">
-  	<time datetime="2017-12-12T18:57:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/">&lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败</a>
-    </h1>
+    <a href="/2017/12/14/学习笔记-MFC-OnTimer初入/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          &lt;学习笔记&gt; MFC OnTimer初入
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/29/学习笔记-朴素贝叶斯/" class="archive-article-date">
-  	<time datetime="2017-11-29T10:12:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/29/学习笔记-朴素贝叶斯/">&lt;学习笔记&gt; 朴素贝叶斯</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/28/我怕忘记-LAMP环境的搭建/" class="archive-article-date">
-  	<time datetime="2017-11-28T08:49:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">&lt;我怕忘记&gt; LAMP环境的搭建</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/24/随笔-NASA编写代码的十条规则/" class="archive-article-date">
-  	<time datetime="2017-11-24T07:01:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/24/随笔-NASA编写代码的十条规则/">&lt;随笔&gt; NASA编写代码的十条规则</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" class="archive-article-date">
-  	<time datetime="2017-11-17T07:55:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/12/学习笔记-决策树/" class="archive-article-date">
-  	<time datetime="2017-11-12T13:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/12/学习笔记-决策树/">&lt;学习笔记&gt; 决策树</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/10/学习笔记-k-近邻算法/" class="archive-article-date">
-  	<time datetime="2017-11-10T02:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/10/学习笔记-k-近邻算法/">&lt;学习笔记&gt; k-近邻算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-最小生成树/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:33:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-最小生成树/">&lt;学习笔记&gt; 最小生成树</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +316,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

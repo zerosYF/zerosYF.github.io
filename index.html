@@ -145,6 +145,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-MFC-OnTimer初入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">&lt;学习笔记&gt; MFC OnTimer初入</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/14/学习笔记-MFC-OnTimer初入/" class="archive-article-date">
+  	<time datetime="2017-12-14T07:33:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有时候想想，我们一条路走长了，换一条路，总想以走老路的方式继续，然而发现根本不行。<br>学了好久的Visual c++,之前用mfc做过各种条条框框，后来在普通的Win32里面学习游戏编程，<br>练到了物理碰撞检测，突然参考书上出来了一段代码，竟然实在mfc里做的，虽然好多winapi被封装了，<br>封装就封装了呗，用法没多大区别吧。<br>然后就是各种问题了。<br>我就把次的debug关键记录一下吧。<br>在修改之前先来点基础干货吧。<br>mfc计时器<br>核心就是三个函数：SetTimer(),OnTimer(),KillTimer()<br>这里很简单，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UINT SetTimer(</div><div class="line">      HWND hWnd,              // handle of window for timer messages</div><div class="line">      UINT nIDEvent,          // timer identifier</div><div class="line">      UINT uElapse,           // time-out value</div><div class="line">      TIMERPROC lpTimerFunc       // address of timer procedure</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>函数参数简单理解：<br>窗口类指针：谁处理时间就是谁；<br>计时器id：计时器的身份证号；<br>时间延迟：执行我们函数的间隔时间；<br>执行函数地址：我们每隔一段时间要执行的函数；<br>一般情况下我们我们写后三个参数就可以用，然后在类属性列表里设置消息WM_Timer选项为OnTimer()<br>会自动生成OnTimer函数，我们的第四个回调函数默认为OnTimer(),可以写成NULL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BOOL KillTimer(</div><div class="line">    HWND hWnd,      // handle of window that installed timer</div><div class="line">    UINT uIDEvent     // timer identifier</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>参数就不解释了。<br>再来看我们的核心(我自认为的核心):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">afx_msg void OnTimer( UINT nIDEvent);</div></pre></td></tr></table></figure></p>
+<p>我自己理解的事件驱动过程：<br>我们在适当的地方添加SetTimer方法，例如如果我们想在程序开始运行开始我们的动作，我们就把他添加在OnInitDialog()<br>函数里面就好。<br>没经过一段时间我们就会发送消息触发OnTimer函数，执行我们在这个方法里面的行为，<br>我们在自己需要的地方如果想要停止这个计时器，我们就在这个地方添加KillTimer方法就好了。<br>干货已经献上，接下来我就直接贴代码来说明我在开头遇到的各种情况吧，<br>虽然只是一个函数，但真的搞了好久，想了好久，查了好久.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">void CMFCExample_10Dlg::OnTimer(UINT_PTR nIDEvent)</div><div class="line">&#123;</div><div class="line">	// TODO: 在此添加消息处理程序代码和/或调用默认值</div><div class="line">	CDC *dc = GetDC();</div><div class="line">  //这个相当于普通Win32里面的HDC，本设备的上下文(我觉得和androidContext大同小异);</div><div class="line">	mdc = new CDC;</div><div class="line">  //mdc只有一个空构造函数；</div><div class="line">	mdc-&gt;CreateCompatibleDC(dc);</div><div class="line">  //创建一个适配本设备的内存上下文，用来读取我们要用的一些资源吧。</div><div class="line">  //[!]这个在win32里面感觉就相当于对mdc的一个初始化，然而在MFC里光有这个出错了，好像必须加上面的空构造;</div><div class="line">	mdc-&gt;SelectObject(bg);</div><div class="line">	dc-&gt;BitBlt(0,0,640,480,mdc,0,0,SRCCOPY);</div><div class="line">  //之前是没有上面这两句的，然而结果就是我在每次更新画面之后之前的画面仍然在，并没有达到动画的效果；</div><div class="line">  //百度了，上面有各种方法，双缓冲多线程，因为我还要进行其他学习所以就没多看，之后可能会专门来一篇；</div><div class="line">  //我这个方法就是每次更新画面先在之前的面板上贴上背景，相当于将之前的绘制覆盖掉，然后在贴本次的图；</div><div class="line">	mdc-&gt;SelectObject(car1);</div><div class="line">	dc-&gt;BitBlt(x1, 165, 200, 60, mdc, 0, 0, SRCCOPY);</div><div class="line">	mdc-&gt;SelectObject(car2);</div><div class="line">	dc-&gt;BitBlt(x2, 150, 140, 80, mdc, 0, 0, SRCCOPY);</div><div class="line">	if (x1 + 200 &gt; x2) &#123;</div><div class="line">		KillTimer(nIDEvent);</div><div class="line">	&#125;//距离法碰撞检测结果；</div><div class="line">	x1 += vx1;</div><div class="line">	x2 += vx2;</div><div class="line"></div><div class="line">	ReleaseDC(dc);</div><div class="line">	mdc-&gt;DeleteDC();</div><div class="line">  //[!]上面这两句是重点；</div><div class="line">  //之前在win32里面我的dc和mdc在整个程序里都是一次初始化一次释放，然后我就沿用之前的方式，在构造函数里</div><div class="line">  //添加了设备上下文的释放，结果就是我们的画面只更新一次，然后就卡死不动了。</div><div class="line">  //仔细想想，我们的dc和mdc其实相当于只是在这个函数里面具有“存活的意义”，我们每次触发这个函数其实</div><div class="line">  //相当于搞了一个全新的mdc和dc，所以每次用完都要释放。</div><div class="line">  //这其实是个逻辑上的问题，搞了好久...</div><div class="line">	CDialogEx::OnTimer(nIDEvent);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>MFC入门小白的个人理解…</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-学习笔记-Logistic回归" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/13/学习笔记-Logistic回归/">&lt;学习笔记&gt; Logistic回归</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/13/学习笔记-Logistic回归/" class="archive-article-date">
+  	<time datetime="2017-12-13T06:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取<br>最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到<br>目的点；如何用最少的背包装最多的东西….<br>接下来我们需要稍微理解一下回归这个词。<br>假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。<br>我们的这条线可以写成一个函数，这个过程当中，我们通过不断地调整我们函数中的各种参数，使得我们的<br>数据点们平均最大化的接近我们的这条直线。<br>Logistic回归的思想：<br>根据现有数据对分类边界线建立回归公式，以此进行分类。<br>优点：<br>计算代价不高，易理解易实现；<br>缺点：<br>容易欠拟合，分类的精度可能不高；<br>适用类型：数值型和标称型的数据类型。<br>我们想要得到的函数是能够接受所有的输入然后做出分类。<br>在两个类的情况下，我们很容易想到一个函数，赫维赛德跃迁函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">连续形式：</div><div class="line">H(x)=&#123;0,if x&lt;0;1,x&gt;0;1/2,x=0&#125;</div><div class="line">离散形式：</div><div class="line">Hn=&#123;0,n&lt;0;1,n&gt;=0;n为整数&#125;</div></pre></td></tr></table></figure></p>
+<p>函数可以接受所有输出然后输出0或1，这样我们可以测出类别。<br>但是这个函数在0和1跃迁的这个瞬间过程不容易处理，所以我们选择另一个函数,Sigmoid函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">σ(z)=1/(1+exp(-z))</div></pre></td></tr></table></figure></p>
+<p>根据这个函数的图像，我们可以做出以下分析：<br>当z为0时，我们的函数值为0.5；<br>随着z的增大，函数值趋近于1，随着z的减小，函数值趋近于0；如果我们从一个很大的尺度看这个函数的图像，<br>他其实很像一个跃迁函数。<br>为了实现我们的分类器，我们可以在每个特征上都乘以一个回归系数，然后把所有得到的结果求和，代入到<br>我们的Sigmoid函数，得到一个范围在0，1之间的数。<br>然后将大于0.5的归于“1类”,将小于0.5的归于“0类”.<br>确定分类函数形式后，我们下一个要解决的问题是确定最佳回归系数。<br>Sigmoid函数的输入记为z，可由下列公式得出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z=w0x0+w1x1+w2x2+...+wnxn</div></pre></td></tr></table></figure></p>
+<p>将上述公式写成向量的形式：z=w^Tx,即将w转置乘x。<br>向量x为我们的输入，向量w即是我们要找的最佳参数。<br>为了寻找最佳参数，我们要用到最优化理论的一些知识。<br>1.梯度上升法<br>主要思想：如果想要找到某个函数的最大值，那就  沿着该函数的梯度方向探寻。<br>在高等数学中，函数f(x,y)的梯度看作一个向量，记作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grad(f)=(∂f/∂x,∂f/∂y)</div></pre></td></tr></table></figure></p>
+<p>函数f必须在待计算的点上有定义并且可微。<br>梯度上升算法每到达一个点的时候都会重新估计下次的移动方向。<br>梯度算子总是指向函数增长最快的方向。我们将每次在方向上的移动量称为步长，记作α，如果用向量的方式表示，<br>我们的的梯度算法的迭代公式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">w:=w+αgrad(f(w))</div></pre></td></tr></table></figure></p>
+<p>这个公式在达到终止条件前会一直迭代。<br>以上就是我们进行分类器构造的理论工具。<br>接下来我们用python来实现我们的算法。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/13/学习笔记-Logistic回归/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -549,109 +654,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/11/05/学习笔记-最小生成树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-范数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/学习笔记-范数/">&lt;学习笔记&gt; 范数</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/学习笔记-范数/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>虽然这次的笔记是关于范数的，但是还是忍不住想把某个理解记录下来：<br>求解一个矩阵方程的解：<br>对于方程Ax=b：为了分析方程有多少个解，我们可以将A的列向量看作从原点出发的不同向量，确定有多少种方法可以到达向量b。<br>在这个观点下，向量x中的每个元素表示的就是我们朝着A中的每个向量最多远。一般而言，这种操作被称为线性组合。<br>一组向量的生成子空间就是原始向量线性组合后所能抵达的点的集合。<br>确定Ax=b是否有解，相当于确定向量b是否在A列向量的生成子空间中。<br>嗯，这是我见过对矩阵方程的最直观的理解，比那些高端到不行的书里的讲解要强多了。<br>这个就说到这里。<br>有时我们需要衡量一个向量的大小。在机器学习中，我们会经常使用被称为范数的函数来衡量向量的大小。<br>Lp范数的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">||x||p=(∑|xi|^p)^(1/p),其中p∈R，p&gt;=1</div></pre></td></tr></table></figure></p>
-<p>范数是将向量映射到非负值的函数。<br>直观的讲，向量x的范数就是从原点到x的距离。<br>规范的讲，范数是符合以下性质的任意函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f(x)=0 =&gt;x=0;</div><div class="line">f(x+y)&lt;=f(x)+f(y);</div><div class="line">任意α∈R，f(αx)=|α|f(x);</div></pre></td></tr></table></figure></p>
-<p>当p=2时，L2称为欧几里得范数，他表示从原点出发到向量x确定的点的欧几里得距离。<br>我们将p=2带入，很明显就是我们可以看到平面二维空间以及三维空间的距离的表示法。<br>平方L2范数在数学上要比L2范数本身更加方便(开方这种东西一直不是看起来很头疼么)。<br>平方L2范数对于x中的每个元素的导数只取决于对应的元素，<br>而L2范数对于每个元素的导数和整个向量有关。<br>在机器学习当中，我们为了区分0和接近0的很小的值的时候，我们会用到L1范数。<br>有时候我们也要衡量一个矩阵的大小。最常见的做法是使用Frobenius范数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">||A||=(∑∑|aij|^2)^(1/2)</div></pre></td></tr></table></figure></p>
-<p>说白了就是对应元素平方和再开方。<br>对于范数的使用情况还有很多，深入学习会遇到更多的，到时候再深入讨论吧。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/学习笔记-范数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-动态规划——中级进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章我们开始考虑二维的问题了。<br>示例一<br>平面上有n*m个方格，每个格子中放一定数量苹果，我们从左上角的第一个格子开始走，接下来我们的每一步只能向下或者向右走，每到一个格子，<br>就把里面的苹果收集起来，走啊走，问最后最多可以收集多少个苹果。<br>所有的dp问题其实都大同小异，我们要求到达某个格子收集到的苹果的数量，就要求上一个格子已有的苹果的数量，这其实就好像一个逆推的<br>过程，最后就一直推到左上角的那个格子了。一回头，一步一步，我们的结果就出来了。<br>设格子的行row,列为col,某个格子最多收集到的苹果数量为s[i][j],某个格子放的苹果数量为a[i][j];<br>假设当前到达了i行j列的格子，那么到达这个方格的路径只有两种，就是它的上面和左面的格子，<br>那么我们就很容易写出我们的递推公式，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=a[i][j]+max&#123;a[i-1][j],a[i][j-1];i&gt;0,j&gt;0,0&#125;;</div></pre></td></tr></table></figure></p>
-<p>依然根据递推公式写出代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">	int a[6][7] = &#123;</div><div class="line">	&#123;12,14,3,5,6,8,21&#125;,</div><div class="line">	&#123;3,5,7,1,9,34,12&#125;,</div><div class="line">	&#123;4,6,7,18,1,23,11&#125;,</div><div class="line">	&#123;9,11,13,24,6,5,3&#125;,</div><div class="line">	&#123;21,22,3,4,17,9,5&#125;,</div><div class="line">	&#123;12,3,5,8,22,9,10&#125;</div><div class="line">	&#125;;</div><div class="line">	int s[6][7];</div><div class="line">	s[0][0] = a[0][0];</div><div class="line">	for (int i = 0; i &lt; 6; i++) &#123;</div><div class="line">		for (int j = 0; j &lt; 7; j++) &#123;</div><div class="line">			if (i &gt; 0 &amp;&amp; j &gt; 0) &#123;</div><div class="line">				if (s[i][j - 1] &gt; s[i - 1][j]) &#123;</div><div class="line">					s[i][j] = a[i][j] + s[i][j - 1];</div><div class="line">				&#125;</div><div class="line">				else&#123;</div><div class="line">					s[i][j] = a[i][j] + s[i - 1][j];</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			else if (i == 0&amp;&amp;j&gt;0) &#123;</div><div class="line">				s[i][j] = a[i][j]+s[i][j-1];</div><div class="line">			&#125;</div><div class="line">			else if(j==0&amp;&amp;i&gt;0)&#123;</div><div class="line">				s[i][j] = a[i][j] + s[i-1][j];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; s[5][6] &lt;&lt; endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>写到这里，似乎发现，我们做dp问题其实最重要的就是要找出递推方程，剩下的就是小case了。<br>示例二<br>这个问题和示例一太像了。。<br>有一个矩形滑雪场，可以用r行c列来表示它的地形，地形较高那么元素就较大一些，反之。<br>为了得到更快的滑雪速度，滑雪的方向必须是向下倾斜的，规定可以从上下左右四个方向来寻求路径。<br>我们要求的结果是要找到一条最长的路径溜下去。<br>先看我们的常规思路。<br>那么我们第一步肯定是要找到这块地形最高的位置了。<br>接下来，我们依然沿用求子问题的方式来进行求解。我们如果求最高位置为起点的最长路径，那么就是要求其周围四个<br>邻接位置的路径，然后取其中最大的那一条。<br>以此类推，假如我们找到了四个中的那个所谓的子问题解，那么就以这个邻接位置为当前位置，继续重复上述过程，求解<br>此时的邻接路径的最长的那一条。<br>设s[i][j]=k，表示在i行j列的位置取得的最长路径为k；<br>那么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=max&#123;s[i-1][j],s[i+1][j],s[i][j-1],s[i][j+1]&#125;+1;</div></pre></td></tr></table></figure></p>
-<p>通过记忆化搜索深度递归即可。<br>接下来我们看另一种思路。<br>对比一下求最长非降子序列的问题，其实我们可以将这道题进行化归。<br>我们仔细推敲一下，我们先把这个二维的矩阵化为一个一维的是数组，这一步实现了降维。<br>阅读我们问题，很明显有两个要点，一个是邻接，一个是下降。<br>那么我们必须将原来的二维数组的索引记录下来，为了判定是否相邻，还要高度，就是我们一数组的值。<br>那么我们可以定义一个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class pos&#123;</div><div class="line">  int h;</div><div class="line">  int x;</div><div class="line">  int y;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>我们将这个pos进行排序，排序的依据是高度。<br>降维后，我们得到一个存储着若干个pos对象的数组，然后依据对象的x和y属性，判断原矩阵的元素是否相邻进行处理。<br>类比最长非降序子列的问题，我们可以结合上述改造写出代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;algorithm&gt;</div><div class="line">#include&lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">class pos &#123;</div><div class="line">public:</div><div class="line">	int h;</div><div class="line">	int x;</div><div class="line">	int y;</div><div class="line">&#125;;</div><div class="line">bool operator&lt;(pos p1, pos p2) &#123;</div><div class="line">	return p1.h &lt; p2.h;</div><div class="line">&#125;</div><div class="line">bool check(pos p1,pos p2) &#123;</div><div class="line">	if (((p1.x == p2.x&amp;&amp;abs(p1.y-p2.y) == 1)</div><div class="line">		||(p1.y == p2.y&amp;&amp;abs(p1.x - p2.x) == 1))</div><div class="line">		&amp;&amp;p1.h&gt;p2.h) &#123;</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line">	return false;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">	int a[5][5] = &#123;</div><div class="line">	&#123;1,2,3,4,5&#125;,</div><div class="line">	&#123;16,17,18,19,6&#125;,</div><div class="line">	&#123;15,24,25,20,7&#125;,</div><div class="line">	&#123;14,23,22,21,8&#125;,</div><div class="line">	&#123;13,12,11,10,9&#125;</div><div class="line">	&#125;;</div><div class="line">	pos ps[25];</div><div class="line">	int dp[25];</div><div class="line">	int k = 0;</div><div class="line">	for (int i = 0; i &lt; 5; i++) &#123;</div><div class="line">		for (int j=0; j &lt; 5; j++) &#123;</div><div class="line">			pos p;</div><div class="line">			p.x = i;</div><div class="line">			p.y = j;</div><div class="line">			p.h = a[i][j];</div><div class="line">			ps[k++]=p;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	int maxlen = 1;</div><div class="line">	sort(ps,ps+25);</div><div class="line">	for (int i = 0; i &lt; 25; i++) &#123;</div><div class="line">		dp[i] = 1;</div><div class="line">		for (int j = 0; j &lt; i; j++) &#123;</div><div class="line">			if (check(ps[i], ps[j])) &#123;</div><div class="line">				dp[i] =max(dp[i],dp[j]+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if (dp[i] &gt; maxlen)maxlen = dp[i];</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; maxlen;</div><div class="line">	int o;</div><div class="line">	cin &gt;&gt; o;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/22/学习笔记-动态规划——中级进阶/">展开全文 >></a>
         </p>
       
 
