@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Zeros</title>
+  <title>Archives: 2018 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
 <meta property="og:site_name" content="Zeros">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zeros">
@@ -145,545 +145,74 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-问题笔记-Android-click与longclick冲突" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/19/问题笔记-Android-click与longclick冲突/">&lt;问题笔记&gt; Android click与longclick冲突</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/19/问题笔记-Android-click与longclick冲突/" class="archive-article-date">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/03/19/问题笔记-Android-click与longclick冲突/" class="archive-article-date">
   	<time datetime="2018-03-19T13:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-19</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这几天赶工一个志愿者的项目，出现了这么一个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">E/WindowManager: android.view.WindowLeaked: Activity com.zeros.zeros.volunteer.HavePutActivity has leaked window com.android.internal.policy.PhoneWindow$DecorView&#123;46e4818 V.E...... R....... 0,0-729,272&#125; that was originally added here</div><div class="line">                     at android.view.ViewRootImpl.&lt;init&gt;(ViewRootImpl.java:368)</div><div class="line">                     at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:299)</div><div class="line">                     at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:85)</div><div class="line">                     at android.app.Dialog.show(Dialog.java:319)</div><div class="line">                     at android.app.AlertDialog$Builder.show(AlertDialog.java:1112)</div><div class="line">                     at com.zeros.zeros.volunteer.HavePutActivity$4.onItemLongClick(HavePutActivity.java:133)</div><div class="line">                     at android.widget.AbsListView.performLongPress(AbsListView.java:3127)</div><div class="line">                     at android.widget.AbsListView$CheckForLongPress.run(AbsListView.java:3059)</div><div class="line">                     at android.os.Handler.handleCallback(Handler.java:739)</div><div class="line">                     at android.os.Handler.dispatchMessage(Handler.java:95)</div><div class="line">                     at android.os.Looper.loop(Looper.java:148)</div><div class="line">                     at android.app.ActivityThread.main(ActivityThread.java:5417)</div><div class="line">                     at java.lang.reflect.Method.invoke(Native Method)</div><div class="line">                     at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)</div><div class="line">                     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)</div><div class="line">E/Surface: getSlotFromBufferLocked: unknown buffer: 0xae471700</div></pre></td></tr></table></figure></p>
-<p>问题是窗口泄露，当我们依托于一个activity来新建一个dialog的时候，如果在dialog还未dismiss之前，就将activity finish()掉，<br>就会产生这样的问题，于是，我开始分析自己的代码，难道我在dismiss之前关掉了这个activity？<br>然后发现，既要满足触发条件，有会产生触发结果的位置一定是这个listview，<br>因为我既要finish()，又要产生这样的错误，一定在点击事件里，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">listview.setOnItemClickListener(new AdapterView.OnItemClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</div><div class="line">                String activity_id=haveput_id.get(position);</div><div class="line">                Bundle bundle=new Bundle();</div><div class="line">                bundle.putString(&quot;activity_id&quot;,activity_id);</div><div class="line">                Intent intent=new Intent(HavePutActivity.this,PersonsActivity.class);</div><div class="line">                intent.putExtra(&quot;activity_id&quot;,bundle);</div><div class="line">                startActivity(intent);</div><div class="line">                finish();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</div><div class="line">                final String activity_id=haveput_id.get(position);</div><div class="line">                new AlertDialog.Builder(HavePutActivity.this)</div><div class="line">                        .setMessage(&quot;确定要删除这个活动吗？&quot;)</div><div class="line">                        .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() &#123;</div><div class="line">                            @Override</div><div class="line">                            public void onClick(DialogInterface dialog, int which) &#123;</div><div class="line">                                delete_request(activity_id);</div><div class="line">                            &#125;</div><div class="line">                        &#125;)</div><div class="line">                        .setNegativeButton(&quot;取消&quot;, new DialogInterface.OnClickListener() &#123;</div><div class="line">                            @Override</div><div class="line">                            public void onClick(DialogInterface dialog, int which) &#123;</div><div class="line">                                dialog.dismiss();</div><div class="line">                            &#125;</div><div class="line">                        &#125;).show();</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
-<p>难道这两个会冲突？答案是，设置出现纰漏确实会冲突。<br>让我们看看源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * Interface definition for a callback to be invoked when an item in this</div><div class="line">     * AdapterView has been clicked.</div><div class="line">     */</div><div class="line">    public interface OnItemClickListener &#123;</div><div class="line"></div><div class="line">        /**</div><div class="line">         * Callback method to be invoked when an item in this AdapterView has</div><div class="line">         * been clicked.</div><div class="line">         * &lt;p&gt;</div><div class="line">         * Implementers can call getItemAtPosition(position) if they need</div><div class="line">         * to access the data associated with the selected item.</div><div class="line">         *</div><div class="line">         * @param parent The AdapterView where the click happened.</div><div class="line">         * @param view The view within the AdapterView that was clicked (this</div><div class="line">         *            will be a view provided by the adapter)</div><div class="line">         * @param position The position of the view in the adapter.</div><div class="line">         * @param id The row id of the item that was clicked.</div><div class="line">         */</div><div class="line">        void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Interface definition for a callback to be invoked when an item in this</div><div class="line">     * view has been clicked and held.</div><div class="line">     */</div><div class="line">    public interface OnItemLongClickListener &#123;</div><div class="line">        /**</div><div class="line">         * Callback method to be invoked when an item in this view has been</div><div class="line">         * clicked and held.</div><div class="line">         *</div><div class="line">         * Implementers can call getItemAtPosition(position) if they need to access</div><div class="line">         * the data associated with the selected item.</div><div class="line">         *</div><div class="line">         * @param parent The AbsListView where the click happened</div><div class="line">         * @param view The view within the AbsListView that was clicked</div><div class="line">         * @param position The position of the view in the list</div><div class="line">         * @param id The row id of the item that was clicked</div><div class="line">         * @return true if the callback consumed the long click, false otherwise</div><div class="line">         */</div><div class="line">        boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view, int position, long id);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>注意下满参数注释：当我们将长事件callback返回值设置为true，系统才会消耗掉长事件！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/19/问题笔记-Android-click与longclick冲突/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-支持向量机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/22/学习笔记-支持向量机/">&lt;学习笔记&gt; 支持向量机</a>
+      <a class="archive-article-title" href="/2018/03/19/问题笔记-Android-click与longclick冲突/">&lt;问题笔记&gt; Android click与longclick冲突</a>
     </h1>
   
 
-        
-        <a href="/2018/01/22/学习笔记-支持向量机/" class="archive-article-date">
+        <div class="article-info info-on-right">
+          
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/01/22/学习笔记-支持向量机/" class="archive-article-date">
   	<time datetime="2018-01-21T16:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-22</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>书中说理解支持向量机需要掌握一定的理论知识，而且读懂的它的代码难度很大，瞬间我的兴趣就来了。<br>支持向量机（Support Vector Machines）被有些人称为最好的现成的分类器，不加修改，就可以得到低错误率的结果。<br>SVM有很多种实现，书中只介绍了最流行的一种-序列最小优化算法，那么我就先把这种算法做一个笔记哈。<br>1.基础概念<br>考虑我们分隔数据的方法，将我们的数据点放入一个二维的坐标图中，如果我们的数据可以经由一条直线很容易的分开，<br>这组数据就可以被称为线性可分，这条直线称为分隔超平面。将我们的这个平面图放入三维的图中，很明显我们的这条直线其实<br>是一个平面的截面，更高维以此类推，顾名思义。<br>如果数据集是一个1024维的，那么我们就需要一个1023维的某对象进行分隔。这个某对象就是我们的超平面，也就是分类的决策边界。<br>我们希望我们基于一下思想来构造分类器：<br>如果数据点离我们的超平面距离越远，那么预测结果也就越可信。<br>我们的方案是找到离超平面最近的点，确保它们离分隔面的距离尽可能远。这些点到分隔面的距离我们称为间隔。<br>支持向量就是离超平面最近的那些点，接着就要最大化支持向量到分隔面的距离，我们就要找这种优化方法。<br>分隔超平面的形式我们可以很轻易的写出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">y=(w^T)x+b</div></pre></td></tr></table></figure></p>
-<p>那么根据点到直线的距离公式，可写出任意一点a距离：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L=|(w^T)a+b|/|w|</div></pre></td></tr></table></figure></p>
-<p>常数b类似与logistic回归中的截距，向量w和截距b一同描述了超平面。<br>2.分类器工作原理<br>在logistic回归中，我们使用的输出标签是0和1，这里我们将会使用-1和+1。换用这两个是因为它们只相差一个符号，方便数学上的处理。<br>我们可以通过一个同=统一的公式来表示间隔或者数据点到超平面之间的距离，不必担心一些无关紧要的问题。<br>当计算分隔面的距离并确定分隔面的放置位置的时候，间隔通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label*[(w^T)x+b]</div></pre></td></tr></table></figure></p>
-<p>来计算，这时就能看出来我们标签选择-1和+1的好处了。<br>如果数据点处于正方向或者负方向并且远离分隔面的时候，我们得到的结果都会是很大的正数。<br>我们的目标就是要找出能够描述边界的向量w和截距b。<br>接下来，我们就可以将问题转化为寻找具有最小间隔的数据点，也就是我们的支持向量。然后我们就对该间隔进行最大化处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arg max&#123;min(label*(w^Tx+b))*(1/|w|)&#125;</div></pre></td></tr></table></figure></p>
-<p>我们采用固定其中一个因子然后最大化其他因子的方式进行优化。令我们的所有的支持向量label<em>[(w^T)x+b]均为1，然后<br>通过求我们的|w|^(-1)的最大值来求解。但是并不似每一个数据点的label</em>[(w^T)x+b]都为1，只有支持向量才能是1，<br>那么我们就给定一些约束条件，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label*[(w^T)x+b]&gt;=1</div></pre></td></tr></table></figure></p>
-<p>在此约束条件下，我们采用一种著名的求解方法，拉格朗日乘子法。通过引入拉格朗日乘子，就可以进行优化求解了。<br>那么我们的优化函数就变了另外一种形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max[∑α-(1/2)label(i)*label(j)*ai*aj&lt;x(i),x(j)&gt;]</div></pre></td></tr></table></figure></p>
-<p>其中最后尖括号的两项表示xi与xj的内积。<br>其约束条件为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">α&gt;=0 and ∑αi*label(i)=0</div></pre></td></tr></table></figure></p>
-<p>鉴于我们要的目标，数据必须完全可分。那么我们此时得到的数据用书里的话说就是不那么干净，此时通过引入松弛变量来<br>放宽松我们的标准，使得我们可以允许一些小的错误的分类。<br>那么我们的约束条件要进行修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">C&gt;α&gt;=0 and ∑αi*label(i)=0</div></pre></td></tr></table></figure></p>
-<p>这里的常熟C用来控制“最大化间隔”和“保证大部分点的函数间隔小于1.0”的权重。<br>我们的问题接下来就又转化为求参数α，我们的支持向量机的工作就是如此。<br>3.SVM应用的基本框架<br>SMO高效优化算法<br>工作原理：<br>每次循环选择两个α的值进行优化，一旦找到合适的一对，那么就增大其中一个减小另外一个。<br>所谓合适，就是它们要符合两个条件：<br>(1)两个alpha的值要在间隔边界之外；<br>(2)两个alpha未进行过区间化处理或者不在边界上。<br>优化最佳alpha对：在数据集上遍历每一个alpha，然后在剩下的alpha集合中随机选择另一个，构建alpha对。<br>由于改变一个alpha会使约束条件失效，因此我们同时改变两个。<br>为此，我么将会构造一个辅助函数，用于在某个区间内选择一个随机的整数。<br>同时还有另一个辅助函数，用于在数值太大时进行调整。<br>下面是这两个辅助函数以及数据载入函数的python实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">import random</div><div class="line">def loaddataset(filename):</div><div class="line">    datamat = []</div><div class="line">    labelmat = []</div><div class="line">    fr=open(filename)</div><div class="line">    for line in fr.readlines():</div><div class="line">        linearr=line.strip().split(&apos;\t&apos;)</div><div class="line">        datamat.append([float(linearr[0]),float(linearr[1])])</div><div class="line">        labelmat.append(float(linearr[2]))</div><div class="line">    return datamat,labelmat</div><div class="line">def selectjrand(i,m):</div><div class="line">    j=i</div><div class="line">    while(j==i):</div><div class="line">        j=int(random.uniform(0,m))</div><div class="line">    return j</div><div class="line">def clipalpha(aj,H,L):</div><div class="line">    if aj&gt;H:</div><div class="line">        aj=H</div><div class="line">    if L&gt;aj:</div><div class="line">        aj=L</div><div class="line">    return aj</div></pre></td></tr></table></figure></p>
-<p>以下代码是我们展示的一个smo算法的示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">def smosimple(datamatin,classlabels,c,toler,maxiter):</div><div class="line">    datamatrix=mat(datamatin)</div><div class="line">    labelmatrix=mat(classlabels).transpose()</div><div class="line">    b=0</div><div class="line">    m,n=shape(datamatrix)</div><div class="line">    alphas=mat(zeros(m,1))</div><div class="line">    iter=0</div><div class="line">    while(iter&lt;maxiter):</div><div class="line">        alpahpairschanged=0</div><div class="line">        for i in range(m):</div><div class="line">            fxi=float(multiply(alphas,labelmatrix).T*(datamatrix*datamatrix[i,:].T))+b</div><div class="line">            ei=fxi-float(labelmatrix[i])</div><div class="line">            if((labelmatrix[i]*ei&lt;-toler)and(alphas[i]&lt;c))\</div><div class="line">                or((labelmatrix[i]*ei&gt;toler)and(alphas[i]&gt;0)):</div><div class="line">                j=selectjrand(i,m)</div><div class="line">                fxj=float(multiply(alphas,labelmatrix.T*(datamatrix*datamatrix[j,:]).T))+b</div><div class="line">                ej=fxj-float(labelmatrix[j])</div><div class="line">                alphaiold=alphas[i].copy()</div><div class="line">                alphajold=alphas[j].copy()</div><div class="line">                if (labelmatrix[i]!=labelmatrix[j]):</div><div class="line">                    L=max(0,alphas[j]-alphas[i])</div><div class="line">                    H=min(c,c+alphas[j]-alphas[i])</div><div class="line">                else:</div><div class="line">                    L=max(0,alphas[j]+alphas[i]-c)</div><div class="line">                    H=min(c,alphas[j]+alphas[i])</div><div class="line">                if L==H:</div><div class="line">                    print(&quot;L=H&quot;)</div><div class="line">                    continue</div><div class="line">                eta=2.0*datamatrix[i,:]*datamatrix[j,:].T-\</div><div class="line">                    datamatrix[i,:]*datamatrix[i,:].T-\</div><div class="line">                    datamatrix[j,:]*datamatrix[j,:].T</div><div class="line">                if eta&gt;=0:</div><div class="line">                    print(&quot;eta&gt;=0&quot;)</div><div class="line">                    continue</div><div class="line">                alphas[j]-=labelmatrix[j]*(ei-ej)/eta</div><div class="line">                alphas[j]=clipalpha(alphas[j],H,L)</div><div class="line">                if (abs(alphas[j]-alphajold)&lt;0.00001):</div><div class="line">                    print(&quot;j not move enough&quot;)</div><div class="line">                    continue</div><div class="line">                alphas[i]+=labelmatrix[j]*labelmatrix[i]*(alphajold-alphas[j])</div><div class="line">                b1=b-ei-labelmatrix[i]*(alphas[i]-alphaiold)*\</div><div class="line">                    datamatrix[i,:]*datamatrix[i,:].T-labelmatrix[j]*(alphas[j]-alphajold)*\</div><div class="line">                    datamatrix[i,:]*datamatrix[j,:].T</div><div class="line">                b2=b-ei-labelmatrix[i]*(alphas[i]-alphaiold)*\</div><div class="line">                    datamatrix[i,:]*datamatrix[j,:].T-labelmatrix[j]*(alphas[j]-alphajold)*\</div><div class="line">                    datamatrix[j,:]*datamatrix[j,:].T</div><div class="line">                if (alphas[i]&gt;0) and (alphas[i]&lt;c):</div><div class="line">                    b=b1</div><div class="line">                elif (alphas[j]&gt;0) and (alphas[j]&lt;c):</div><div class="line">                    b=b2</div><div class="line">                else:</div><div class="line">                    b=b1+b2/2.0</div><div class="line">                alpahpairschanged+=1</div><div class="line">                print(&quot;iter:%d i:%d,pairs changed %d&quot;%(iter,i,alpahpairschanged))</div><div class="line">        if (alpahpairschanged==0):</div><div class="line">            iter+=1</div><div class="line">        else:</div><div class="line">            iter=0</div><div class="line">        print(&quot;iteration number is %d&quot;%iter)</div><div class="line">    return b,alphas</div></pre></td></tr></table></figure></p>
-<p>该函数共有5个输入参数：数据集，类别标签，常数c，容错率，最大循环次数。<br>上述的函数将我们输入的列表转化成numpy矩阵来进行计算。我们将列表进行了装置，因此相当于将行向量变成了列向量。<br>每次循环当中，将我们的alphapairschanged先设置为0，然后对整个集合进行遍历，这个变量的作用是记录是否对alpha<br>进行了优化。fxi是我们要预测的类别，ei是我们的误差，误差大，就要对对应的alpha进行优化。在过程当中，我们要对<br>alpha的值进行检查，保证不能等于0或者c。在后续的处理当中，我们将不在0到c之间的值归为0或者c，那么如果我们发现<br>它们等于0或者等于c时，它们就不能够进行减小或者增大，不值得再进行优化了。程序当中的L和H便是用来将我们的值控制<br>在0和c之间。<br>eta是alpha[j]的最优修改量，如果eta为0，那么我们需要退出当前的for迭代过程。<br>我们在过程党总检测alpha[j]是否发生了微小的改变，如果有，那么退出for循环。alpha[i]和alpha[j]的改变的大小相同，<br>但方向是相反的。对它们优化之后，设置一个常数项b。</p>
-<p>4.利用完整的platt smo算法进行加速优化<br>上述我们学习了简化的smo算法，然而当面对非常大的数据量的时候，简化版就会变得非常慢，此时我们就需要完整版了。<br>二者在优化过程当中唯一的不同在于对alpha的选择方式。<br>plattsmo算法是通过一个外循环来选择第一个alpha，并且在选择过程当中在两种方式之间交替：<br>一种方式在所有的数据集上进行扫描，另一种是在非边界的alpha值中实现单遍扫描。<br>非边界就是不是0也不是c的值。<br>在实现非边界alpha值的扫描时，首先要建立这些alpha值的列表，然后再对这个表进行遍历，这个过程当中还要跳过那些<br>不会变化的alpha值。<br>选择完第一个alpha值之后，通过一个内循环来选择第二个alpha，简化版中，我们在选择j之后计算错误率ej，在加强版中，<br>我们通过一个全局缓存来保存误差值，然后依据步长最大的alpha值。<br>下面这段代码包含了一个用于清理代码的数据结构，和三个对e进行缓存的辅助函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">class optStruct:    #存储重要数据的结构；</div><div class="line">    def __init__(self,datamatin,classlebels,c,toler):</div><div class="line">        self.x=datamatin    </div><div class="line">        self.labelmat=classlebels</div><div class="line">        self.c=c</div><div class="line">        self.tol=toler</div><div class="line">        self.m=shape(datamatin)[0]</div><div class="line">        self.alphas=mat(zeros(self.m,1))</div><div class="line">        self.b=0</div><div class="line">        self.ecache=mat(zeros(self.m,2))</div><div class="line">def calcek(os,k):</div><div class="line">    fxk=float(multiply(os.alphas,os.labelmat).T*(os.x*os.x[k,:].T))+os.b</div><div class="line">    ek=fxk-float(os.labelmat[k])</div><div class="line">    return ek</div><div class="line">def selectj(i,os,ei):</div><div class="line">    maxk=-1</div><div class="line">    maxdeltae=0</div><div class="line">    ej=0</div><div class="line">    os.ecache[i]=[1,ei]</div><div class="line">    validecachelist=nonzero(os.ecache[:,0].A)[0]</div><div class="line">    if(len(validecachelist))&gt;1:</div><div class="line">        for k in validecachelist:</div><div class="line">            if k==i:</div><div class="line">                continue</div><div class="line">            ek=calcek(os,k)</div><div class="line">            deltae=abs(ei-ek)</div><div class="line">            if(deltae&gt;maxdeltae):</div><div class="line">                maxk=k</div><div class="line">                maxdeltae=deltae</div><div class="line">                ej=ek</div><div class="line">        return maxk,ej</div><div class="line">    else:</div><div class="line">        j=selectjrand(i,os.m)</div><div class="line">        ej=calcek(os,j)</div><div class="line">    return j,ej</div><div class="line">def updateek(os,k):</div><div class="line">    ek=calcek(os,k)</div><div class="line">    os.ecache[k]=[1,ek]</div></pre></td></tr></table></figure></p>
-<p>这里我们使用一个对象来存储所有的重要值。这里使用对象的目的并不是要进行面向对象编程，而只是<br>将其作为一个数据结构来使用。在将值传给函数的时候，我们就可以将所有的数据整合为一个对象结构<br>当中去实现，从而省去了手动输入的麻烦。<br>ecache矩阵的第一列给出的是ecache是否有效的标志位，第二列给出的是实际的e值。<br>对于给定的alpha值，辅助函数calcek()能够计算e的值并返回。我们其实是将之前嵌入到程序当中的一部分<br>提了出来，因为我们要在多个地方使用这部分，将其函数独立化会更方便。<br>辅助函数selectj()用于内循环的alpha值的选择。核心思想是保证步长最大。<br>nonzero()语句返回的是非零e值对应的alpha值，程序将所有的值遍历选中其中最大的那个。<br>辅助函数updateek()计算误差值并且存入缓存当中。上面这段代码自身的作用并不是特别大，但和我们接下里<br>介绍的优化过程以及外循环组合起来就是强大的smo算法。<br>用于寻找决策边界的优化例程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/22/学习笔记-支持向量机/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-MFC像素问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/19/学习笔记-MFC像素问题/">&lt;学习笔记&gt; MFC像素问题</a>
+      <a class="archive-article-title" href="/2018/01/22/学习笔记-支持向量机/">&lt;学习笔记&gt; 支持向量机</a>
     </h1>
   
 
-        
-        <a href="/2017/12/19/学习笔记-MFC像素问题/" class="archive-article-date">
-  	<time datetime="2017-12-19T15:51:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>懒有时候真的会促进世界的发展。<br>今天练习一个颜色碰撞检测的程序时，实在不想通过编代码的方式来设定窗口的大小(为了和我的位图匹配)。<br>想通过手动调试对话框资源来改变，然而发现好像我们的mfc中资源的大小度量单位和pixel有一点区别，于是<br>就百度了一下，还真有讲解的。<br>对话框资源中的尺寸数值是对话框单位，该大小的单位不是像素而是DLU（dialog logical units），<br>它是与分辨率无关的坐标单位。它与像素之间的转换关系与当前对话框字体有关。<br>如果我们想进行手动计算，<br>那么我们可以通过MapDialogRect函数来进行转换。<br>函数原型：BOOL MapDialogRect(HWND hDlg,LPRECT IpRect);<br>其中第一个参数时对话框句柄，第二个参数是Rect结构指针；<br>这个函数假定Rect结构中的起始坐标作为对话框单位，那么我们将他们转换为像素，还要经过以下算法：<br>  pixelX = MulDiv(dialogX, 对话框水平基本单位, 4)<br>  pixelY = MulDiv(dialogY, 对话框垂直基本单位, 8)<br>以上是关于vc++中的一些基本内容，我想做的是简单明了的设置我的对话框，找到了方法：<br>设置对话框的字体为Verdana，然后将其调整为10号字号，设置完成，此时我们的字体相当于等宽字体，<br>假设我们将想要将我们的对话框调整为800<em>300（像素单位），那么我们就将窗口调整为400</em>150即可。</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/19/学习笔记-MFC像素问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
   
-    <article id="post-学习笔记-MFC-OnTimer初入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">&lt;学习笔记&gt; MFC OnTimer初入</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/14/学习笔记-MFC-OnTimer初入/" class="archive-article-date">
-  	<time datetime="2017-12-14T07:33:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有时候想想，我们一条路走长了，换一条路，总想以走老路的方式继续，然而发现根本不行。<br>学了好久的Visual c++,之前用mfc做过各种条条框框，后来在普通的Win32里面学习游戏编程，<br>练到了物理碰撞检测，突然参考书上出来了一段代码，竟然实在mfc里做的，虽然好多winapi被封装了，<br>封装就封装了呗，用法没多大区别吧。<br>然后就是各种问题了。<br>我就把次的debug关键记录一下吧。<br>在修改之前先来点基础干货吧。<br>mfc计时器<br>核心就是三个函数：SetTimer(),OnTimer(),KillTimer()<br>这里很简单，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UINT SetTimer(</div><div class="line">      HWND hWnd,              // handle of window for timer messages</div><div class="line">      UINT nIDEvent,          // timer identifier</div><div class="line">      UINT uElapse,           // time-out value</div><div class="line">      TIMERPROC lpTimerFunc       // address of timer procedure</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>函数参数简单理解：<br>窗口类指针：谁处理时间就是谁；<br>计时器id：计时器的身份证号；<br>时间延迟：执行我们函数的间隔时间；<br>执行函数地址：我们每隔一段时间要执行的函数；<br>一般情况下我们我们写后三个参数就可以用，然后在类属性列表里设置消息WM_Timer选项为OnTimer()<br>会自动生成OnTimer函数，我们的第四个回调函数默认为OnTimer(),可以写成NULL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BOOL KillTimer(</div><div class="line">    HWND hWnd,      // handle of window that installed timer</div><div class="line">    UINT uIDEvent     // timer identifier</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>参数就不解释了。<br>再来看我们的核心(我自认为的核心):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">afx_msg void OnTimer( UINT nIDEvent);</div></pre></td></tr></table></figure></p>
-<p>我自己理解的事件驱动过程：<br>我们在适当的地方添加SetTimer方法，例如如果我们想在程序开始运行开始我们的动作，我们就把他添加在OnInitDialog()<br>函数里面就好。<br>没经过一段时间我们就会发送消息触发OnTimer函数，执行我们在这个方法里面的行为，<br>我们在自己需要的地方如果想要停止这个计时器，我们就在这个地方添加KillTimer方法就好了。<br>干货已经献上，接下来我就直接贴代码来说明我在开头遇到的各种情况吧，<br>虽然只是一个函数，但真的搞了好久，想了好久，查了好久.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">void CMFCExample_10Dlg::OnTimer(UINT_PTR nIDEvent)</div><div class="line">&#123;</div><div class="line">	// TODO: 在此添加消息处理程序代码和/或调用默认值</div><div class="line">	CDC *dc = GetDC();</div><div class="line">  //这个相当于普通Win32里面的HDC，本设备的上下文(我觉得和androidContext大同小异);</div><div class="line">	mdc = new CDC;</div><div class="line">  //mdc只有一个空构造函数；</div><div class="line">	mdc-&gt;CreateCompatibleDC(dc);</div><div class="line">  //创建一个适配本设备的内存上下文，用来读取我们要用的一些资源吧。</div><div class="line">  //[!]这个在win32里面感觉就相当于对mdc的一个初始化，然而在MFC里光有这个出错了，好像必须加上面的空构造;</div><div class="line">	mdc-&gt;SelectObject(bg);</div><div class="line">	dc-&gt;BitBlt(0,0,640,480,mdc,0,0,SRCCOPY);</div><div class="line">  //之前是没有上面这两句的，然而结果就是我在每次更新画面之后之前的画面仍然在，并没有达到动画的效果；</div><div class="line">  //百度了，上面有各种方法，双缓冲多线程，因为我还要进行其他学习所以就没多看，之后可能会专门来一篇；</div><div class="line">  //我这个方法就是每次更新画面先在之前的面板上贴上背景，相当于将之前的绘制覆盖掉，然后在贴本次的图；</div><div class="line">	mdc-&gt;SelectObject(car1);</div><div class="line">	dc-&gt;BitBlt(x1, 165, 200, 60, mdc, 0, 0, SRCCOPY);</div><div class="line">	mdc-&gt;SelectObject(car2);</div><div class="line">	dc-&gt;BitBlt(x2, 150, 140, 80, mdc, 0, 0, SRCCOPY);</div><div class="line">	if (x1 + 200 &gt; x2) &#123;</div><div class="line">		KillTimer(nIDEvent);</div><div class="line">	&#125;//距离法碰撞检测结果；</div><div class="line">	x1 += vx1;</div><div class="line">	x2 += vx2;</div><div class="line"></div><div class="line">	ReleaseDC(dc);</div><div class="line">	mdc-&gt;DeleteDC();</div><div class="line">  //[!]上面这两句是重点；</div><div class="line">  //之前在win32里面我的dc和mdc在整个程序里都是一次初始化一次释放，然后我就沿用之前的方式，在构造函数里</div><div class="line">  //添加了设备上下文的释放，结果就是我们的画面只更新一次，然后就卡死不动了。</div><div class="line">  //仔细想想，我们的dc和mdc其实相当于只是在这个函数里面具有“存活的意义”，我们每次触发这个函数其实</div><div class="line">  //相当于搞了一个全新的mdc和dc，所以每次用完都要释放。</div><div class="line">  //这其实是个逻辑上的问题，搞了好久...</div><div class="line">	CDialogEx::OnTimer(nIDEvent);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>MFC入门小白的个人理解…</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-Logistic回归" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/13/学习笔记-Logistic回归/">&lt;学习笔记&gt; Logistic回归</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/13/学习笔记-Logistic回归/" class="archive-article-date">
-  	<time datetime="2017-12-13T06:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ps:感谢《机器学习实战》指导</p>
-<p>这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取<br>最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到<br>目的点；如何用最少的背包装最多的东西….<br>接下来我们需要稍微理解一下回归这个词。<br>假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。<br>我们的这条线可以写成一个函数，这个过程当中，我们通过不断地调整我们函数中的各种参数，使得我们的<br>数据点们平均最大化的接近我们的这条直线。<br>Logistic回归的思想：<br>根据现有数据对分类边界线建立回归公式，以此进行分类。<br>优点：<br>计算代价不高，易理解易实现；<br>缺点：<br>容易欠拟合，分类的精度可能不高；<br>适用类型：数值型和标称型的数据类型。<br>我们想要得到的函数是能够接受所有的输入然后做出分类。<br>在两个类的情况下，我们很容易想到一个函数，赫维赛德跃迁函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">连续形式：</div><div class="line">H(x)=&#123;0,if x&lt;0;1,x&gt;0;1/2,x=0&#125;</div><div class="line">离散形式：</div><div class="line">Hn=&#123;0,n&lt;0;1,n&gt;=0;n为整数&#125;</div></pre></td></tr></table></figure></p>
-<p>函数可以接受所有输出然后输出0或1，这样我们可以测出类别。<br>但是这个函数在0和1跃迁的这个瞬间过程不容易处理，所以我们选择另一个函数,Sigmoid函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">σ(z)=1/(1+exp(-z))</div></pre></td></tr></table></figure></p>
-<p>根据这个函数的图像，我们可以做出以下分析：<br>当z为0时，我们的函数值为0.5；<br>随着z的增大，函数值趋近于1，随着z的减小，函数值趋近于0；如果我们从一个很大的尺度看这个函数的图像，<br>他其实很像一个跃迁函数。<br>为了实现我们的分类器，我们可以在每个特征上都乘以一个回归系数，然后把所有得到的结果求和，代入到<br>我们的Sigmoid函数，得到一个范围在0，1之间的数。<br>然后将大于0.5的归于“1类”,将小于0.5的归于“0类”.<br>确定分类函数形式后，我们下一个要解决的问题是确定最佳回归系数。<br>Sigmoid函数的输入记为z，可由下列公式得出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z=w0x0+w1x1+w2x2+...+wnxn</div></pre></td></tr></table></figure></p>
-<p>将上述公式写成向量的形式：z=w^Tx,即将w转置乘x。<br>向量x为我们的输入，向量w即是我们要找的最佳参数。<br>为了寻找最佳参数，我们要用到最优化理论的一些知识。<br>1.梯度上升法<br>主要思想：如果想要找到某个函数的最大值，那就  沿着该函数的梯度方向探寻。<br>在高等数学中，函数f(x,y)的梯度看作一个向量，记作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grad(f)=(∂f/∂x,∂f/∂y)</div></pre></td></tr></table></figure></p>
-<p>函数f必须在待计算的点上有定义并且可微。<br>梯度上升算法每到达一个点的时候都会重新估计下次的移动方向。<br>梯度算子总是指向函数增长最快的方向。我们将每次在方向上的移动量称为步长，记作α，如果用向量的方式表示，<br>我们的的梯度算法的迭代公式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">w:=w+αgrad(f(w))</div></pre></td></tr></table></figure></p>
-<p>这个公式在达到终止条件前会一直迭代。<br>以上就是我们进行分类器构造的理论工具。<br>接下来我们用python来实现我们的算法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">def loaddataset():</div><div class="line">    datamat=[]</div><div class="line">    labelmat=[]</div><div class="line">    fr=open(&apos;testset.txt&apos;)</div><div class="line">    for line in fr.readlines():</div><div class="line">        linearr=line.strip().split()</div><div class="line">        datamat.append([1.0,float(linearr[0]),float(linearr[1])])</div><div class="line">        labelmat.append(int(linearr[2]))</div><div class="line">    return datamat,labelmat</div><div class="line">def sigmoid(intX):</div><div class="line">    from math import exp</div><div class="line">    return 1.0/(1+exp(-intX))</div><div class="line">def grandascent(datamatin,classlabels):</div><div class="line">    from numpy import *</div><div class="line">    datamatrix=mat(datamatin)</div><div class="line">    labelmatrix=mat(classlabels).transpose()</div><div class="line">    #转换为numpy矩阵的数据类型；</div><div class="line">    m,n=shape(datamatrix)</div><div class="line">    alpha=0.001</div><div class="line">    maxcycles=500</div><div class="line">    weights=ones((n,1))</div><div class="line">    for k in range(maxcycles):</div><div class="line">        h=sigmoid(datamatrix*weights)</div><div class="line">        error=labelmatrix-h</div><div class="line">        weights=weights+alpha*datamatrix.transpose()*error</div><div class="line">    return weights</div><div class="line">def plotbestfit(wei):</div><div class="line">    import matplotlib.pyplot as plt</div><div class="line">    from numpy import *</div><div class="line">    weights=wei.getA()</div><div class="line">    datamat,labelmat=loaddataset()</div><div class="line">    dataarr=array(datamat)</div><div class="line">    n=shape(dataarr)[0]</div><div class="line">    xcords1=[]</div><div class="line">    ycords1=[]</div><div class="line">    xcords2=[]</div><div class="line">    ycords2=[]</div><div class="line">    for i in range(n):</div><div class="line">        if int(labelmat[i])==1:</div><div class="line">            xcords1.append(dataarr[i,1])</div><div class="line">            ycords1.append(dataarr[i,2])</div><div class="line">        else:</div><div class="line">            xcords2.append(dataarr[i,1])</div><div class="line">            ycords2.append(dataarr[i,2])</div><div class="line">    fig=plt.figure()</div><div class="line">    ax=fig.add_subplot(111)</div><div class="line">    ax.scatter(xcords1,ycords1,s=30,c=&apos;red&apos;,marker=&apos;s&apos;)</div><div class="line">    ax.scatter(xcords2,ycords2,s=30,c=&apos;green&apos;)</div><div class="line">    x=arange(-3.0,3.0,0.1)</div><div class="line">    y=(-weights[0]-weights[1].x)/weights[2]</div><div class="line">    ax.plot(x,y)</div><div class="line">    plt.xlabel(&apos;X1&apos;)</div><div class="line">    plt.ylabel(&apos;X2&apos;)</div><div class="line">    plt.show()</div></pre></td></tr></table></figure></p>
-<p>随机梯度上升算法<br>我们之前的梯度上升算法在每次更新回归系数的时候都要遍历整个数据集，在数据集很大的时候<br>这种做法就会变得笨拙。我们通过下面这种方式改进我们的算法。<br>每次只使用一个数据点对回归系数进行更新，该方法称为随机梯度上升算法。<br>实现随机梯度上升算法的python实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">def stocgradascent1(datamatrix,classlabels,numiter=150):</div><div class="line">    m,n=shape(datamatrix)</div><div class="line">    weights=ones(n)</div><div class="line">    for j in range(numiter):</div><div class="line">        dataindex=range(m)</div><div class="line">        for i in range(m):</div><div class="line">            alpha=4/(1.0+j+i)+0.01</div><div class="line">            #调整alpha值来缓和波动</div><div class="line">            randindex=int(random.uniform(0,len(dataindex)))</div><div class="line">            h=sigmoid(sum(datamatrix[randindex]*weights))</div><div class="line">            error=classlabels[randindex]-h</div><div class="line">            weights=weights+alpha*error*datamatrix[randindex]</div><div class="line">            del(dataindex[randindex])</div><div class="line">    return weights</div></pre></td></tr></table></figure></p>
-<p>接下来我们将理论运用到实践当中。<br>实例：从疝气病症预测病马的死亡率<br>研究过程：<br>（1）.收集数据：这里使用我们预备好的数据文件<br>（2）.准备数据：用python解析文本，填充空缺<br>（3）.分析数据：将我们的数据结果可视化并进行观察总结<br>（4）.训练算法：使用优化算法，找到最佳的数据<br>（5）.测试算法：观察错误率，通过改变迭代次数和步长来优化我们的参数，在过程当中根据错误率来决定我们是否要继续进行训练<br>（6）.使用算法：实现简单的真正的从症状预测结果<br>分析过程要面对的一些问题<br>1.数据缺失：鉴于我们所得到的数据也许有时会很来之不易，如果重新进行收集可能会给我们带来很大的损失，<br>所以我们要考虑一些其他的方法：<br>（1）.使用特征值的均值填补<br>（2）.使用我们自设定的特殊值<br>（3）.干脆忽略掉存在缺失的小部分样本<br>（4）.使用相似的样本抽取特征填补<br>（5）.使用其他的算法预测并填补<br>结合我们这里的问题，我们决定选择实数0来填补，这样做适用于logistic回归。<br>如若发现类别标签缺失，直接舍弃。<br>使用logistic方法进行分类：将测试集上的每个特征向量乘最优化得到的回归系数，再将该结果求和，然后作为sigmoid函数的输入即可。<br>接下来继续完善我们的分类器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">def classifyvector(intx,weights):</div><div class="line">    prob=sigmoid(sum(intx*weights))</div><div class="line">    if prob&gt;0.5:</div><div class="line">        return 1.0</div><div class="line">    else:</div><div class="line">        return 0.0</div><div class="line">def colictest():</div><div class="line">    frtrain=open(&apos;horsecolictraining.txt&apos;)</div><div class="line">    frtest=open(&apos;horsecolictest.txt&apos;)</div><div class="line">    trainingset=[]</div><div class="line">    traininglabels=[]</div><div class="line">    for line in frtrain.readlines():</div><div class="line">        currline=line.strip().split(&apos;\t&apos;)</div><div class="line">        linearr=[]</div><div class="line">        for i in range(21):</div><div class="line">            linearr.append(float(currline[i]))</div><div class="line">        trainingset.append(linearr)</div><div class="line">        traininglabels.append(float(currline[21]))</div><div class="line">    trainweights=stocgradascent1(array(trainingset),traininglabels,500)</div><div class="line">    errcount=0</div><div class="line">    numtestvec=0.0</div><div class="line">    for line in frtest.readline():</div><div class="line">        numtestvec+=1.0</div><div class="line">        currline=line.strip().split(&apos;\t&apos;)</div><div class="line">        linearr=[]</div><div class="line">        for i in range(21):</div><div class="line">            linearr.append(float(currline[i]))</div><div class="line">        if int(classifyvector(array(linearr),trainweights))!=int(currline[21]):</div><div class="line">            errcount+=1</div><div class="line">    errrate=(float(errcount/numtestvec))</div><div class="line">    print(&quot;the errorrate is%d&quot;,errrate)</div><div class="line">    return errrate</div><div class="line">def multitest():</div><div class="line">    numtests=10</div><div class="line">    errorsum=0.0</div><div class="line">    for k in range(numtests):</div><div class="line">        errorsum+=colictest()</div><div class="line">    print(&quot;after 10 iterations the average error rate is %f&quot;,float(errorsum/numtests))</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/13/学习笔记-Logistic回归/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/">&lt;操作系统&gt; ubuntu raid配置重启使得md0变为md127导致挂载失败</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/" class="archive-article-date">
-  	<time datetime="2017-12-12T18:57:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天下午折腾linux的系统分区，然后看到了磁盘冗余阵列，于是就照着书做。<br>按书上的方法，利用mdadm成功将md0挂载至文件夹RAID下，然后设置了fstab文件让它下次开机自动挂载。<br>弄完了，然后我尝试重启。然后启动页面上写着一行字，总体意思就是我们的的冗余阵列挂载失败了。<br>然后跳过安装我就进去了，开机后，我逐一检查，<br>1./RAID文件在；<br>2.挂载列表里md0那行消失了；<br>3.消失就消失了，重新设置一遍就好了呗；<br>4.然后mdadm -Cv….，下面出来提示消息，说我的/dev/sdc正处于忙碌状态？<br>5.哇，它竟然还在？<br>6.cat /proc/mdstat；<br>7.raid配置信息了竟然有一个md127，然后我之前的磁盘都属于这个阵列。。。<br>8.二话不说，无脑乱搞；<br>9.我的ubuntu崩了…<br>10.上网一查，嗯，和我想的一样，我的md0变成了md127！<br>11.用了人家的方法，成功解决了(书上并没有提到);</p>
-<p>在我们重启之前：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mdadm --detail /dev/md0</div></pre></td></tr></table></figure></p>
-<p>会看到我们这个分配的阵列的详细信息，里面有一条UUID，我们将这行id复制下来。<br>然后修改配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/mdadm/mdadm.conf</div></pre></td></tr></table></figure></p>
-<p>在这个文件里面靠前的一行加上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ARRAY /dev/md0 UUID=上面复制下来的id</div></pre></td></tr></table></figure></p>
-<p>保存退出。<br>最后最重要的一步就是要更新initramfs使你的的mdadm配置保存zai启动配置过程中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">update-initramfs -u</div></pre></td></tr></table></figure></p>
-<p>重新来过，我的问题终于解决了，睡觉…</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/13/操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-朴素贝叶斯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/29/学习笔记-朴素贝叶斯/">&lt;学习笔记&gt; 朴素贝叶斯</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/29/学习笔记-朴素贝叶斯/" class="archive-article-date">
-  	<time datetime="2017-11-29T10:12:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>经过分类器产生的结果有时可能产生错误(就比如基于决策树的分类器),这时我们可以要求分类器给出我们一个最优的<br>猜测结果，同时给出这个猜测的概率估计值。这时候我们的概率论就要排上用场了。<br>这次笔记的内容时朴素贝叶斯，因为其最原始，最简单的假设方法，所以称其为朴素。<br>朴素贝叶斯的优缺点.<br>优点：<br>在数据比较少的情况下仍然有着效果，可以处理多类别的问题。<br>缺点：<br>对于输入数据的准备方式比较敏感。<br>适用数据类型：标称型数据。<br>ps:<br>标称型：标称型目标变量的结果只在有限目标集中取值，如真与假(标称型目标变量主要用于分类)<br>数值型：数值型目标变量则可以从无限的数值集合中取值，如0.100，42.001等 (数值型目标变量主要用于回归分析)<br>贝叶斯决策理论：<br>假设我们有一个数据集，它由两类数据组成，我们通过一系列nb的分析找到了这两类数据的统计参数。<br>我们现在用p1(x,y)表示数据点(x,y)属于类别1概率。<br>同理，我们用p2(x,y)表示数据点属于类别2的概率。<br>那么我们此时得到一个新的数据点(x,y),可以用下面的判断方法来判断它属于哪个类别。<br>我不用说，自己体会…(哪个概率大就放哪个咯)<br>假设我们的数据要使用6个统计参数来表示，我们此时要考虑如何对我们的数据点进行分类。<br>(1).使用我们k近邻法，进行1000次距离计算。<br>(2).使用决策树，分别沿x,y轴划分数据。<br>(3).计算它在每个类别中的概率，然后比较得出结果。<br>第一种方法计算量太大，第二种方法未必会成功，所以很明显我们选第三种方法(我就这么跟着书跑了…)。<br>首先我们要想起一个公式，贝叶斯准则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p(c|x)=p(x|c)p(c)/p(x)</div></pre></td></tr></table></figure></p>
-<p>我们结合上面的问题和贝叶斯准则，我们可以写成以下公式：<br>p(c|x,y):给定某个由xy表示的点，那么这个点来自分类c的概率是多少。<br>那么我们改写上面的定义：<br>如果p(c1|x,y)&gt;p(c2|x,y),那么数据点属于分类c1。<br>如果p(c2|x,y)&gt;p(c1|x,y),那么数据点属于分类c2。</p>
-<p>利用贝叶斯准则，我们就可以计算出我们想得到的结果。<br>介绍完基本的概念，我们就可以到底如何运用上述的知识了。<br>例：使用朴素贝叶斯进行文档归类<br>通过观察文档中的出现的词，并把文档中的词汇的出现或者不出现作为一个特征。<br>第一个假设：特征之间相互独立，即一个特征或单词出现的可能性与其他单词的相邻没有关系。<br>第二个假设：每个特征同等重要。<br>我们仔细考量这两个假设，其实感觉和我们的生活好像有那么些出入。<br>但是这个分类方法的效果却非常好，瑕不掩瑜嘛。</p>
-<p>使用python来进行文档分类<br>要想从文本中获得特征，我们需要先拆分文本。我们的特征来自文本的词条，一个词条是字符的任意组合。<br>我们可以将词条理解为一个个的单词，也可以看作是url，ip和其他字符串。<br>然后将每个文本片段表示为一个文本向量。<br>其中1表示词条出现在文档中，0表示未出现。<br>训练算法<br>通过前面的方法，我们已经将一组单词转换为一组数字，接下来我们看看如何通过这些数字来求概率。<br>我们将贝叶斯准则进行修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p(ci|w)=p(w|ci)p(ci)/p(w)</div></pre></td></tr></table></figure></p>
-<p>其中w是一个向量，由多个值组成。<br>用到我们上面的第二个假设，如果w展开为一个个的独立的特征，那么我们可以这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p(w|ci)=p(w0|ci)p(w1|ci)p(w2|ci)...p(wn|ci)</div></pre></td></tr></table></figure></p>
-<p>代入上述的准则当中，我们就可以很轻易的进行计算了。<br>talk is cheap，I will show you the code：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"> from numpy import *</div><div class="line"> def loaddataset():#加载我们的6个词段，和类别标签，人工标注；</div><div class="line">     postinglist=[[&apos;my&apos;,&apos;dog&apos;,&apos;has&apos;,&apos;flea&apos;,&apos;problems&apos;,&apos;help&apos;,&apos;please&apos;],</div><div class="line">                 [&apos;maybe&apos;,&apos;not&apos;,&apos;take&apos;,&apos;him&apos;,&apos;to&apos;,&apos;dog&apos;,&apos;park&apos;,&apos;stupid&apos;],</div><div class="line">                 [&apos;my&apos;,&apos;dalmation&apos;,&apos;is&apos;,&apos;so&apos;,&apos;cute&apos;,&apos;I&apos;,&apos;love&apos;,&apos;him&apos;],</div><div class="line">                 [&apos;stop&apos;,&apos;posting&apos;,&apos;stupid&apos;,&apos;worthless&apos;,&apos;garbage&apos;],</div><div class="line">                 [&apos;mr&apos;,&apos;licks&apos;,&apos;ate&apos;,&apos;my&apos;,&apos;steak&apos;,&apos;how&apos;,&apos;to&apos;,&apos;stop&apos;,&apos;him&apos;],</div><div class="line">                 [&apos;quit&apos;,&apos;buying&apos;,&apos;worthless&apos;,&apos;dog&apos;,&apos;food&apos;,&apos;stupid&apos;]]</div><div class="line">     classvec=[0,1,0,1,0,1]</div><div class="line">     #1代表侮辱性的文字</div><div class="line">     #0代表正常言论</div><div class="line">     return postinglist,classvec</div><div class="line"> def createvocablist(dataset):#创建一个包含所有文档中不重复词的列表；</div><div class="line">       vocabset=set([])</div><div class="line">       for document in dataset:</div><div class="line">       vocabset=vocabset|set(document)#求并集；</div><div class="line">       return list(vocabset)</div><div class="line"></div><div class="line"> def setofwords2vec(vocalist,inputset):</div><div class="line">       rtnvec=[0]*len(vocalist)</div><div class="line">       #创建一个所含元素都为0的元素；</div><div class="line">       for word in inputset:</div><div class="line">           if word in vocalist:</div><div class="line">               rtnvec[vocalist.index(word)]=1</div><div class="line">           else:</div><div class="line">               print(&quot;the word:%s is not in my vocublary!&quot;%word)</div><div class="line">       return rtnvec</div><div class="line"></div><div class="line"> def bagofwords2vecMN(vocalist,inputset):</div><div class="line">       rtnvec=[0]*len(vocalist)</div><div class="line">       for word in inputset:</div><div class="line">               rtnvec[vocalist.index(word)]+=1</div><div class="line">       return rtnvec</div><div class="line"></div><div class="line">       #将一个输入字符串集表示为一个包含出现频率的向量，</div><div class="line">       # 每当一个词出现一次，那么在对应的位置加一；</div><div class="line"> def trainNB0(trainmatrix,traincategory):</div><div class="line">     numtrainDocs=len(trainmatrix)</div><div class="line">     #使用我们的预设集即为6</div><div class="line">     numwords=len(trainmatrix[0])</div><div class="line">     #我们的预设集的值为32</div><div class="line">     pAbusive=sum(traincategory)/float(numtrainDocs)#计算先验概率；</div><div class="line">     #为了防止当其中一个为0使得最后带的乘积也为0，我们预设所有词出现次数为1，并且将分母初始化为2</div><div class="line">     p0Num=ones(numwords)</div><div class="line">     p1Num=ones(numwords)</div><div class="line">     p0Denom=2.0</div><div class="line">     p1Denom=2.0</div><div class="line">     #以上都是初始化；</div><div class="line">     for i in range(numtrainDocs):</div><div class="line">         if traincategory[i]==1:</div><div class="line">             p1Num+=trainmatrix[i]</div><div class="line">             p1Denom+=sum(trainmatrix[i])</div><div class="line">         else:</div><div class="line">             p0Num+=trainmatrix[i]</div><div class="line">             p0Denom+=sum(trainmatrix[i])</div><div class="line">       #向量相加；</div><div class="line">     #通过上述的向量相加我们就可以统计每个词在所属类别的出现的次数了；</div><div class="line">     p1Vec=log(p1Num/p1Denom)</div><div class="line">     p0Vec=log(p0Num/p0Denom)</div><div class="line">     #每个元素除以该类别中的总词数。</div><div class="line">     #为了避免过多的过小的数相乘产生下溢出，我们取自然对数。</div><div class="line">     return p1Vec,p0Vec,pAbusive</div><div class="line">     #返回两个向量和一个概率；</div><div class="line"></div><div class="line">def classifyNB(vec2Classify,p0Vec,p1Vec,pClass1):</div><div class="line">   p1=sum(vec2Classify*p1Vec)+log(pClass1)</div><div class="line">   p0=sum(vec2Classify*p0Vec)+log(1.0-pClass1)</div><div class="line">   if p1&gt;p0:</div><div class="line">       return 1</div><div class="line">   else:</div><div class="line">       return 0</div><div class="line"></div><div class="line">def testingNB():</div><div class="line">   listOposts,listclasses=loaddataset()</div><div class="line">   #返回每个文档以及其对应的类别</div><div class="line">   myvocablist=createvocablist(listOposts)</div><div class="line">   #构造单词表</div><div class="line">   trainMat=[]</div><div class="line">   for postingdoc in listOposts:</div><div class="line">       trainMat.append(setofwords2vec(myvocablist,postingdoc))</div><div class="line">   #将我们的每个训练文档转化为基于单词表的向量；</div><div class="line">   p1v,p0v,pab=trainNB0(array(trainMat),array(listclasses))</div><div class="line">   testEntry=[&apos;love&apos;,&apos;my&apos;,&apos;dalmation&apos;]</div><div class="line">   thisdoc=array(setofwords2vec(myvocablist,testEntry))</div><div class="line">   print(testEntry,&apos;classified as:&apos;,classifyNB(thisdoc,p0v,p1v,pab))</div><div class="line">   testEntry=[&apos;stupid&apos;,&apos;garbage&apos;]</div><div class="line">   thisdoc=array(setofwords2vec(myvocablist,testEntry))</div><div class="line">   print(testEntry,&apos;classified as:&apos;,classifyNB(thisdoc,p0v,p1v,pab))</div></pre></td></tr></table></figure></p>
-<p>我们将某个词在文档中出现与否当作一个特征，这被描述为词集模型。<br>如果一个词在文档中不止出现一次，这可能意味着包含该词是否出现在该文档中所不能表达的某种信息，这种描述为词袋模型。<br>我们可以将如下函数进行修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def setofwords2vec(vocalist,inputset):</div><div class="line">    rtnvec=[0]*len(vocalist)</div><div class="line">    #创建一个所含元素都为0的元素；</div><div class="line">    for word in inputset:</div><div class="line">        if word in vocalist:</div><div class="line">            rtnvec[vocalist.index(word)]=1</div><div class="line">        else:</div><div class="line">            print(&quot;the word:%s is not in my vocublary!&quot;%word)</div><div class="line">    return rtnvec</div></pre></td></tr></table></figure></p>
-<p>改进后的代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">def bagofwords2vecMN(vocalist,inputset):</div><div class="line">    rtnvec=[0]*len(vocalist)</div><div class="line">    for word in inputset:</div><div class="line">            rtnvec[vocalist.index(word)]+=1</div><div class="line">    return rtnvec</div><div class="line">#将一个输入字符串集表示为一个包含出现频率的向量，</div><div class="line"># 每当一个词出现一次，那么在对应的位置加一；</div></pre></td></tr></table></figure></p>
-<p>我们注意到我们的输入是一个词集，并不是我们生活中的所谓的字符串，我们可以通过以下函数将我们的我们的字符串转换我们<br>可以使用的词集，我们要考虑以下的问题：<br>1.对于文本中的标点符号，并没有使用价值<br>2.文本中的大小写，可能会使我们的学习经验出一些问题.<br>那么我们可以通过以下方式进行解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def textparse(bigstring):</div><div class="line">    import re</div><div class="line">    listoftokens=re.split(r&apos;\W*&apos;,bigstring)</div><div class="line">    return [tok.lower() for tok in listoftokens if len(tok)&gt;1]</div><div class="line">    #通过正则表达式筛去标点符号，然后在将单词所有小写并且去掉空字符串的列表返回；</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/29/学习笔记-朴素贝叶斯/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-我怕忘记-LAMP环境的搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">&lt;我怕忘记&gt; LAMP环境的搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/28/我怕忘记-LAMP环境的搭建/" class="archive-article-date">
-  	<time datetime="2017-11-28T08:49:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我这是在Ubuntu上装的。<br>之前的一个自己的小练手是用wamp，为了迎合潮流，照着网上的试了lamp。<br>废话不多说，直接上步骤：<br>安装过程<br>1.安装apache2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install apache2</div></pre></td></tr></table></figure></p>
-<p>2.安装php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php5</div></pre></td></tr></table></figure></p>
-<p>3.安装mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mysql-server</div><div class="line">sudo apt-get install mysql-client</div></pre></td></tr></table></figure></p>
-<p>4.其他用去粘合的模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libapache2-mod-php5</div><div class="line">sudo apt-get install libapache2-mod-auth-mysql</div><div class="line">sudo apt-get install php5-mysql</div><div class="line">sudo apt-get install php5-gd</div></pre></td></tr></table></figure></p>
-<p>5.检测apache是否正常工作<br>打开浏览器，输入localhost，如果显示了“it works！”,说明成功。<br>6.修改目录文件的权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod 777 /var/www</div></pre></td></tr></table></figure></p>
-<p>7.安装phpadmin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install phpmyadmin</div></pre></td></tr></table></figure></p>
-<p>安装过程的提示框选择apache2，之后的对话框就是配置数据库，输入密码了.<br>然后将myadmin复制到www文件夹进行管理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /usr/share/phpmyadmin /var/www -a</div></pre></td></tr></table></figure></p>
-<p>8.测试phpadmin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/share/phpmyadmin/var/www</div></pre></td></tr></table></figure></p>
-<p>然后运行’<a href="http://localhost/phpmyadmin&#39;是否可以运行。" target="_blank" rel="external">http://localhost/phpmyadmin&#39;是否可以运行。</a><br>配置过程<br>1.启用mod_rewrite模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo a2enmod rewrite</div></pre></td></tr></table></figure></p>
-<p>接下来会提示重启阿帕奇才可以保存设置，那么我们就重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/apache2 restart</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service apache2 restart</div></pre></td></tr></table></figure></p>
-<p>2.设置apache支持我们的文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apache2/apache2/conf&amp;</div></pre></td></tr></table></figure></p>
-<p>打开编辑器，输入以下文本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AddType application/x-httpd-php.php.htm.html</div></pre></td></tr></table></figure></p>
-<p>3.测试我们的后台php<br>文件还是我们的www文件夹里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$link = mysql_connect(&quot;localhost&quot;, &quot;root&quot;, &quot;password&quot;);</div><div class="line">if(!$link)</div><div class="line">  die(&apos;Could not connect: &apos; . mysql_error());</div><div class="line">else</div><div class="line">  echo &quot;Mysql ok!&quot;;</div><div class="line">mysql_close($link);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>然后访问我们的页面就好。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-随笔-NASA编写代码的十条规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/24/随笔-NASA编写代码的十条规则/">&lt;随笔&gt; NASA编写代码的十条规则</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/24/随笔-NASA编写代码的十条规则/" class="archive-article-date">
-  	<time datetime="2017-11-24T07:01:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天复习java，突然看到了一篇博文，那就终止复习记下来吧。<br>文章介绍了美国宇航局喷气推进实验室首席科学家G.Holzmann提出的，侧重与安全系数的十条代码编写的基本原则。<br>原则一.简化控制流程<br>原则二.为循环使用固定的次数上限<br>原则三.不使用动态内存分配<br>原则四.不使用冗长的函数<br>原则五.低断言密度<br>原则六.以最小返回级别声明数据对象<br>原则七.检查参数与返回值<br>原则八.限制预处理程序的使用<br>原则九.限制指针的使用<br>原则十.编译所有代码</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/24/随笔-NASA编写代码的十条规则/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-各种消息下的wParam与lParam的含义总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" class="archive-article-date">
-  	<time datetime="2017-11-17T07:55:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。<br>1.WM_PAINT消息：<br>LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。<br>2.滚动条消息,<br>WM_VSCROLL和WM_HSCROLL：<br>LOWORD(wParam)指出了鼠标对滚动条的各种操作。<br>3.击键消息,<br>WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KEYDOWN:<br>wParam为虚拟键代码,lParam包含一些关于击键的其他消息。<br>4.子符消息，<br>WM_CHAR,WM_DEADCHAR,WM_SYSCHAR,WM_SYSDEADCHAR:<br>wParam为ASCII或Unicode的字符代码，lParam是包含关于击键的其他消息。<br>5.客户区鼠标消息，<br>WM_LBUTTONDOWN、WM_LBUTTONUP、WM_RBUTTONDOWN、WM_RBUTTONUP、WM_MBUTTONDOWN、WM_MBUTTONUP:<br>lParam参数的低位是鼠标在客户区的x坐标，高位是客户区的y坐标，<br>wParam参数是指示鼠标键  以及CTRL和shift键的状态。<br>wParam&amp;MK_SHIFT或者wParam&amp;MK_CTRL,如果返回值为true，就意味着对应的按键按下了。<br>6.非客户区的消息：<br>wParam参数指明了移动或点击了鼠标的非客户区位置，以HT开头，<br>lParam参数的低位则指明了屏幕坐标的横坐标，高位指明了鼠标在屏幕上的纵坐标。<br>7.鼠标滚轮消息，<br>WM_MOUSEWHEEL：<br>lParam获得鼠标的坐标位置，<br>wParam参数的低位则表明了ctrl和shift键的状态。<br>wParam参数的高位有一个“delta”值，该值可正可负，指出了滚轮的活动使屏幕滚动了几行。<br>8.计时器消息，<br>WM_TIMER:<br>wParam参数是计时器的id，lparam的值为0.<br>9.按钮子窗口的WM_COMMAND消息：<br>wParam参数低位是子窗口的id，高位是通知码，<br>lParam是子窗口的handle。<br>10.焦点消息，<br>对于正在失去焦点的窗口，会收到WM_KILLFOCUS消息：<br>wParam是即将接受输入焦点的窗口的handle，<br>对于即将获得焦点的窗口，会收到WM_SETFOCUS消息：<br>wParam是即将失去焦点的窗口的handle。<br>11.编辑控制的WM_COMMAND消息：<br>wParam参数的低位是子窗口的id，高位是通知码，<br>lParam参数是子窗口的handle。<br>12.列表框的WM_COMMAND消息：<br>wParam参数的低位是子窗口ID，高位是通知码，<br>lParam参数是子窗口handle。<br>13.菜单消息，<br>WM_INITMENU消息：<br>wParam为主菜单的handle，lParam是0.<br>WM_MENUSELECTX消息：<br>菜单跟踪消息，向窗口发送指针移动过程的消息，<br>wParam参数的低位是选中项菜单的id或者弹出式菜单的handle，高位是选择标识，<br>lParam参数是包含选中项的菜单的句柄。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -705,9 +234,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
