@@ -145,6 +145,54 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-各种消息下的wParam与lParam的含义总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" class="archive-article-date">
+  	<time datetime="2017-11-17T07:55:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。<br>1.WM_PAINT消息：<br>LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。<br>2.滚动条消息,<br>WM_VSCROLL和WM_HSCROLL：<br>LOWORD(wParam)指出了鼠标对滚动条的各种操作。<br>3.击键消息,<br>WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KEYDOWN:<br>wParam为虚拟键代码,lParam包含一些关于击键的其他消息。<br>4.子符消息，<br>WM_CHAR,WM_DEADCHAR,WM_SYSCHAR,WM_SYSDEADCHAR:<br>wParam为ASCII或Unicode的字符代码，lParam是包含关于击键的其他消息。<br>5.客户区鼠标消息，<br>WM_LBUTTONDOWN、WM_LBUTTONUP、WM_RBUTTONDOWN、WM_RBUTTONUP、WM_MBUTTONDOWN、WM_MBUTTONUP:<br>lParam参数的低位是鼠标在客户区的x坐标，高位是客户区的y坐标，<br>wParam参数是指示鼠标键  以及CTRL和shift键的状态。<br>wParam&amp;MK_SHIFT或者wParam&amp;MK_CTRL,如果返回值为true，就意味着对应的按键按下了。<br>6.非客户区的消息：<br>wParam参数指明了移动或点击了鼠标的非客户区位置，以HT开头，<br>lParam参数的低位则指明了屏幕坐标的横坐标，高位指明了鼠标在屏幕上的纵坐标。<br>7.鼠标滚轮消息，<br>WM_MOUSEWHEEL：<br>lParam获得鼠标的坐标位置，<br>wParam参数的低位则表明了ctrl和shift键的状态。<br>wParam参数的高位有一个“delta”值，该值可正可负，指出了滚轮的活动使屏幕滚动了几行。<br>8.计时器消息，<br>WM_TIMER:<br>wParam参数是计时器的id，lparam的值为0.<br>9.按钮子窗口的WM_COMMAND消息：<br>wParam参数低位是子窗口的id，高位是通知码，<br>lParam是子窗口的handle。<br>10.焦点消息，<br>对于正在失去焦点的窗口，会收到WM_KILLFOCUS消息：<br>wParam是即将接受输入焦点的窗口的handle，<br>对于即将获得焦点的窗口，会收到WM_SETFOCUS消息：<br>wParam是即将失去焦点的窗口的handle。<br>11.编辑控制的WM_COMMAND消息：<br>wParam参数的低位是子窗口的id，高位是通知码，<br>lParam参数是子窗口的handle。<br>12.列表框的WM_COMMAND消息：<br>wParam参数的低位是子窗口ID，高位是通知码，<br>lParam参数是子窗口handle。<br>13.菜单消息，<br>WM_INITMENU消息：<br>wParam为主菜单的handle，lParam是0.<br>WM_MENUSELECTX消息：<br>菜单跟踪消息，向窗口发送指针移动过程的消息，<br>wParam参数的低位是选中项菜单的id或者弹出式菜单的handle，高位是选择标识，<br>lParam参数是包含选中项的菜单的句柄。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-学习笔记-决策树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -581,54 +629,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/10/05/学习笔记-迪克斯彻算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-线性查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个算法解决问题一般是选取一个序列的第k小哥元素，那么我们很容易想到，当我们将n个数排序好以后，那么排在第k个位置的即为我们要找的元素。<br>通过算法学家们的研究，可以很巧妙的做到即使是最坏情况下，依然可以再线性时间内完成。<br>这种方法的步骤是：<br>1.将这n个每5个一组，不够5个的剩下的元素再组成一组。<br>2.取出每一组的中位数，采取任意排序方法，进行排序。<br>3.递归调用函数查找上一步中的所有中位数的中位数，设为x。<br>4.用x来分割数组，设小于x的个数为k，大于x的个数n-k。<br>5.若i与x相等，那么返回x；若i小于k，那么在小于x的元素中继续递归查找，否则反之。<br>6.当n等于1时，我们终止算法，返回元素即为所求。<br>依据我们的步骤，很轻易就写出代码了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void myswap(T &amp;a, T &amp;b) &#123;    //交换元素；</div><div class="line">  T temp;</div><div class="line">  temp = a;</div><div class="line">  a = b;</div><div class="line">  b = temp;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">T partition(T list[], int a, int b, int x) &#123;    //划分方法；</div><div class="line">  int i = a;  </div><div class="line">  int j = b + 1;</div><div class="line">  while (true) &#123;</div><div class="line">    while (list[++i]&lt;x&amp;&amp;i&lt;b);</div><div class="line">    while (list[--j]&gt;x);</div><div class="line">    if (i &gt;= j)break;</div><div class="line">    myswap(list[i], list[j]);</div><div class="line">  &#125;</div><div class="line">  list[a] = list[j];</div><div class="line">  list[j] = x;</div><div class="line">  return j;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">void bablesort(T list[], int size) &#123;</div><div class="line">  for (int p = 0; p&lt;size; p++) &#123;      //冒泡排序；</div><div class="line">    for (int q = p + 1; q&lt;size; q++) &#123;</div><div class="line">      if (list[q]&lt;list[p]) &#123;</div><div class="line">        myswap(list[q], list[p]);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">T select(T list[], int a, int b, int k) &#123;   //核心方法；</div><div class="line">  if (b ==a) &#123;     //当只有一个元素时，返回此时的值即为所寻值；</div><div class="line">    return list[a];</div><div class="line">  &#125;</div><div class="line">  int groupnum = (b - a + 1) / 5;    //每5个元素一组，分的组数；不包括不足5个的那一组；</div><div class="line">  int restnumb = (b - a + 1) % 5;    //5元组划分完毕后剩下的元素；</div><div class="line">  for (int i = 0; i &lt;groupnum; i++) &#123;</div><div class="line">    bablesort(list+a+i*5,5);         //对每个5元组进行排序；</div><div class="line">  &#125;</div><div class="line">  if (restnumb != 0) &#123;</div><div class="line">    bablesort(list+a+groupnum*5,restnumb);  //对剩下的元素进行排序；</div><div class="line">  &#125;</div><div class="line">  T *mids;                           //new一个数组来储存我们在每组中找到的中位数；</div><div class="line">  if (restnumb == 0) &#123;</div><div class="line">    mids = new T[groupnum];          </div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    mids = new T[groupnum+1];        //有剩余元素的情况要多一组；</div><div class="line">  &#125;</div><div class="line">  for (int i = 0; i &lt; groupnum; i++) &#123;</div><div class="line">    mids[i] = list[a+i*5+2];         //将中位数放入数组中；</div><div class="line">  &#125;</div><div class="line">  if (restnumb != 0) &#123;</div><div class="line">    mids[groupnum] = list[a+groupnum*5+(restnumb-1)/2];  </div><div class="line">  &#125;</div><div class="line">  T x;</div><div class="line">  if(restnumb==0)&#123;                     //利用递归找中位数的中位数；</div><div class="line">    x = select(mids, 0, groupnum-1, (groupnum-1)/2+1);</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    x = select(mids, 0, groupnum, (groupnum) / 2 + 1);</div><div class="line">  &#125;</div><div class="line">  delete[]mids;                       //释放我们的临时空间mids；</div><div class="line">  int i = partition(list, a, b,x);    //以x为划分基准；</div><div class="line">  int j = i + 1 - a;</div><div class="line">  if (k &lt;= j) &#123;</div><div class="line">    return select(list, a, i, k);     //左子串递归搜寻第k小；</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    return select(list, i + 1, b, k - j);</div><div class="line">  &#125;                                   //右子串递归搜寻第k-j小，即为整个串的第k小；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/学习笔记-线性查找算法/">展开全文 >></a>
         </p>
       
 
