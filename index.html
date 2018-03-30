@@ -145,6 +145,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-leetcode-Complex-Number-Multiplication" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/30/leetcode-Complex-Number-Multiplication/">&lt;leetcode&gt; Complex Number Multiplication</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/30/leetcode-Complex-Number-Multiplication/" class="archive-article-date">
+  	<time datetime="2018-03-30T06:59:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>因为这道题让我想起了编译里的词法分析，所以记下来吧。<br>题目描述：<br>Given two strings representing two complex numbers.<br>You need to return a string representing their multiplication. Note i2 = -1 according to the definition.<br>Example 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Input: &quot;1+1i&quot;, &quot;1+1i&quot;</div><div class="line">Output: &quot;0+2i&quot;</div><div class="line">Explanation: (1 + i) * (1 + i) = 1 + i2 + 2 * i = 2i, and you need convert it to the form of 0+2i.</div></pre></td></tr></table></figure></p>
+<p>Example 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Input: &quot;1+-1i&quot;, &quot;1+-1i&quot;</div><div class="line">Output: &quot;0+-2i&quot;</div><div class="line">Explanation: (1 - i) * (1 - i) = 1 + i2 - 2 * i = -2i, and you need convert it to the form of 0+-2i.</div></pre></td></tr></table></figure></p>
+<p>Note:<br>The input strings will not have extra blank.<br>The input strings will be given in the form of a+bi, where the integer a and b will both belong to the range of [-100, 100]. And the output should be also in this form.<br>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">#include&lt;sstream&gt;</div><div class="line">#include&lt;string&gt;</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    string complexNumberMultiply(string a, string b) &#123;</div><div class="line">        int a1,ai,b1,bi;</div><div class="line">        int *pa=getnum(a);</div><div class="line">        int *pb=getnum(b);</div><div class="line">        a1=pa[0];ai=pa[1];</div><div class="line">        b1=pb[0];bi=pb[1];</div><div class="line">        int ans1=a1*b1-ai*bi;</div><div class="line">        int ansi=a1*bi+ai*b1;</div><div class="line"></div><div class="line">        stringstream ss;</div><div class="line">        ss&lt;&lt;ans1;</div><div class="line">        string str1;</div><div class="line">        ss&gt;&gt;str1;</div><div class="line"></div><div class="line">        ss.clear();</div><div class="line">        ss&lt;&lt;ansi;</div><div class="line">        string stri;</div><div class="line">        ss&gt;&gt;stri;</div><div class="line">        return str1+&apos;+&apos;+stri+&apos;i&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    int* getnum(string s)&#123;</div><div class="line">        int s1,si;</div><div class="line">        const char *p=s.data();</div><div class="line">        int sf=0;</div><div class="line">        int temp=0;</div><div class="line">        bool flag1=false,flagi=false;</div><div class="line">        while(*p!=&apos;\0&apos;)&#123;</div><div class="line">            if(*p==&apos;-&apos;&amp;&amp;sf==0)&#123;</div><div class="line">                flag1=true;</div><div class="line">            &#125;</div><div class="line">            if(*p==&apos;-&apos;&amp;&amp;sf!=0)&#123;</div><div class="line">                flagi=true;</div><div class="line">            &#125;</div><div class="line">            if(*p&gt;=&apos;0&apos;&amp;&amp;*p&lt;=&apos;9&apos;)&#123;</div><div class="line">                temp=temp*10+(*p-48);</div><div class="line">            &#125;</div><div class="line">            if(*p==&apos;+&apos;)&#123;</div><div class="line">                s1=temp;</div><div class="line">                temp=0;</div><div class="line">            &#125;</div><div class="line">            if(*p==&apos;i&apos;)&#123;</div><div class="line">                si=temp;</div><div class="line">            &#125;</div><div class="line">            sf++;</div><div class="line">            p++;</div><div class="line">        &#125;</div><div class="line">        if(flag1)&#123;</div><div class="line">            s1=-s1;</div><div class="line">        &#125;</div><div class="line">        if(flagi)&#123;</div><div class="line">            si=-si;</div><div class="line">        &#125;</div><div class="line">        int *ans=new int[2];</div><div class="line">        ans[0]=s1;</div><div class="line">        ans[1]=si;</div><div class="line">        return ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/30/leetcode-Complex-Number-Multiplication/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="w-学习笔记-AdaBoost元算法" class="article article-type-w  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/30/学习笔记-AdaBoost元算法/">&lt;学习笔记&gt; AdaBoost元算法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/30/学习笔记-AdaBoost元算法/" class="archive-article-date">
+  	<time datetime="2018-03-30T03:38:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>元算法就是对其他算法进行组合的一种方式。<br>bagging方法：自举汇聚法，从原始数据中选择s次之后得到s个新数据的技术。新数据集和原数据集的<br>大小相等。每个新数据集中的数据都是通过在原数据集随机选择来进行替换得到的。<br>boosting方法：类似bagging，boosting不同分类器权重不同，而bagging相同。<br>adaboosting运行过程：<br>训练数据中的每个样本，并赋予一个权重，这些权重构成了向量D。一开始，这些权重都初始化为相等的值。<br>首先在训练中训练出一个弱分类器并计算该分类器的错误率，然后再同一个数据集上再次训练弱分类器。<br>在分类器的第二次训练当中，将会调整每个样本的权重，第一次分对的样本的权重降低，分错的权重升高。<br>为了从所有的弱分类器中获得最终的分类结果，adaboosting为每个分类器都分配了一个权重alpha，<br>这些alpha值是基于每个弱分类器的错误率进行计算的。<br>错误率e就是分类错样本数目的和总样本数目的比值。<br>alpha的计算公式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">α=1/2ln(1/e-1)</div></pre></td></tr></table></figure></p>
+<p>adaboosting算法的流程可以用下面的图表示：<br><img src="images/mypic9.png" alt=""><br>计算出alpha值之后，就要对我们的向量D进行更新，D的计算方式如下：<br><img src="images.mypic10.png" alt=""><br>计算出D之后，算法开始下一轮迭代，就这样不断重复训练调整权重，边界就是训练错误率为0或者<br>弱分类器的个数达到指定的值为止。</p>
+<p>基于单层决策树构建弱分类器<br>之前已经接触过了决策树，那么单层决策树就是仅基于单个特征，只有一个分叉过程，也叫做决策树桩。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def loadimpdata():</div><div class="line">    datamat=matrix([</div><div class="line">        [1.,2.1],</div><div class="line">        [2.,1.1],</div><div class="line">        [1.3,1.],</div><div class="line">        [1.,1.],</div><div class="line">        [2.,1.]])</div><div class="line">    classlabels=[1.0,1.0,-1.0,-1.0,1.0]</div><div class="line">    return datamat,classlabels</div></pre></td></tr></table></figure></p>
+<p>上面是我们构造的数据集，将datamat中的数对放入我们的坐标轴，如果想要找到一条平行与坐标轴的直线来将所有的<br>1型和-1型分开，显然不可能。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/30/学习笔记-AdaBoost元算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="w-学习笔记-核函数" class="article article-type-w  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -575,119 +676,9 @@
 
 
   
-    <article id="post-我怕忘记-LAMP环境的搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">&lt;我怕忘记&gt; LAMP环境的搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/28/我怕忘记-LAMP环境的搭建/" class="archive-article-date">
-  	<time datetime="2017-11-28T08:49:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我这是在Ubuntu上装的。<br>之前的一个自己的小练手是用wamp，为了迎合潮流，照着网上的试了lamp。<br>废话不多说，直接上步骤：<br>安装过程<br>1.安装apache2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install apache2</div></pre></td></tr></table></figure></p>
-<p>2.安装php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php5</div></pre></td></tr></table></figure></p>
-<p>3.安装mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mysql-server</div><div class="line">sudo apt-get install mysql-client</div></pre></td></tr></table></figure></p>
-<p>4.其他用去粘合的模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libapache2-mod-php5</div><div class="line">sudo apt-get install libapache2-mod-auth-mysql</div><div class="line">sudo apt-get install php5-mysql</div><div class="line">sudo apt-get install php5-gd</div></pre></td></tr></table></figure></p>
-<p>5.检测apache是否正常工作<br>打开浏览器，输入localhost，如果显示了“it works！”,说明成功。<br>6.修改目录文件的权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod 777 /var/www</div></pre></td></tr></table></figure></p>
-<p>7.安装phpadmin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install phpmyadmin</div></pre></td></tr></table></figure></p>
-<p>安装过程的提示框选择apache2，之后的对话框就是配置数据库，输入密码了.<br>然后将myadmin复制到www文件夹进行管理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /usr/share/phpmyadmin /var/www -a</div></pre></td></tr></table></figure></p>
-<p>8.测试phpadmin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/share/phpmyadmin/var/www</div></pre></td></tr></table></figure></p>
-<p>然后运行’<a href="http://localhost/phpmyadmin&#39;是否可以运行。" target="_blank" rel="external">http://localhost/phpmyadmin&#39;是否可以运行。</a><br>配置过程<br>1.启用mod_rewrite模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo a2enmod rewrite</div></pre></td></tr></table></figure></p>
-<p>接下来会提示重启阿帕奇才可以保存设置，那么我们就重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/apache2 restart</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service apache2 restart</div></pre></td></tr></table></figure></p>
-<p>2.设置apache支持我们的文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apache2/apache2/conf&amp;</div></pre></td></tr></table></figure></p>
-<p>打开编辑器，输入以下文本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AddType application/x-httpd-php.php.htm.html</div></pre></td></tr></table></figure></p>
-<p>3.测试我们的后台php<br>文件还是我们的www文件夹里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$link = mysql_connect(&quot;localhost&quot;, &quot;root&quot;, &quot;password&quot;);</div><div class="line">if(!$link)</div><div class="line">  die(&apos;Could not connect: &apos; . mysql_error());</div><div class="line">else</div><div class="line">  echo &quot;Mysql ok!&quot;;</div><div class="line">mysql_close($link);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>然后访问我们的页面就好。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/28/我怕忘记-LAMP环境的搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-随笔-NASA编写代码的十条规则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/24/随笔-NASA编写代码的十条规则/">&lt;随笔&gt; NASA编写代码的十条规则</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/24/随笔-NASA编写代码的十条规则/" class="archive-article-date">
-  	<time datetime="2017-11-24T07:01:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天复习java，突然看到了一篇博文，那就终止复习记下来吧。<br>文章介绍了美国宇航局喷气推进实验室首席科学家G.Holzmann提出的，侧重与安全系数的十条代码编写的基本原则。<br>原则一.简化控制流程<br>原则二.为循环使用固定的次数上限<br>原则三.不使用动态内存分配<br>原则四.不使用冗长的函数<br>原则五.低断言密度<br>原则六.以最小返回级别声明数据对象<br>原则七.检查参数与返回值<br>原则八.限制预处理程序的使用<br>原则九.限制指针的使用<br>原则十.编译所有代码</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/24/随笔-NASA编写代码的十条规则/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 

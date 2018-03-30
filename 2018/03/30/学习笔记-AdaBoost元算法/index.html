@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Zeros</title>
+  <title>&lt;学习笔记&gt; AdaBoost元算法 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+  <meta name="description" content="元算法就是对其他算法进行组合的一种方式。bagging方法：自举汇聚法，从原始数据中选择s次之后得到s个新数据的技术。新数据集和原数据集的大小相等。每个新数据集中的数据都是通过在原数据集随机选择来进行替换得到的。boosting方法：类似bagging，boosting不同分类器权重不同，而bagging相同。adaboosting运行过程：训练数据中的每个样本，并赋予一个权重，这些权重构成了向量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; AdaBoost元算法">
+<meta property="og:url" content="http://yoursite.com/2018/03/30/学习笔记-AdaBoost元算法/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="元算法就是对其他算法进行组合的一种方式。bagging方法：自举汇聚法，从原始数据中选择s次之后得到s个新数据的技术。新数据集和原数据集的大小相等。每个新数据集中的数据都是通过在原数据集随机选择来进行替换得到的。boosting方法：类似bagging，boosting不同分类器权重不同，而bagging相同。adaboosting运行过程：训练数据中的每个样本，并赋予一个权重，这些权重构成了向量">
+<meta property="og:image" content="http://yoursite.com/2018/03/30/学习笔记-AdaBoost元算法/images/mypic9.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/30/学习笔记-AdaBoost元算法/images.mypic10.png">
+<meta property="og:updated_time" content="2018-03-30T05:15:19.221Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; AdaBoost元算法">
+<meta name="twitter:description" content="元算法就是对其他算法进行组合的一种方式。bagging方法：自举汇聚法，从原始数据中选择s次之后得到s个新数据的技术。新数据集和原数据集的大小相等。每个新数据集中的数据都是通过在原数据集随机选择来进行替换得到的。boosting方法：类似bagging，boosting不同分类器权重不同，而bagging相同。adaboosting运行过程：训练数据中的每个样本，并赋予一个权重，这些权重构成了向量">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/30/学习笔记-AdaBoost元算法/images/mypic9.png">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,32 +150,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-编译原理-NFA确定化与DFA最小化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="w-学习笔记-AdaBoost元算法" class="article article-type-w " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; AdaBoost元算法
     </h1>
   
 
         
-        <a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
+        <a href="/2018/03/30/学习笔记-AdaBoost元算法/" class="archive-article-date">
+  	<time datetime="2018-03-30T03:38:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>NFA确定化<br>定理：对于一个给定的非确定的有限自动机，一定存在一个确定的有限自动机，是这两个有限自动机所识别的语言相同。<br>因此，我们可以由非确定的有限自动机构造与其等价的确定的有限自动机，也称为有限自动机的确定化。<br>构造的方法为：<br>用确定的有限自动机的一个状态对应不确定的有限自动机的多个状态。这种方法称为子集构造法。<br>在我们学习这种构造法之前，首先要了解两个定义。<br>1.ε-闭包<br>设非确定的有限自动机M=(∑，S,S0,Z,f),假设I为M的状态集S的一个子集，则定义：<br>ε-closure(I):<br>a.若q∈I, 则q∈ ε-closure(I)；<br>b.若q∈I，则对任意q’∈f(q,ε),有q’∈ε-closure(I)；<br>2.集合Ia的闭包<br>设非确定的有限自动机M=(Q,∑,f,q0,Z)，假定I属于Q，a∈∑，则定义Ia=ε-closure({p∈f(q,a)|q∈ε-closure(I)})，<br>通俗的讲，就是从I的ε-闭包出发，经过一条a弧而到达的状态集的闭包。<br>非确定的有限自动机的确定化算法——子集法。<br>1.若p为NFA初态，则DFA的初态A为ε-closure({p})。<br>2.若q为已生成的状态，对NFA的每一个弧进行标记，那么求ε-closure(f(q,m))。如果所求集合不为空，那么继续重复这一过程，直到不在出现新的集合。<br>DFA最小化<br>说在前面：<br>1.无关状态<br>如果从DFA的初态开始，识别任何输入序列都不能到达的那些状态称为无关状态。<br>2.最小的确定的有限自动机<br>如果确定的有限自动机既没有多余的状态，又没有互相等价的状态，即称为确定的有限自动机为最小的。<br>3.等价状态<br>设DFA的两个不同状态，如果对于任何输入序列从这两个状态出发，总是同时到达接受状态或拒绝状态，则称这两个状态为等价的。<br>确定的的有限自动机的最小化步骤：<br>1.消除无关状态<br>主要包含两种情况，第一种从该自动机的开始状态出发，输入任何输入串都不能到达的那个状态；<br>第二种是从某个状态出发都不能到达终结状态的道路。<br>2.消除等价状态<br>消除等价状态采用划分法。就是将已经去掉无关状态的DFA的状态分为一些不相关的子集。<br>一般第一步将终结状态与非终结状态进行基本划分，<br>接下来根据状态转换矩阵进行划分，对于两个状态来说，分别分析对于不同输入，如果他们到达的状态分属不同的子集中(上一步划分的集合)，那么就可以将它们分在不同的子集中，<br>对已划分的子集重复上述过程，最终所有子集中的状态全部等价，即可。</p>
+        <p>元算法就是对其他算法进行组合的一种方式。<br>bagging方法：自举汇聚法，从原始数据中选择s次之后得到s个新数据的技术。新数据集和原数据集的<br>大小相等。每个新数据集中的数据都是通过在原数据集随机选择来进行替换得到的。<br>boosting方法：类似bagging，boosting不同分类器权重不同，而bagging相同。<br>adaboosting运行过程：<br>训练数据中的每个样本，并赋予一个权重，这些权重构成了向量D。一开始，这些权重都初始化为相等的值。<br>首先在训练中训练出一个弱分类器并计算该分类器的错误率，然后再同一个数据集上再次训练弱分类器。<br>在分类器的第二次训练当中，将会调整每个样本的权重，第一次分对的样本的权重降低，分错的权重升高。<br>为了从所有的弱分类器中获得最终的分类结果，adaboosting为每个分类器都分配了一个权重alpha，<br>这些alpha值是基于每个弱分类器的错误率进行计算的。<br>错误率e就是分类错样本数目的和总样本数目的比值。<br>alpha的计算公式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">α=1/2ln(1/e-1)</div></pre></td></tr></table></figure></p>
+<p>adaboosting算法的流程可以用下面的图表示：<br><img src="images/mypic9.png" alt=""><br>计算出alpha值之后，就要对我们的向量D进行更新，D的计算方式如下：<br><img src="images.mypic10.png" alt=""><br>计算出D之后，算法开始下一轮迭代，就这样不断重复训练调整权重，边界就是训练错误率为0或者<br>弱分类器的个数达到指定的值为止。</p>
+<p>基于单层决策树构建弱分类器<br>之前已经接触过了决策树，那么单层决策树就是仅基于单个特征，只有一个分叉过程，也叫做决策树桩。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def loadimpdata():</div><div class="line">    datamat=matrix([</div><div class="line">        [1.,2.1],</div><div class="line">        [2.,1.1],</div><div class="line">        [1.3,1.],</div><div class="line">        [1.,1.],</div><div class="line">        [2.,1.]])</div><div class="line">    classlabels=[1.0,1.0,-1.0,-1.0,1.0]</div><div class="line">    return datamat,classlabels</div></pre></td></tr></table></figure></p>
+<p>上面是我们构造的数据集，将datamat中的数对放入我们的坐标轴，如果想要找到一条平行与坐标轴的直线来将所有的<br>1型和-1型分开，显然不可能。</p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -177,464 +206,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/30/学习笔记-AdaBoost元算法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-学习笔记-迪克斯彻算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
+<nav id="article-nav">
+  
+    <a href="/2018/03/30/leetcode-Complex-Number-Multiplication/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
+          &lt;leetcode&gt; Complex Number Multiplication
         
-        <a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Dijkstra是荷兰科学家艾兹格.迪科斯彻发明的。这个算法解决的是有向单源最短路径问题。<br>这个算法的核心思想是贪心算法。也就是每一步都做出当前看似最好的选择。不从整体上优先考虑，仅作一种局部的最优解。<br>结合我们的贪心的思想和我们的问题来分析构造我们的算法。<br>初始时，原点的路径长度值赋值为0，同时把其他顶点的路径长度设置为无穷大(就是很大很大嘛),也就是表示一开始我们并不知道如何<br>从原点到达其他顶点的路径。当我们计算完成后，一方面得到从起点到终点的最短路径，如果路径不存在的话那么则得到无穷大的答案。<br>通过贪心选择，如果存在一个中间顶点到另一个中间顶点的路径，那么我们可以通过将这条路径添加到起点到第一个中间顶点的尾部，构成一条<br>更长的路径，如果这个值比目前已知的路径的长度要小，那么我们就要用新的值来代替旧的值，贪心的选择当前最短的路径。这个操作一直执行到<br>我们的第二个中间顶点变为终点，那么我们的答案就得到了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;cstring&gt;</div><div class="line">using namespace std;</div><div class="line">const int MAXL = 10000;//假想的无穷大；</div><div class="line">const int MAXN=2505;</div><div class="line">int co[MAXN][MAXN];</div><div class="line">void dkst(int n,int v,int dist[],int prev[],int c[][MAXN]) &#123;</div><div class="line">	//dist存储从原点到某个顶点的最短路径；</div><div class="line">	//c存储从某个顶点到另一个顶点的权；</div><div class="line">	//prev存储从原点到到顶点的最短路径上的前一个顶点；</div><div class="line">	//s为了区分两个集合；</div><div class="line">	//初始化；</div><div class="line">	bool s[MAXN];//区分集合；</div><div class="line">	for (int i = 1; i &lt;= n; i++) &#123;</div><div class="line">		dist[i] = c[v][i];//从起点到顶点i的最短路径初始化；</div><div class="line">		s[i] = false;//添加入未计算过集合；</div><div class="line">		if (dist[i] == MAXL) &#123;</div><div class="line">			prev[i] = 0;//如果从原点到某顶点没有直接路径；</div><div class="line">							//前顶点初始化为0；</div><div class="line">		&#125;</div><div class="line">		else &#123;</div><div class="line">			prev[i] = v;//前顶点初始化为原点；</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	dist[v] = 0;//从原点到原点长度为0啊；</div><div class="line">	s[v] = true;//将原点放入已计算顶点集；</div><div class="line">	for (int i = 1; i &lt; n; i++) &#123;</div><div class="line">		int t = MAXL;//先初始化为无穷大；</div><div class="line">		int u = v;</div><div class="line">		for (int j = 1; j &lt;= n; j++) &#123;</div><div class="line">			if ((!s[j]) &amp;&amp; (dist[j] &lt; t)) &#123;//如果顶点j未计算且找到了到顶点j的更短的路径；</div><div class="line">				u = j;</div><div class="line">				t = dist[j];//到顶点j的距离更新;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">        s[u] = true;//将顶点u放入已计算顶点集；</div><div class="line">		for (int j = 1; j &lt;= n; j++) &#123;</div><div class="line">			if ((!s[j]) &amp;&amp; (c[u][j] &lt; MAXL)) &#123;</div><div class="line">				int newdist = dist[u] + c[u][j];</div><div class="line">				if (newdist &lt; dist[j]) &#123;//更新最短路径长度；</div><div class="line">					dist[j] = newdist;</div><div class="line">					prev[j] = u;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">	int t, c, ts, te;</div><div class="line">	cin &gt;&gt; t &gt;&gt; c &gt;&gt; ts &gt;&gt; te;</div><div class="line">    memset(co,MAXL,sizeof(co));</div><div class="line">	for (int i = 1; i &lt;= c; i++) &#123;</div><div class="line">		int rs, re, ci;</div><div class="line">    cin&gt;&gt;rs&gt;&gt;re&gt;&gt;ci;</div><div class="line">		co[rs][re] = ci;</div><div class="line">    co[re][rs] = ci;//双向道路就要这么初始化；</div><div class="line">	&#125;</div><div class="line">	int dist[MAXN];</div><div class="line">	int prev[MAXN];</div><div class="line">	dkst(t,ts,dist,prev,co);</div><div class="line">	cout &lt;&lt; dist[te] &lt;&lt; endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/学习笔记-迪克斯彻算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
+      </div>
+    </a>
   
-    <article id="post-学习笔记-线性查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
+    <a href="/2018/03/21/学习笔记-核函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt; 核函数</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-
-        
-        <a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个算法解决问题一般是选取一个序列的第k小哥元素，那么我们很容易想到，当我们将n个数排序好以后，那么排在第k个位置的即为我们要找的元素。<br>通过算法学家们的研究，可以很巧妙的做到即使是最坏情况下，依然可以再线性时间内完成。<br>这种方法的步骤是：<br>1.将这n个每5个一组，不够5个的剩下的元素再组成一组。<br>2.取出每一组的中位数，采取任意排序方法，进行排序。<br>3.递归调用函数查找上一步中的所有中位数的中位数，设为x。<br>4.用x来分割数组，设小于x的个数为k，大于x的个数n-k。<br>5.若i与x相等，那么返回x；若i小于k，那么在小于x的元素中继续递归查找，否则反之。<br>6.当n等于1时，我们终止算法，返回元素即为所求。<br>依据我们的步骤，很轻易就写出代码了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void myswap(T &amp;a, T &amp;b) &#123;    //交换元素；</div><div class="line">  T temp;</div><div class="line">  temp = a;</div><div class="line">  a = b;</div><div class="line">  b = temp;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">T partition(T list[], int a, int b, int x) &#123;    //划分方法；</div><div class="line">  int i = a;  </div><div class="line">  int j = b + 1;</div><div class="line">  while (true) &#123;</div><div class="line">    while (list[++i]&lt;x&amp;&amp;i&lt;b);</div><div class="line">    while (list[--j]&gt;x);</div><div class="line">    if (i &gt;= j)break;</div><div class="line">    myswap(list[i], list[j]);</div><div class="line">  &#125;</div><div class="line">  list[a] = list[j];</div><div class="line">  list[j] = x;</div><div class="line">  return j;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">void bablesort(T list[], int size) &#123;</div><div class="line">  for (int p = 0; p&lt;size; p++) &#123;      //冒泡排序；</div><div class="line">    for (int q = p + 1; q&lt;size; q++) &#123;</div><div class="line">      if (list[q]&lt;list[p]) &#123;</div><div class="line">        myswap(list[q], list[p]);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">T select(T list[], int a, int b, int k) &#123;   //核心方法；</div><div class="line">  if (b ==a) &#123;     //当只有一个元素时，返回此时的值即为所寻值；</div><div class="line">    return list[a];</div><div class="line">  &#125;</div><div class="line">  int groupnum = (b - a + 1) / 5;    //每5个元素一组，分的组数；不包括不足5个的那一组；</div><div class="line">  int restnumb = (b - a + 1) % 5;    //5元组划分完毕后剩下的元素；</div><div class="line">  for (int i = 0; i &lt;groupnum; i++) &#123;</div><div class="line">    bablesort(list+a+i*5,5);         //对每个5元组进行排序；</div><div class="line">  &#125;</div><div class="line">  if (restnumb != 0) &#123;</div><div class="line">    bablesort(list+a+groupnum*5,restnumb);  //对剩下的元素进行排序；</div><div class="line">  &#125;</div><div class="line">  T *mids;                           //new一个数组来储存我们在每组中找到的中位数；</div><div class="line">  if (restnumb == 0) &#123;</div><div class="line">    mids = new T[groupnum];          </div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    mids = new T[groupnum+1];        //有剩余元素的情况要多一组；</div><div class="line">  &#125;</div><div class="line">  for (int i = 0; i &lt; groupnum; i++) &#123;</div><div class="line">    mids[i] = list[a+i*5+2];         //将中位数放入数组中；</div><div class="line">  &#125;</div><div class="line">  if (restnumb != 0) &#123;</div><div class="line">    mids[groupnum] = list[a+groupnum*5+(restnumb-1)/2];  </div><div class="line">  &#125;</div><div class="line">  T x;</div><div class="line">  if(restnumb==0)&#123;                     //利用递归找中位数的中位数；</div><div class="line">    x = select(mids, 0, groupnum-1, (groupnum-1)/2+1);</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    x = select(mids, 0, groupnum, (groupnum) / 2 + 1);</div><div class="line">  &#125;</div><div class="line">  delete[]mids;                       //释放我们的临时空间mids；</div><div class="line">  int i = partition(list, a, b,x);    //以x为划分基准；</div><div class="line">  int j = i + 1 - a;</div><div class="line">  if (k &lt;= j) &#123;</div><div class="line">    return select(list, a, i, k);     //左子串递归搜寻第k小；</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    return select(list, i + 1, b, k - j);</div><div class="line">  &#125;                                   //右子串递归搜寻第k-j小，即为整个串的第k小；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/学习笔记-线性查找算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-堆排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/04/学习笔记-堆排序/">&lt;学习笔记&gt; 堆排序</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/04/学习笔记-堆排序/" class="archive-article-date">
-  	<time datetime="2017-10-04T05:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>堆可以分为最大堆最小堆，是一棵完全二叉树。我们如果想要对一个序列进行非递减的排序，需要使用的是最大堆的结构。<br>堆排序可以分为两个步骤：<br>1.根据初始输入数据，形成初始堆；<br>2.通过一系列的元素交换和重新调整进行排序；<br>我们要进行堆排序，首先就要建立的我们的工具，最大堆。建堆的核心在于对它的调整，使我们的二叉树满足每个子节点的值都不大于其父节点的值。<br>调堆的过程要从最后一个非叶子节点开始。<br>假定有序列1 7 6 4 3 5 2 9 8；<br>那么我么要经历以下变换：<br><img src="/images/mypic.png" alt=""><br><img src="/images/mypic2.png" alt=""><br>那么我们可以用以下代码进行调堆：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">void swap(int &amp;a,int &amp;b)&#123;     //元素交换；</div><div class="line">  int temp;</div><div class="line">  temp=a;</div><div class="line">  a=b;</div><div class="line">  b=temp;</div><div class="line">&#125;</div><div class="line">void adjheap(int list[],int heaplen)&#123;</div><div class="line">  for(int i=heaplen/2;i&gt;=0;i--)&#123;</div><div class="line">    getmaxheap(list,heaplen,i);     //建堆入口；从第一个非叶子节点开始；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void getmaxheap(int list[],int heaplen,int i)&#123;</div><div class="line">  int left=2*i;</div><div class="line">  int right=2*i+1;   //获取左子节点和右子节点的索引；</div><div class="line">  int max=i;         //假设现在最大的节点是此时的父节点；</div><div class="line">  if(i&lt;=heaplen/2)&#123;       //i的边界，也就是第一个非叶子节点；</div><div class="line">    if(left&lt;=heaplen&amp;&amp;list[left]&gt;list[max])&#123;</div><div class="line">      max=left;           //左子节点比此时假设的大；</div><div class="line">    &#125;</div><div class="line">    if(right&lt;=heaplen&amp;&amp;list[right]&gt;list[max])&#123;</div><div class="line">      max=right;          //右子节点比此时假设的大；</div><div class="line">    &#125;</div><div class="line">    if(max!=i)&#123;           //如果此时最大的不是最初假设的父节点；</div><div class="line">      swap(list[max],list[i]);    //交换子节点和父节点的位置；</div><div class="line">      getmaxheap(list,heaplen,max);   //向下递归，将目前的子节点当作父节点来进行相同的比较，直到到达i的边界；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void heapsort(int list[],int heaplen)&#123;</div><div class="line">  adjheap(list,heaplen);     //在排序前进行堆的建立；</div><div class="line">  for(int i=heaplen-1;i&gt;=0;i--)&#123;</div><div class="line">    swap(list[0],list[i]);   //将最后一个元素与第一个交换；</div><div class="line">    getmaxheap(list,i-1,0);  //再进行堆的调整，变为我们所要的最大堆；</div><div class="line">    //很明显，堆排序的过程就是最大堆的不断重建和根元素和当前最后一个元素交换的过程；</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/04/学习笔记-堆排序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-归并排序与快速排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/03/学习笔记-归并排序与快速排序/">&lt;学习笔记&gt;归并排序与快速排序</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/03/学习笔记-归并排序与快速排序/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 归并排序和快速排序的核心思想都是分治法。<br> 由于本人并不是专于研究算法的，所以对于这两种算法的复杂度分析不进行研究与探讨。<br> 这篇文章主要讨论这两种算法的原理理解与c++的描述。<br> 归并排序：<br> 假如给定序列21，25，49，25<em>，16，8，31，41，<br> 那么我们利用分治法的思想，大问题化成规模较小的相同的子问题，将序列进行划分，8个元素，好麻烦，那么我们就排4个吧？<br> 最简单的情况呢，1个放在哪里，就是排好的咯。<br>    21   25   49  25</em>  16   08   31   41<br>    21   25   49  25<em>| 16   08   31   41   //划分过程；<br>    21   25 | 49  25</em>| 16   08 | 31   41<br>    21 | 25 | 49  25<em>| 16 | 08 | 31 | 41<br>    21   25 | 25</em>  49| 08   16 | 31   41<br>    21   25   25<em>  49| 08   16   31   41   //归并过程；<br>    08   16   21   25  25</em>  31   41   49<br>那么接下来就是我们要根据原理写出实现的代码了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void merge(T list1[],T list2[],const int left,const int right,const int mid)&#123;</div><div class="line">  for(int k=left;k&lt;=right;k++)&#123;</div><div class="line">    list2[k]=list1[k];    //list2是一个辅助数组，我们将list1的值拷贝到list2中，然后在归并到list1中；</div><div class="line">  &#125;</div><div class="line">  int s1=left,s2=mid+1,t=left;  //s1，s2为list2的游标，t为list1的游标；list2分割为两个子表；</div><div class="line">  while(s1&lt;=mid&amp;&amp;s2&lt;=right)&#123;</div><div class="line">    if(list2[s1]&lt;=list2[s2]) list1[t++]=list2[s1++];   //将两个子表的值进行比较，较小的放在新形成的母表的游标值较小的地方，也就是靠前放；</div><div class="line">    else list1[t++]=list2[s2++];</div><div class="line">  &#125;</div><div class="line">  while(s1&lt;=mid) list1[t++]=list2[s1++];</div><div class="line">  while(s2&lt;=right) list[t++]=list2[s2++];//两个子表剩下的值再放入母表中；</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">void mergesort(T list[],T list2[],int left,int right)&#123;</div><div class="line">  if(left&gt;=right)return;</div><div class="line">  int mid=(left+right)/2;</div><div class="line">  mergesort(list,list2,left,mid);   //递归划分；</div><div class="line">  mergesort(list,list2,mid+1,right);</div><div class="line">  merge(list,list2,mid,right);  //合并；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>所有的讲解都放在注释里了，思想很简单。<br>快速排序：<br>依然是上面的序列：21，25，49，25<em>，16，8，31，41，<br>快速排序同样基于分治法。她的基本思想是任意取待排序列中的一个元素作为一个基准，依据这个基准的大小，将序列分为左右两个子序列，<br>左侧的都比她小，右侧的都比她大或者和她一样大。基准放在这两个子列中间就好了。重复上述方法，直到所有的元都待在它该待得位置<br>就好了。<br>   [21   25    49    25</em>   16    08    31    41]      //(p)所指即为基准；<br>                                                   //p的个数相当于递归到子序列的深度；p-&gt;21;<br>   [08   16]   21   [25    49    25<em>   31    41]<br>                                                   //pp1-&gt;08,pp2-&gt;25;<br>   08   [16]   21   25    [49    25</em>   31    41]<br>                                                   //ppp1=16,ppp2=49;<br>   08    16    21   25    [41    25<em>   31]   49<br>                                                   //pppp=41;<br>   08    16    21   25    [31   25</em>]   41    49<br>                                                   //ppppp=31;<br>   08    16    21   25    25*    31    41    49</p>
-<p>放代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">template&lt;class T&gt;</div><div class="line">void quicksort(T list[], int a,int b)&#123;</div><div class="line">  if(a&lt;b)&#123;</div><div class="line">    int i=partition(list,a,b);//划分；</div><div class="line">    quicksort(list,a,i-1);//递归左子列排序；</div><div class="line">    quicksort(list,i+1,b);//递归右子列排序；</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">template&lt;class T&gt;</div><div class="line">int partition(T list[],int p,int r)&#123;</div><div class="line">  int i=p;             //向右走的一个游标；</div><div class="line">  int j=r+1;           //向左走的一个游标；</div><div class="line">  T x=list[p];         //基准；</div><div class="line">  while(true)&#123;</div><div class="line">    while(list[++i]&lt;x&amp;&amp;i&lt;r);  //自左向右找寻第一个比基准大的位置；</div><div class="line">    while(list[--j]&gt;x);       //自右向左找寻第一个比基准小的位置；</div><div class="line">    if(i&gt;=j)break;            //边界；</div><div class="line">    int temp=list[i];         //找到了就交换位置呗；</div><div class="line">    list[i]=list[j];</div><div class="line">    list[j]=temp;</div><div class="line">  &#125;</div><div class="line">  list[p]=list[j];     //将基准与所找到的满足上述目标特性的最后一个元进行位置交换；</div><div class="line">  list[j]=x;           </div><div class="line">  return j;            //返回此时的母串的基准的位置，为了进行子序列的递归排序；</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这就是我对这两种基于分治法的排序方法的理解，如有错误，那一定是个意外哦。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/03/学习笔记-归并排序与快速排序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-深度优先算法与广度优先算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">&lt;学习笔记&gt;深度优先算法与广度优先算法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/" class="archive-article-date">
-  	<time datetime="2017-10-03T04:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本人这两种算法在课上没好好学过，只能通过读别人写的书和博客进行学习，如有个别雷同，希望见谅(那说明那个人写的一定很好a)。<br>在网上和书上看了不同的实现方法，我觉得有一种基于邻接矩阵的方法不错，那就做做笔记吧。<br>在我们讨论这两种图的基本搜索方法时，我们先来定义一下我们的图吧，确定一下图的存储结构。</p>
-<p><img src="/images/IMG_2644.JPG" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">struct Graph&#123;</div><div class="line">  int numofvert;</div><div class="line">  int numofedge;</div><div class="line">  int matrix[20][20];</div><div class="line">&#125;;</div><div class="line">//先把这个图初始化一下了；</div><div class="line">void initgraph(Graph &amp;G)&#123;</div><div class="line">  G.numofedge=5;</div><div class="line">  G.numofvert=5;</div><div class="line"></div><div class="line">  G.matrix[0][2]=1;</div><div class="line">  G.matrix[2][0]=1;</div><div class="line">  G.matrix[0][3]=1;</div><div class="line">  G.matrix[3][0]=1;</div><div class="line">  G.matrix[1][2]=1;</div><div class="line">  G.matrix[2][1]=1;</div><div class="line">  G.matrix[1][4]=1;</div><div class="line">  G.matrix[4][1]=1;</div><div class="line">  G.matrix[2][4]=1;</div><div class="line">  G.matrix[4][2]=1;    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>深度优先遍历算法(DFS)<br>深度优先搜索的思想大致可以这么说：<br>这是一个不断的探查与回溯的过程。在探查的每一步，都会有一个当前顶点v，每一步探查，都会先访问当前顶点，然后将其设一个标志来标记已访问过。接着在它的邻接顶点中，找出未访问的一个，将其作为下一个当前顶点v’，如果所有的邻接顶点都被访问过了，那么我们返回上上步，将前一步所访问的顶点作为当前顶点，重复上述过程即可。<br>通俗点讲，就是我们每做的一步都要一探到底，到了底在掉头回去找其他路，优先纵向搜索。<br>那么我们一边看代码一边再做一次理解吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">bool visited[20];</div><div class="line">void DFS(Graph&amp; g,int v)&#123;    //核心方法；</div><div class="line">  visited[v]=true;                //将开始顶点设置为已经访问过；</div><div class="line">  printf(&quot;%d &quot;,v);                 //打印当前节顶；</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;           </div><div class="line">    if(g.matrix[v][i]==1&amp;&amp;visited[i]==false)&#123; //获取当前节点未访问过的邻接顶点;</div><div class="line">      DFS(g,i);//递归调用，所有顶点都访问过后，进行回溯。</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">void DFST(Graph g)&#123;    //主方法，也就是看作遍历的入口方法；</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    visited[i]=false;     //将每个顶点初始化，都未访问过；</div><div class="line">  &#125;</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    if(visited[i]==false)&#123;</div><div class="line">      DFS(g,i);      //挑选没有访问的第一个顶点，进行遍历；</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>广度优先遍历算法(BFS)<br>广度优先遍历是一个逐层遍历的过程。<br>在这个过程中，图中有多少个顶点就要重复多少步，在每一步中，规定一个当前顶点v，并设置它是被访问过的，接着依次访问v的各个未曾被访问过的邻接顶点，然后再顺序访问这些邻接顶点的未访问过的邻接节点。再从这些未访问过的顶点中，继续重复上述步骤。直到所有的顶点都被访问过为止。<br>通俗点讲，就是逐层递进，优先横向搜索。<br>贴代码；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#include&lt;queue&gt;</div><div class="line">using namespace std;</div><div class="line">void BFST(Graph g)&#123;</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    visited[i]=false;     //先将所有的顶点的初始状态都设置为未访问过；</div><div class="line">  &#125;</div><div class="line">  queue&lt;int&gt; myq;</div><div class="line">  for(int i=0;i&lt;g.numofvert;i++)&#123;</div><div class="line">    if(visited[i]==false)&#123;     //如果该顶点未访问过；</div><div class="line">      myq.push(i);             //将其下标入队；</div><div class="line">      visited[i]=true;</div><div class="line">      while(!myq.empty())&#123;      //队列未空，那么遍历就不结束；</div><div class="line">        int t=myq.front();      //将队列头取出；</div><div class="line">        myq.pop();</div><div class="line">        printf(&quot;%d &quot;, t);       //打印出当前访问的顶点；</div><div class="line">        for(int j=0;j&lt;g.numofvert;j++)&#123;     //将其未访问过的邻接节点加入队列；</div><div class="line">          if(g.matrix[t][j]==1&amp;&amp;visited[j]==false)&#123;</div><div class="line">            myq.push(j);</div><div class="line">            visited[j]=true;//push()与设置为true成对达到标志访问的作用。</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>设顶点数为n，那么这两种遍历方法的时间复杂度都是O(n^2);</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/03/学习笔记-深度优先算法与广度优先算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-拼图游戏-N-puzzle问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/拼图游戏-N-puzzle问题/">&lt;拼图游戏&gt; N puzzle问题1</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/拼图游戏-N-puzzle问题/" class="archive-article-date">
-  	<time datetime="2017-09-12T04:18:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们平常所见的拼图游戏是一堆被打乱的图片碎片，我们要做的就是通过有限的步骤把它们还原为一个完整的图片。<br>其实我们可以将每一个图片碎片看作一个个数字模块，拼好的拼图的数字模块是按照数字的次序排列的。<br>那么我们的拼图游戏其实就是将打乱的数字阵列通过一定的步骤转换为有顺序的阵列。<br>这个就是所谓的n-puzzle问题，常见的有8puzzle(九宫)和15puzzle(十五迷)，其实就是还原3<em>3和4</em>4拼图嘛。<br>今天我所要介绍的是关于n puzzle问题的可解性的判断；<br>我们看如下矩阵：<br>          12  01  10  02<br>          07  11  04  14<br>          05  xx  09  15<br>          08  13  06  03<br>我们将这个矩阵写成一维数组：<br>  A={12,1,10,2,7,11,4,14,5,xx,9,15,8,13,6,3};<br>接下来，我们定义一个Ti表示位于数组A中在第i位后，比Ai小的元素的个数，不包括xx;<br>那么我们依据上述描述，又可以写出一个序列：<br>  B=[11,0,8,0,4,6,1,6,1,3,4,2,2,1]<br>然后求他们的和：sumB=49;<br>那么判断是否这个十五迷问题是否有解的依据有下面两条：<br>1.如果序列A的宽度为奇数，那么每个可解的问题所定义的sumB必须是偶数。<br>2.如果序列A的宽度为偶数，那么当空格xx位于从下往上数的奇数行中时，sumB必须为偶数，<br>当空格xx位于从下往上数的偶数行中时，sumB必须为奇数。<br>对于证明，大家可以看这里：<br>十五迷问题<a href="http://blog.csdn.net/mindhawk/article/details/1445013；" target="_blank" rel="external">http://blog.csdn.net/mindhawk/article/details/1445013；</a><br>代码很简单，我就不往这里写了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/拼图游戏-N-puzzle问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Failed-to-resolve-junit-junit-4-12解决方案-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
-  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>经过一个月没电脑，两个月没网的假期，我终于可以继续在网上浪了，赶快来记录一下这个假期遇到的问题吧。<br>电脑换了主板，修好以后，换了系统，我电脑里好多东西都gg了。包括android studio…<br>打开以前的项目，耐心等待加载后，便跳出了这个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to resolve: junit:junit:4.12</div></pre></td></tr></table></figure></p>
-<p>百度以后，首先发现一个解决方案。<br>错误显示是加载junit失败，那就打开gradle把加载选项删掉就好了呗！试了一下，错误是没了，但是，这完全是掩耳盗铃。<br>其实正确的方法很简单，无法加载junit，是因为缺少junit4.12这个文件，那么只要完善就好了。<br>打开项目的gradle文件，在allprojects的repositories添加下面这条语句即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">maven &#123; url &apos;http://repo1.maven.org/maven2&apos; &#125;</div></pre></td></tr></table></figure></p>
-<p>这样资源库就正常导入可以使用了。对了，记得联网才能有效哦，我假期没网所以一直没成功！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-拼图游戏-android7-0使用系统相机拍照" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近闲来无聊，读了徐宜生的android群英传，里面有两个最后的实例提高，于是便开始了学习，第一个是一个拼图游戏，关于这个项目，我先看了作者的部分代码，大致的结构框架我是看这他的给的源码写的，接下来的几天就要往里面加我自己的东西了，这篇文章我先来讨论一下我遇到的第一个坑吧。<br>当我们选图片的时候，可以在最后的一个选项中选择手机图库的图片已经进行调用系统的相机进行实时的拍照和照片的使用。<br>书中给的方法（网上百度可以直接找到）我试过了但是竟然抛出了FileUriExposedException的错误，二话不说，直接进行了百度，原来是这种方法在android7.0中已经不用了，据说是与安全相关的问题挂钩，所以被废掉了（仅在7.0版本）。<br>但是，在7.0中，系统提供给了我们了另一种实现目的的方法。<br>废话少说，接下来，我就直接说步骤了。</p>
-<p>第一步：<br>在Manifest.xml文件中添加provider，以及读写权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> &lt;application&gt;</div><div class="line">...</div><div class="line">&lt;provider</div><div class="line">     android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">     android:authorities=&quot;com.example.mymaze.fileprovider&quot;</div><div class="line">     android:exported=&quot;false&quot;</div><div class="line">     android:grantUriPermissions=&quot;true&quot;&gt;</div><div class="line">     &lt;meta-data</div><div class="line">         android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">         android:resource=&quot;@xml/file_paths&quot;&gt;</div><div class="line">     &lt;/meta-data&gt;</div><div class="line"> &lt;/provider&gt;</div><div class="line"> ...</div></pre></td></tr></table></figure></p>
-<p>第二步：<br>对应于meta-data，我们要编写file_paths文件：<br>在res文件夹中创建一个xml文件夹，将我们的文件放在里面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">  &lt;external-path name=&quot;my_images&quot; path=&quot;mytemp/&quot;/&gt;</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure></p>
-<p>第三步：<br>在activity中编写我们的逻辑代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Temp_path=Environment.getExternalStorageDirectory().getAbsolutePath();</div><div class="line">Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</div><div class="line">file = new File(Temp_path + &quot;/mytemp/Temp.jpg&quot;);</div><div class="line">file.getParentFile().mkdirs();</div><div class="line">//改变Uri  com.xykj.customview.fileprovider注意和xml中的一致</div><div class="line">Uri uri = FileProvider.getUriForFile(this, &quot;com.example.mymaze.fileprovider&quot;, file);</div><div class="line">//添加权限</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);</div><div class="line">intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);</div><div class="line">startActivityForResult(intent, REQUEST_CAMERA);</div><div class="line">//onactivityresult()方法中识别的REQUEST_CAMERA的code;</div></pre></td></tr></table></figure></p>
-<p>第四步：<br>重写onActivityvResult()方法，来获得我们的图片;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</div><div class="line">  super.onActivityResult(requestCode, resultCode, data);</div><div class="line">  if (requestCode == REQUEST_CAMERA &amp;&amp; resultCode == RESULT_OK) &#123;</div><div class="line">      Log.e(&quot;TAG&quot;,FileProvider</div><div class="line">      .getUriForFile(this,&quot;com.example.mymaze.fileprovider&quot;, file));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以说第三步是区别旧方法和新方法的最主要的地方，如果我们为了迎合一些老android系统，可以在自己的方法中进行一个if_else的逻辑判断，来选择适用于不同系统的更好的方法。<br>其实，看完网上的文章，再对照自己的项目，我有一个疑问，在添加权限的过程中，网上是要求添加android.permission.CAMERA的权限，但是我添加以后会报错，去掉反而没了问题，我很纳闷，接下来还得寻找我的答案了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-添加右键菜单选项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章的来由要感谢hexo了，在我配置hexo的时候，要在hexo初始化的目录下对_config.yml文件进行编辑，由于本人比较懒，并不想cd命令各种url，因此想到文件目录下使用gitbash，于是鼠标右键，我去，竟然没有gitbash，哎，看来只能自己加一下了，接下来就说一下具体的添加方法。<br>我用的是win10，那么要找到注册表编辑器，在搜索框中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">regedit</div></pre></td></tr></table></figure></p>
-<p>然后就会出现注册表的选项，点击进入。<br>进入以后，再进入HKEY_CLASSES_ROOT目录，<br>再依次进入Directory目录，Background目录，shell目录，<br>右键点击新建，命名即为自己在右键菜单中显示的命名，<br>在自己创建的目录中再新建一个名为command的选项，编辑此command项，<br>将数据这一项编辑为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;F:\Git\git-bash.exe&quot;</div></pre></td></tr></table></figure></p>
-<p>上面这一句是填自己的git-bash的路径，读者要依照自己的情况填写。<br>然后关闭注册表，右键就能看到自己设置的选项了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/14/添加右键菜单选项/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -642,9 +290,10 @@
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -667,8 +316,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
