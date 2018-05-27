@@ -6,14 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Zeros</title>
+  <title>&lt;学习笔记&gt; 线性回归 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+  <meta name="description" content="之前我们构造了各类分类器，目的是分类，目标变量是标称型数据，从这一篇开始，开始对连续型数据进行预测，那么我们通过什么方法进行呢，那就是回归。我们利用回归寻找两种或两种以上变量间的相互依赖关系。回归在化学分析，遗传学等我们常见的学科当中有着非常广泛的应用。这篇文章主要对线性回归进行学习总结。 一.利用线性回归找到最佳拟合直线回归的目标是预测数值型的目标值。最直接的方式是通过输入写出一个目标的表达式：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;学习笔记&gt; 线性回归">
+<meta property="og:url" content="http://yoursite.com/2018/04/19/学习笔记-线性回归/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="之前我们构造了各类分类器，目的是分类，目标变量是标称型数据，从这一篇开始，开始对连续型数据进行预测，那么我们通过什么方法进行呢，那就是回归。我们利用回归寻找两种或两种以上变量间的相互依赖关系。回归在化学分析，遗传学等我们常见的学科当中有着非常广泛的应用。这篇文章主要对线性回归进行学习总结。 一.利用线性回归找到最佳拟合直线回归的目标是预测数值型的目标值。最直接的方式是通过输入写出一个目标的表达式：">
+<meta property="og:image" content="http://yoursite.com/images/mypic19.png">
+<meta property="og:image" content="http://yoursite.com/images/mypic20.png">
+<meta property="og:image" content="http://yoursite.com/images/mypic21.png">
+<meta property="og:image" content="http://yoursite.com/iamges/mypic22.png">
+<meta property="og:image" content="http://yoursite.com/images/mypic23.png">
+<meta property="og:image" content="http://yoursite.com/images/mypic24.png">
+<meta property="og:image" content="http://yoursite.com/images/mypic25.png">
+<meta property="og:image" content="http://yoursite.com/images/mypic26.png">
+<meta property="og:updated_time" content="2018-04-19T08:51:40.110Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="&lt;学习笔记&gt; 线性回归">
+<meta name="twitter:description" content="之前我们构造了各类分类器，目的是分类，目标变量是标称型数据，从这一篇开始，开始对连续型数据进行预测，那么我们通过什么方法进行呢，那就是回归。我们利用回归寻找两种或两种以上变量间的相互依赖关系。回归在化学分析，遗传学等我们常见的学科当中有着非常广泛的应用。这篇文章主要对线性回归进行学习总结。 一.利用线性回归找到最佳拟合直线回归的目标是预测数值型的目标值。最直接的方式是通过输入写出一个目标的表达式：">
+<meta name="twitter:image" content="http://yoursite.com/images/mypic19.png">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,37 +156,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-拼图游戏-android7-0使用系统相机拍照" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-学习笔记-线性回归" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">&lt;拼图游戏&gt; android7.0使用系统相机拍照</a>
+    <h1 class="article-title" itemprop="name">
+      &lt;学习笔记&gt; 线性回归
     </h1>
   
 
         
-        <a href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/" class="archive-article-date">
-  	<time datetime="2017-06-16T09:34:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-16</time>
+        <a href="/2018/04/19/学习笔记-线性回归/" class="archive-article-date">
+  	<time datetime="2018-04-19T04:46:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近闲来无聊，读了徐宜生的android群英传，里面有两个最后的实例提高，于是便开始了学习，第一个是一个拼图游戏，关于这个项目，我先看了作者的部分代码，大致的结构框架我是看这他的给的源码写的，接下来的几天就要往里面加我自己的东西了，这篇文章我先来讨论一下我遇到的第一个坑吧。<br>当我们选图片的时候，可以在最后的一个选项中选择手机图库的图片已经进行调用系统的相机进行实时的拍照和照片的使用。<br>书中给的方法（网上百度可以直接找到）我试过了但是竟然抛出了FileUriExposedException的错误，二话不说，直接进行了百度，原来是这种方法在android7.0中已经不用了，据说是与安全相关的问题挂钩，所以被废掉了（仅在7.0版本）。<br>但是，在7.0中，系统提供给了我们了另一种实现目的的方法。<br>废话少说，接下来，我就直接说步骤了。</p>
-<p>第一步：<br>在Manifest.xml文件中添加provider，以及读写权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> &lt;application&gt;</div><div class="line">...</div><div class="line">&lt;provider</div><div class="line">     android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">     android:authorities=&quot;com.example.mymaze.fileprovider&quot;</div><div class="line">     android:exported=&quot;false&quot;</div><div class="line">     android:grantUriPermissions=&quot;true&quot;&gt;</div><div class="line">     &lt;meta-data</div><div class="line">         android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">         android:resource=&quot;@xml/file_paths&quot;&gt;</div><div class="line">     &lt;/meta-data&gt;</div><div class="line"> &lt;/provider&gt;</div><div class="line"> ...</div></pre></td></tr></table></figure></p>
-<p>第二步：<br>对应于meta-data，我们要编写file_paths文件：<br>在res文件夹中创建一个xml文件夹，将我们的文件放在里面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">  &lt;external-path name=&quot;my_images&quot; path=&quot;mytemp/&quot;/&gt;</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure></p>
-<p>第三步：<br>在activity中编写我们的逻辑代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Temp_path=Environment.getExternalStorageDirectory().getAbsolutePath();</div><div class="line">Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</div><div class="line">file = new File(Temp_path + &quot;/mytemp/Temp.jpg&quot;);</div><div class="line">file.getParentFile().mkdirs();</div><div class="line">//改变Uri  com.xykj.customview.fileprovider注意和xml中的一致</div><div class="line">Uri uri = FileProvider.getUriForFile(this, &quot;com.example.mymaze.fileprovider&quot;, file);</div><div class="line">//添加权限</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);</div><div class="line">intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);</div><div class="line">intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);</div><div class="line">startActivityForResult(intent, REQUEST_CAMERA);</div><div class="line">//onactivityresult()方法中识别的REQUEST_CAMERA的code;</div></pre></td></tr></table></figure></p>
-<p>第四步：<br>重写onActivityvResult()方法，来获得我们的图片;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</div><div class="line">  super.onActivityResult(requestCode, resultCode, data);</div><div class="line">  if (requestCode == REQUEST_CAMERA &amp;&amp; resultCode == RESULT_OK) &#123;</div><div class="line">      Log.e(&quot;TAG&quot;,FileProvider</div><div class="line">      .getUriForFile(this,&quot;com.example.mymaze.fileprovider&quot;, file));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以说第三步是区别旧方法和新方法的最主要的地方，如果我们为了迎合一些老android系统，可以在自己的方法中进行一个if_else的逻辑判断，来选择适用于不同系统的更好的方法。<br>其实，看完网上的文章，再对照自己的项目，我有一个疑问，在添加权限的过程中，网上是要求添加android.permission.CAMERA的权限，但是我添加以后会报错，去掉反而没了问题，我很纳闷，接下来还得寻找我的答案了。</p>
+        <p>之前我们构造了各类分类器，目的是分类，目标变量是标称型数据，从这一篇开始，开始<br>对连续型数据进行预测，那么我们通过什么方法进行呢，那就是回归。<br>我们利用回归寻找两种或两种以上变量间的相互依赖关系。<br>回归在化学分析，遗传学等我们常见的学科当中有着非常广泛的应用。<br>这篇文章主要对线性回归进行学习总结。</p>
+<p>一.利用线性回归找到最佳拟合直线<br>回归的目标是预测数值型的目标值。<br>最直接的方式是通过输入写出一个目标的表达式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">y=ax+b;</div></pre></td></tr></table></figure></p>
+<p>这就是所谓的回归方程，其中的a,b可以被称作回归系数。<br>我们求得回归系数的过程就是回归。<br>一旦我们知道了a,b两个值的大小，如果给定输入x，那么结果y就很容易得到了。<br>那么怎样从一大堆的数据中求出回归方程呢，假设输入矩阵放入矩阵x中，而回归系数存放在向量<br>w中，那么对于给定的数据X1，预测结果将会通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Y1=(X1^T)*w</div></pre></td></tr></table></figure></p>
+<p>给出，现在的问题是，我们给出的是一系列的x和y，要得到的是w，一个常用的方法是得到误差最小的<br>w。这里的误差是指预测y和实际y之间的差距，直接使用该误差的简单累计会使得结果相互抵消，所以<br>我们将其平方化处理，采用平方误差。<br>那么平方误差即可写作：<br><img src="/images/mypic19.png" alt=""><br>如果是用矩阵表示的话，那么可以写作：<br><img src="/images/mypic20.png" alt=""><br>都w求导，得到X^T(Y-Xw),令其等于0，接触w如下：<br><img src="/images/mypic21.png" alt=""><br>w头上有个小标记，代表这是当前可以估计出的w的最优解。从现有数据估计出的w可能与真实的w<br>值有一定的差异，这个解只是代表一种当前的最优估计，因此要加以区分。<br>还要注意上面的计算涉及到矩阵求逆，那么这个方程只有在逆矩阵存在的条件下才适用，<br>所以我们编写代码的时候要进行判断。<br>下面是用python实现的标准回归函数以及数据读取函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">from numpy import *</div><div class="line">def loadDataSet(filename):</div><div class="line">    numfeat=len(open(filename)</div><div class="line">                .readline().split(&apos;\t&apos;))-1</div><div class="line">    dataMat=[]</div><div class="line">    labelMat=[]</div><div class="line">    fr=open(filename)</div><div class="line">    for line in fr.readlines():</div><div class="line">        lineArr=[]</div><div class="line">        curLine=line.strip().split(&apos;\t&apos;)</div><div class="line">        for i in range(numfeat):</div><div class="line">            lineArr.append(float(curLine[i]))</div><div class="line">        dataMat.append(lineArr)</div><div class="line">        labelMat.append(curLine[-1])</div><div class="line">    return dataMat,labelMat</div><div class="line"></div><div class="line">def standRegres(xArr,yArr):</div><div class="line">    xMat=mat(xArr)</div><div class="line">    yMat=mat(yArr).T</div><div class="line">    xTx=xMat.T*xMat</div><div class="line">    if linalg.det(xTx)==0.0:</div><div class="line">        print(&quot;this matrix is singular,cannot do inverse&quot;)</div><div class="line">        return</div><div class="line">    ws=xTx.I*(xMat.T*yMat)</div><div class="line">    return ws</div></pre></td></tr></table></figure></p>
+<p>上面的数据载入不用过多介绍，第二个函数只用几行代码就实现了我们上面要求的结果，<br>先将数据向量矩阵化，然后计算平方，通过调用linalg模块求行列式，如果行列式为0，<br>那么矩阵不可逆，反之，计算结果。<br>几乎任意的数据点都可以用上述的方法建立模型，但是如何评价我们模型的好坏呢。<br>对于下面两个图，我们在这两个数据集上分别做线性回归，将得到完全一样的拟合直线。<br>显然两个数据是不一样的，那么模型分别在二者的效果比较起来如何。<br>有一种方法就是比较预测值和真实值之间的匹配程度，计算两个序列的相关系数。<br><img src="/iamges/mypic22.png" alt=""><br>上面的两个图具有相同回归系数(0,2.0)，但是上图的相关系数是0.58，<br>下图的相关系数达到了0.99。<br>numpy库中提供了计算相关系数的方法：<br>通过corrcoef(yEstimate,yActual)来计算预测值和真实值之间的相关性。</p>
+<p>上面我们将数据当作直线来建模，寻找了最佳拟合曲线，我们还可以发现数据当中存在的潜在模式。</p>
+<p>二.局部加权线性回归<br>线性回归会遇到的问题是有可能出现欠拟合现象，因为它要求的是具有最小均方误差的无偏估计。<br>显然，欠拟合会使得我们得不到好的结果。所以我们要想办法引入一些偏差，来降低我们的均方误差。<br>其中的一种方法就是局部加权线性回归(LWLR)。<br>在这个算法当中，我们基于预测点附近的的每个点一定的权重，然后在这个子集上，进行普通的回归。<br>该算法解出的回归系数w的形式如下：<br><img src="/images/mypic23.png" alt=""><br>其中w是一个权重，用来给每个数据点赋予一个权重，<br>LWLR使用类似SVM核的“核”来对附近的点基于更高的权重，核的类型可以自由选择，<br>高斯核对应的权重如下：<br><img src="/images/mypic24.png" alt=""><br>那么很容易看出来，点x与x(i)越近，w(i,i)将会越大。<br>我们可以通过调节上式中的k值，来决定我们对附近的点给予多大的权重。<br>下图展示了参数k与权重的关系。<br><img src="/images/mypic25.png" alt=""><br>从图中可以观察得出，当k值越大的时候，越多的数据用于训练回归模型。<br>下面给出局部加权线性回归函数的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">def lwlr(testPoint,xArr,yArr,k=1.0):</div><div class="line">    xMat=mat(xArr)</div><div class="line">    yMat=mat(yArr).T</div><div class="line">    m=shape(xMat)[0]</div><div class="line">    weights=mat(eye((m)))</div><div class="line">    #创建对角权重矩阵，随着样本点与待估测的点的距离的递增，权重将指数级递减。</div><div class="line">    for j in range(m):</div><div class="line">        diffMat=testPoint-xMat[j,:]</div><div class="line">        weights[j,j]=exp(diffMat*diffMat.T/(-2.0*k**2))</div><div class="line">    xTx=xMat.T*(weights*xMat)</div><div class="line">    if linalg.det(xTx)==0.0:</div><div class="line">        print(&quot;cannot inverse&quot;)</div><div class="line">        return</div><div class="line">    ws=xTx.I*(xMat.T*(weights*yMat))</div><div class="line">    return testPoint*ws</div><div class="line"></div><div class="line">def lwlrTest(testArr,xArr,yArr,k=1.0):</div><div class="line">    m=shape(testArr)[0]</div><div class="line">    yHat=zeros(m)</div><div class="line">    for i in range(m):</div><div class="line">        yHat[i]=lwlr(testArr[i],xArr,yArr,k)</div><div class="line">    return yHat</div></pre></td></tr></table></figure></p>
+<p>得到的拟合直线如下图：<br><img src="/images/mypic26.png" alt=""><br>第一幅图取k=1.0,所有数据等权重，最佳拟合直线与标准回归一致。<br>第二幅图取k=0.01，抓住了数据的潜在模式，得到了很好的结果。<br>第三幅图取k=0.003,纳入了很多的噪声点，拟合的直线与数据点过于靠近了，<br>这就是个过拟合的例子。而第一幅图是一个欠拟合的例子。<br>所有我们在选择k的时候，并不是越大或者越小越好，而是要通过对比不同的模型，来综合<br>考虑我们选取的参数值，找到最佳模型。</p>
+<p>三.缩减系数来理解数据<br>有时候我们会遇到数据特征比样本点还多的情况，如果使用之前的方法来进行计算，会出错，<br>特征比样本点还多，说明输入数据的矩阵不是满秩矩阵，非满秩矩阵求逆会出现很多问题。<br>为了解决这个问题，引入了“岭回归”，这是其中一种缩减方法，<br>除此之外，还有lasso法，这种方法效果最好但是最复杂。<br>最后还有一种“前向逐步回归”,既能得到满意的效果，也容易实现。</p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -182,122 +217,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/16/拼图游戏-android7-0使用系统相机拍照/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/04/19/学习笔记-线性回归/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-添加右键菜单选项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
+<nav id="article-nav">
+  
+    <a href="/2018/05/22/学习笔记-HOG-SVM人体识别基本框架/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/14/添加右键菜单选项/">添加右键菜单选项</a>
-    </h1>
-  
-
+          &lt;学习笔记&gt; HOG+SVM人体识别基本框架
         
-        <a href="/2017/05/14/添加右键菜单选项/" class="archive-article-date">
-  	<time datetime="2017-05-14T03:47:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章的来由要感谢hexo了，在我配置hexo的时候，要在hexo初始化的目录下对_config.yml文件进行编辑，由于本人比较懒，并不想cd命令各种url，因此想到文件目录下使用gitbash，于是鼠标右键，我去，竟然没有gitbash，哎，看来只能自己加一下了，接下来就说一下具体的添加方法。<br>我用的是win10，那么要找到注册表编辑器，在搜索框中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">regedit</div></pre></td></tr></table></figure></p>
-<p>然后就会出现注册表的选项，点击进入。<br>进入以后，再进入HKEY_CLASSES_ROOT目录，<br>再依次进入Directory目录，Background目录，shell目录，<br>右键点击新建，命名即为自己在右键菜单中显示的命名，<br>在自己创建的目录中再新建一个名为command的选项，编辑此command项，<br>将数据这一项编辑为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;F:\Git\git-bash.exe&quot;</div></pre></td></tr></table></figure></p>
-<p>上面这一句是填自己的git-bash的路径，读者要依照自己的情况填写。<br>然后关闭注册表，右键就能看到自己设置的选项了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/14/添加右键菜单选项/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
+      </div>
+    </a>
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/08/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2018/03/30/leetcode-Complex-Number-Multiplication/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;leetcode&gt; Complex Number Multiplication</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-
-        
-        <a href="/2017/05/08/hello-world/" class="archive-article-date">
-  	<time datetime="2017-05-07T17:35:28.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/08/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -305,9 +301,10 @@
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -330,8 +327,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
