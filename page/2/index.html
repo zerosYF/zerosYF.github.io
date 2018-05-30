@@ -145,6 +145,62 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-Logistic回归" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/13/学习笔记-Logistic回归/">&lt;学习笔记&gt; Logistic回归</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/13/学习笔记-Logistic回归/" class="archive-article-date">
+  	<time datetime="2017-12-13T06:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ps:感谢《机器学习实战》指导</p>
+<p>这次的内容和最优化有关系，提到最优化，我们其实见过很多了，我们的原则就是用最少的付出换取<br>最丰厚的汇报。比如如何设计发动机使油耗最少而功率最大；如何规划路线使我们用最短的时间从始发点到<br>目的点；如何用最少的背包装最多的东西….<br>接下来我们需要稍微理解一下回归这个词。<br>假设现在我们有一些数据点，我们用一条直线对我们这些数据点进行拟合，这个过程就是回归。<br>我们的这条线可以写成一个函数，这个过程当中，我们通过不断地调整我们函数中的各种参数，使得我们的<br>数据点们平均最大化的接近我们的这条直线。<br>Logistic回归的思想：<br>根据现有数据对分类边界线建立回归公式，以此进行分类。<br>优点：<br>计算代价不高，易理解易实现；<br>缺点：<br>容易欠拟合，分类的精度可能不高；<br>适用类型：数值型和标称型的数据类型。<br>我们想要得到的函数是能够接受所有的输入然后做出分类。<br>在两个类的情况下，我们很容易想到一个函数，赫维赛德跃迁函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">连续形式：</div><div class="line">H(x)=&#123;0,if x&lt;0;1,x&gt;0;1/2,x=0&#125;</div><div class="line">离散形式：</div><div class="line">Hn=&#123;0,n&lt;0;1,n&gt;=0;n为整数&#125;</div></pre></td></tr></table></figure></p>
+<p>函数可以接受所有输出然后输出0或1，这样我们可以测出类别。<br>但是这个函数在0和1跃迁的这个瞬间过程不容易处理，所以我们选择另一个函数,Sigmoid函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">σ(z)=1/(1+exp(-z))</div></pre></td></tr></table></figure></p>
+<p>根据这个函数的图像，我们可以做出以下分析：<br>当z为0时，我们的函数值为0.5；<br>随着z的增大，函数值趋近于1，随着z的减小，函数值趋近于0；如果我们从一个很大的尺度看这个函数的图像，<br>他其实很像一个跃迁函数。<br>为了实现我们的分类器，我们可以在每个特征上都乘以一个回归系数，然后把所有得到的结果求和，代入到<br>我们的Sigmoid函数，得到一个范围在0，1之间的数。<br>然后将大于0.5的归于“1类”,将小于0.5的归于“0类”.<br>确定分类函数形式后，我们下一个要解决的问题是确定最佳回归系数。<br>Sigmoid函数的输入记为z，可由下列公式得出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z=w0x0+w1x1+w2x2+...+wnxn</div></pre></td></tr></table></figure></p>
+<p>将上述公式写成向量的形式：z=w^Tx,即将w转置乘x。<br>向量x为我们的输入，向量w即是我们要找的最佳参数。<br>为了寻找最佳参数，我们要用到最优化理论的一些知识。<br>1.梯度上升法<br>主要思想：如果想要找到某个函数的最大值，那就  沿着该函数的梯度方向探寻。<br>在高等数学中，函数f(x,y)的梯度看作一个向量，记作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grad(f)=(∂f/∂x,∂f/∂y)</div></pre></td></tr></table></figure></p>
+<p>函数f必须在待计算的点上有定义并且可微。<br>梯度上升算法每到达一个点的时候都会重新估计下次的移动方向。<br>梯度算子总是指向函数增长最快的方向。我们将每次在方向上的移动量称为步长，记作α，如果用向量的方式表示，<br>我们的的梯度算法的迭代公式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">w:=w+αgrad(f(w))</div></pre></td></tr></table></figure></p>
+<p>这个公式在达到终止条件前会一直迭代。<br>以上就是我们进行分类器构造的理论工具。<br>接下来我们用python来实现我们的算法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">def loaddataset():</div><div class="line">    datamat=[]</div><div class="line">    labelmat=[]</div><div class="line">    fr=open(&apos;testset.txt&apos;)</div><div class="line">    for line in fr.readlines():</div><div class="line">        linearr=line.strip().split()</div><div class="line">        datamat.append([1.0,float(linearr[0]),float(linearr[1])])</div><div class="line">        labelmat.append(int(linearr[2]))</div><div class="line">    return datamat,labelmat</div><div class="line">def sigmoid(intX):</div><div class="line">    from math import exp</div><div class="line">    return 1.0/(1+exp(-intX))</div><div class="line">def grandascent(datamatin,classlabels):</div><div class="line">    from numpy import *</div><div class="line">    datamatrix=mat(datamatin)</div><div class="line">    labelmatrix=mat(classlabels).transpose()</div><div class="line">    #转换为numpy矩阵的数据类型；</div><div class="line">    m,n=shape(datamatrix)</div><div class="line">    alpha=0.001</div><div class="line">    maxcycles=500</div><div class="line">    weights=ones((n,1))</div><div class="line">    for k in range(maxcycles):</div><div class="line">        h=sigmoid(datamatrix*weights)</div><div class="line">        error=labelmatrix-h</div><div class="line">        weights=weights+alpha*datamatrix.transpose()*error</div><div class="line">    return weights</div><div class="line">def plotbestfit(wei):</div><div class="line">    import matplotlib.pyplot as plt</div><div class="line">    from numpy import *</div><div class="line">    weights=wei.getA()</div><div class="line">    datamat,labelmat=loaddataset()</div><div class="line">    dataarr=array(datamat)</div><div class="line">    n=shape(dataarr)[0]</div><div class="line">    xcords1=[]</div><div class="line">    ycords1=[]</div><div class="line">    xcords2=[]</div><div class="line">    ycords2=[]</div><div class="line">    for i in range(n):</div><div class="line">        if int(labelmat[i])==1:</div><div class="line">            xcords1.append(dataarr[i,1])</div><div class="line">            ycords1.append(dataarr[i,2])</div><div class="line">        else:</div><div class="line">            xcords2.append(dataarr[i,1])</div><div class="line">            ycords2.append(dataarr[i,2])</div><div class="line">    fig=plt.figure()</div><div class="line">    ax=fig.add_subplot(111)</div><div class="line">    ax.scatter(xcords1,ycords1,s=30,c=&apos;red&apos;,marker=&apos;s&apos;)</div><div class="line">    ax.scatter(xcords2,ycords2,s=30,c=&apos;green&apos;)</div><div class="line">    x=arange(-3.0,3.0,0.1)</div><div class="line">    y=(-weights[0]-weights[1].x)/weights[2]</div><div class="line">    ax.plot(x,y)</div><div class="line">    plt.xlabel(&apos;X1&apos;)</div><div class="line">    plt.ylabel(&apos;X2&apos;)</div><div class="line">    plt.show()</div></pre></td></tr></table></figure></p>
+<p>随机梯度上升算法<br>我们之前的梯度上升算法在每次更新回归系数的时候都要遍历整个数据集，在数据集很大的时候<br>这种做法就会变得笨拙。我们通过下面这种方式改进我们的算法。<br>每次只使用一个数据点对回归系数进行更新，该方法称为随机梯度上升算法。<br>实现随机梯度上升算法的python实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">def stocgradascent1(datamatrix,classlabels,numiter=150):</div><div class="line">    m,n=shape(datamatrix)</div><div class="line">    weights=ones(n)</div><div class="line">    for j in range(numiter):</div><div class="line">        dataindex=range(m)</div><div class="line">        for i in range(m):</div><div class="line">            alpha=4/(1.0+j+i)+0.01</div><div class="line">            #调整alpha值来缓和波动</div><div class="line">            randindex=int(random.uniform(0,len(dataindex)))</div><div class="line">            h=sigmoid(sum(datamatrix[randindex]*weights))</div><div class="line">            error=classlabels[randindex]-h</div><div class="line">            weights=weights+alpha*error*datamatrix[randindex]</div><div class="line">            del(dataindex[randindex])</div><div class="line">    return weights</div></pre></td></tr></table></figure></p>
+<p>接下来我们将理论运用到实践当中。<br>实例：从疝气病症预测病马的死亡率<br>研究过程：<br>（1）.收集数据：这里使用我们预备好的数据文件<br>（2）.准备数据：用python解析文本，填充空缺<br>（3）.分析数据：将我们的数据结果可视化并进行观察总结<br>（4）.训练算法：使用优化算法，找到最佳的数据<br>（5）.测试算法：观察错误率，通过改变迭代次数和步长来优化我们的参数，在过程当中根据错误率来决定我们是否要继续进行训练<br>（6）.使用算法：实现简单的真正的从症状预测结果<br>分析过程要面对的一些问题<br>1.数据缺失：鉴于我们所得到的数据也许有时会很来之不易，如果重新进行收集可能会给我们带来很大的损失，<br>所以我们要考虑一些其他的方法：<br>（1）.使用特征值的均值填补<br>（2）.使用我们自设定的特殊值<br>（3）.干脆忽略掉存在缺失的小部分样本<br>（4）.使用相似的样本抽取特征填补<br>（5）.使用其他的算法预测并填补<br>结合我们这里的问题，我们决定选择实数0来填补，这样做适用于logistic回归。<br>如若发现类别标签缺失，直接舍弃。<br>使用logistic方法进行分类：将测试集上的每个特征向量乘最优化得到的回归系数，再将该结果求和，然后作为sigmoid函数的输入即可。<br>接下来继续完善我们的分类器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">def classifyvector(intx,weights):</div><div class="line">    prob=sigmoid(sum(intx*weights))</div><div class="line">    if prob&gt;0.5:</div><div class="line">        return 1.0</div><div class="line">    else:</div><div class="line">        return 0.0</div><div class="line">def colictest():</div><div class="line">    frtrain=open(&apos;horsecolictraining.txt&apos;)</div><div class="line">    frtest=open(&apos;horsecolictest.txt&apos;)</div><div class="line">    trainingset=[]</div><div class="line">    traininglabels=[]</div><div class="line">    for line in frtrain.readlines():</div><div class="line">        currline=line.strip().split(&apos;\t&apos;)</div><div class="line">        linearr=[]</div><div class="line">        for i in range(21):</div><div class="line">            linearr.append(float(currline[i]))</div><div class="line">        trainingset.append(linearr)</div><div class="line">        traininglabels.append(float(currline[21]))</div><div class="line">    trainweights=stocgradascent1(array(trainingset),traininglabels,500)</div><div class="line">    errcount=0</div><div class="line">    numtestvec=0.0</div><div class="line">    for line in frtest.readline():</div><div class="line">        numtestvec+=1.0</div><div class="line">        currline=line.strip().split(&apos;\t&apos;)</div><div class="line">        linearr=[]</div><div class="line">        for i in range(21):</div><div class="line">            linearr.append(float(currline[i]))</div><div class="line">        if int(classifyvector(array(linearr),trainweights))!=int(currline[21]):</div><div class="line">            errcount+=1</div><div class="line">    errrate=(float(errcount/numtestvec))</div><div class="line">    print(&quot;the errorrate is%d&quot;,errrate)</div><div class="line">    return errrate</div><div class="line">def multitest():</div><div class="line">    numtests=10</div><div class="line">    errorsum=0.0</div><div class="line">    for k in range(numtests):</div><div class="line">        errorsum+=colictest()</div><div class="line">    print(&quot;after 10 iterations the average error rate is %f&quot;,float(errorsum/numtests))</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/13/学习笔记-Logistic回归/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-操作系统-ubuntu-raid配置重启使得md0变为md127导致挂载失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -600,58 +656,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/11/05/学习笔记-范数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-动态规划——中级进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章我们开始考虑二维的问题了。<br>示例一<br>平面上有n*m个方格，每个格子中放一定数量苹果，我们从左上角的第一个格子开始走，接下来我们的每一步只能向下或者向右走，每到一个格子，<br>就把里面的苹果收集起来，走啊走，问最后最多可以收集多少个苹果。<br>所有的dp问题其实都大同小异，我们要求到达某个格子收集到的苹果的数量，就要求上一个格子已有的苹果的数量，这其实就好像一个逆推的<br>过程，最后就一直推到左上角的那个格子了。一回头，一步一步，我们的结果就出来了。<br>设格子的行row,列为col,某个格子最多收集到的苹果数量为s[i][j],某个格子放的苹果数量为a[i][j];<br>假设当前到达了i行j列的格子，那么到达这个方格的路径只有两种，就是它的上面和左面的格子，<br>那么我们就很容易写出我们的递推公式，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=a[i][j]+max&#123;a[i-1][j],a[i][j-1];i&gt;0,j&gt;0,0&#125;;</div></pre></td></tr></table></figure></p>
-<p>依然根据递推公式写出代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">	int a[6][7] = &#123;</div><div class="line">	&#123;12,14,3,5,6,8,21&#125;,</div><div class="line">	&#123;3,5,7,1,9,34,12&#125;,</div><div class="line">	&#123;4,6,7,18,1,23,11&#125;,</div><div class="line">	&#123;9,11,13,24,6,5,3&#125;,</div><div class="line">	&#123;21,22,3,4,17,9,5&#125;,</div><div class="line">	&#123;12,3,5,8,22,9,10&#125;</div><div class="line">	&#125;;</div><div class="line">	int s[6][7];</div><div class="line">	s[0][0] = a[0][0];</div><div class="line">	for (int i = 0; i &lt; 6; i++) &#123;</div><div class="line">		for (int j = 0; j &lt; 7; j++) &#123;</div><div class="line">			if (i &gt; 0 &amp;&amp; j &gt; 0) &#123;</div><div class="line">				if (s[i][j - 1] &gt; s[i - 1][j]) &#123;</div><div class="line">					s[i][j] = a[i][j] + s[i][j - 1];</div><div class="line">				&#125;</div><div class="line">				else&#123;</div><div class="line">					s[i][j] = a[i][j] + s[i - 1][j];</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			else if (i == 0&amp;&amp;j&gt;0) &#123;</div><div class="line">				s[i][j] = a[i][j]+s[i][j-1];</div><div class="line">			&#125;</div><div class="line">			else if(j==0&amp;&amp;i&gt;0)&#123;</div><div class="line">				s[i][j] = a[i][j] + s[i-1][j];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; s[5][6] &lt;&lt; endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>写到这里，似乎发现，我们做dp问题其实最重要的就是要找出递推方程，剩下的就是小case了。<br>示例二<br>这个问题和示例一太像了。。<br>有一个矩形滑雪场，可以用r行c列来表示它的地形，地形较高那么元素就较大一些，反之。<br>为了得到更快的滑雪速度，滑雪的方向必须是向下倾斜的，规定可以从上下左右四个方向来寻求路径。<br>我们要求的结果是要找到一条最长的路径溜下去。<br>先看我们的常规思路。<br>那么我们第一步肯定是要找到这块地形最高的位置了。<br>接下来，我们依然沿用求子问题的方式来进行求解。我们如果求最高位置为起点的最长路径，那么就是要求其周围四个<br>邻接位置的路径，然后取其中最大的那一条。<br>以此类推，假如我们找到了四个中的那个所谓的子问题解，那么就以这个邻接位置为当前位置，继续重复上述过程，求解<br>此时的邻接路径的最长的那一条。<br>设s[i][j]=k，表示在i行j列的位置取得的最长路径为k；<br>那么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=max&#123;s[i-1][j],s[i+1][j],s[i][j-1],s[i][j+1]&#125;+1;</div></pre></td></tr></table></figure></p>
-<p>通过记忆化搜索深度递归即可。<br>接下来我们看另一种思路。<br>对比一下求最长非降子序列的问题，其实我们可以将这道题进行化归。<br>我们仔细推敲一下，我们先把这个二维的矩阵化为一个一维的是数组，这一步实现了降维。<br>阅读我们问题，很明显有两个要点，一个是邻接，一个是下降。<br>那么我们必须将原来的二维数组的索引记录下来，为了判定是否相邻，还要高度，就是我们一数组的值。<br>那么我们可以定义一个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class pos&#123;</div><div class="line">  int h;</div><div class="line">  int x;</div><div class="line">  int y;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>我们将这个pos进行排序，排序的依据是高度。<br>降维后，我们得到一个存储着若干个pos对象的数组，然后依据对象的x和y属性，判断原矩阵的元素是否相邻进行处理。<br>类比最长非降序子列的问题，我们可以结合上述改造写出代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;algorithm&gt;</div><div class="line">#include&lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">class pos &#123;</div><div class="line">public:</div><div class="line">	int h;</div><div class="line">	int x;</div><div class="line">	int y;</div><div class="line">&#125;;</div><div class="line">bool operator&lt;(pos p1, pos p2) &#123;</div><div class="line">	return p1.h &lt; p2.h;</div><div class="line">&#125;</div><div class="line">bool check(pos p1,pos p2) &#123;</div><div class="line">	if (((p1.x == p2.x&amp;&amp;abs(p1.y-p2.y) == 1)</div><div class="line">		||(p1.y == p2.y&amp;&amp;abs(p1.x - p2.x) == 1))</div><div class="line">		&amp;&amp;p1.h&gt;p2.h) &#123;</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line">	return false;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">	int a[5][5] = &#123;</div><div class="line">	&#123;1,2,3,4,5&#125;,</div><div class="line">	&#123;16,17,18,19,6&#125;,</div><div class="line">	&#123;15,24,25,20,7&#125;,</div><div class="line">	&#123;14,23,22,21,8&#125;,</div><div class="line">	&#123;13,12,11,10,9&#125;</div><div class="line">	&#125;;</div><div class="line">	pos ps[25];</div><div class="line">	int dp[25];</div><div class="line">	int k = 0;</div><div class="line">	for (int i = 0; i &lt; 5; i++) &#123;</div><div class="line">		for (int j=0; j &lt; 5; j++) &#123;</div><div class="line">			pos p;</div><div class="line">			p.x = i;</div><div class="line">			p.y = j;</div><div class="line">			p.h = a[i][j];</div><div class="line">			ps[k++]=p;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	int maxlen = 1;</div><div class="line">	sort(ps,ps+25);</div><div class="line">	for (int i = 0; i &lt; 25; i++) &#123;</div><div class="line">		dp[i] = 1;</div><div class="line">		for (int j = 0; j &lt; i; j++) &#123;</div><div class="line">			if (check(ps[i], ps[j])) &#123;</div><div class="line">				dp[i] =max(dp[i],dp[j]+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if (dp[i] &gt; maxlen)maxlen = dp[i];</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; maxlen;</div><div class="line">	int o;</div><div class="line">	cin &gt;&gt; o;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/22/学习笔记-动态规划——中级进阶/">展开全文 >></a>
         </p>
       
 

@@ -145,6 +145,58 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-动态规划——中级进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
+  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章我们开始考虑二维的问题了。<br>示例一<br>平面上有n*m个方格，每个格子中放一定数量苹果，我们从左上角的第一个格子开始走，接下来我们的每一步只能向下或者向右走，每到一个格子，<br>就把里面的苹果收集起来，走啊走，问最后最多可以收集多少个苹果。<br>所有的dp问题其实都大同小异，我们要求到达某个格子收集到的苹果的数量，就要求上一个格子已有的苹果的数量，这其实就好像一个逆推的<br>过程，最后就一直推到左上角的那个格子了。一回头，一步一步，我们的结果就出来了。<br>设格子的行row,列为col,某个格子最多收集到的苹果数量为s[i][j],某个格子放的苹果数量为a[i][j];<br>假设当前到达了i行j列的格子，那么到达这个方格的路径只有两种，就是它的上面和左面的格子，<br>那么我们就很容易写出我们的递推公式，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=a[i][j]+max&#123;a[i-1][j],a[i][j-1];i&gt;0,j&gt;0,0&#125;;</div></pre></td></tr></table></figure></p>
+<p>依然根据递推公式写出代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">	int a[6][7] = &#123;</div><div class="line">	&#123;12,14,3,5,6,8,21&#125;,</div><div class="line">	&#123;3,5,7,1,9,34,12&#125;,</div><div class="line">	&#123;4,6,7,18,1,23,11&#125;,</div><div class="line">	&#123;9,11,13,24,6,5,3&#125;,</div><div class="line">	&#123;21,22,3,4,17,9,5&#125;,</div><div class="line">	&#123;12,3,5,8,22,9,10&#125;</div><div class="line">	&#125;;</div><div class="line">	int s[6][7];</div><div class="line">	s[0][0] = a[0][0];</div><div class="line">	for (int i = 0; i &lt; 6; i++) &#123;</div><div class="line">		for (int j = 0; j &lt; 7; j++) &#123;</div><div class="line">			if (i &gt; 0 &amp;&amp; j &gt; 0) &#123;</div><div class="line">				if (s[i][j - 1] &gt; s[i - 1][j]) &#123;</div><div class="line">					s[i][j] = a[i][j] + s[i][j - 1];</div><div class="line">				&#125;</div><div class="line">				else&#123;</div><div class="line">					s[i][j] = a[i][j] + s[i - 1][j];</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			else if (i == 0&amp;&amp;j&gt;0) &#123;</div><div class="line">				s[i][j] = a[i][j]+s[i][j-1];</div><div class="line">			&#125;</div><div class="line">			else if(j==0&amp;&amp;i&gt;0)&#123;</div><div class="line">				s[i][j] = a[i][j] + s[i-1][j];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; s[5][6] &lt;&lt; endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>写到这里，似乎发现，我们做dp问题其实最重要的就是要找出递推方程，剩下的就是小case了。<br>示例二<br>这个问题和示例一太像了。。<br>有一个矩形滑雪场，可以用r行c列来表示它的地形，地形较高那么元素就较大一些，反之。<br>为了得到更快的滑雪速度，滑雪的方向必须是向下倾斜的，规定可以从上下左右四个方向来寻求路径。<br>我们要求的结果是要找到一条最长的路径溜下去。<br>先看我们的常规思路。<br>那么我们第一步肯定是要找到这块地形最高的位置了。<br>接下来，我们依然沿用求子问题的方式来进行求解。我们如果求最高位置为起点的最长路径，那么就是要求其周围四个<br>邻接位置的路径，然后取其中最大的那一条。<br>以此类推，假如我们找到了四个中的那个所谓的子问题解，那么就以这个邻接位置为当前位置，继续重复上述过程，求解<br>此时的邻接路径的最长的那一条。<br>设s[i][j]=k，表示在i行j列的位置取得的最长路径为k；<br>那么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s[i][j]=max&#123;s[i-1][j],s[i+1][j],s[i][j-1],s[i][j+1]&#125;+1;</div></pre></td></tr></table></figure></p>
+<p>通过记忆化搜索深度递归即可。<br>接下来我们看另一种思路。<br>对比一下求最长非降子序列的问题，其实我们可以将这道题进行化归。<br>我们仔细推敲一下，我们先把这个二维的矩阵化为一个一维的是数组，这一步实现了降维。<br>阅读我们问题，很明显有两个要点，一个是邻接，一个是下降。<br>那么我们必须将原来的二维数组的索引记录下来，为了判定是否相邻，还要高度，就是我们一数组的值。<br>那么我们可以定义一个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class pos&#123;</div><div class="line">  int h;</div><div class="line">  int x;</div><div class="line">  int y;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>我们将这个pos进行排序，排序的依据是高度。<br>降维后，我们得到一个存储着若干个pos对象的数组，然后依据对象的x和y属性，判断原矩阵的元素是否相邻进行处理。<br>类比最长非降序子列的问题，我们可以结合上述改造写出代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;algorithm&gt;</div><div class="line">#include&lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">class pos &#123;</div><div class="line">public:</div><div class="line">	int h;</div><div class="line">	int x;</div><div class="line">	int y;</div><div class="line">&#125;;</div><div class="line">bool operator&lt;(pos p1, pos p2) &#123;</div><div class="line">	return p1.h &lt; p2.h;</div><div class="line">&#125;</div><div class="line">bool check(pos p1,pos p2) &#123;</div><div class="line">	if (((p1.x == p2.x&amp;&amp;abs(p1.y-p2.y) == 1)</div><div class="line">		||(p1.y == p2.y&amp;&amp;abs(p1.x - p2.x) == 1))</div><div class="line">		&amp;&amp;p1.h&gt;p2.h) &#123;</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line">	return false;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">	int a[5][5] = &#123;</div><div class="line">	&#123;1,2,3,4,5&#125;,</div><div class="line">	&#123;16,17,18,19,6&#125;,</div><div class="line">	&#123;15,24,25,20,7&#125;,</div><div class="line">	&#123;14,23,22,21,8&#125;,</div><div class="line">	&#123;13,12,11,10,9&#125;</div><div class="line">	&#125;;</div><div class="line">	pos ps[25];</div><div class="line">	int dp[25];</div><div class="line">	int k = 0;</div><div class="line">	for (int i = 0; i &lt; 5; i++) &#123;</div><div class="line">		for (int j=0; j &lt; 5; j++) &#123;</div><div class="line">			pos p;</div><div class="line">			p.x = i;</div><div class="line">			p.y = j;</div><div class="line">			p.h = a[i][j];</div><div class="line">			ps[k++]=p;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	int maxlen = 1;</div><div class="line">	sort(ps,ps+25);</div><div class="line">	for (int i = 0; i &lt; 25; i++) &#123;</div><div class="line">		dp[i] = 1;</div><div class="line">		for (int j = 0; j &lt; i; j++) &#123;</div><div class="line">			if (check(ps[i], ps[j])) &#123;</div><div class="line">				dp[i] =max(dp[i],dp[j]+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if (dp[i] &gt; maxlen)maxlen = dp[i];</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; maxlen;</div><div class="line">	int o;</div><div class="line">	cin &gt;&gt; o;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/22/学习笔记-动态规划——中级进阶/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-学习笔记-动态规划——初级入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -574,56 +626,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/09/12/拼图游戏-N-puzzle问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-Failed-to-resolve-junit-junit-4-12解决方案-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">Failed to resolve: junit:junit:4.12解决方案</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/" class="archive-article-date">
-  	<time datetime="2017-09-12T01:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>经过一个月没电脑，两个月没网的假期，我终于可以继续在网上浪了，赶快来记录一下这个假期遇到的问题吧。<br>电脑换了主板，修好以后，换了系统，我电脑里好多东西都gg了。包括android studio…<br>打开以前的项目，耐心等待加载后，便跳出了这个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to resolve: junit:junit:4.12</div></pre></td></tr></table></figure></p>
-<p>百度以后，首先发现一个解决方案。<br>错误显示是加载junit失败，那就打开gradle把加载选项删掉就好了呗！试了一下，错误是没了，但是，这完全是掩耳盗铃。<br>其实正确的方法很简单，无法加载junit，是因为缺少junit4.12这个文件，那么只要完善就好了。<br>打开项目的gradle文件，在allprojects的repositories添加下面这条语句即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">maven &#123; url &apos;http://repo1.maven.org/maven2&apos; &#125;</div></pre></td></tr></table></figure></p>
-<p>这样资源库就正常导入可以使用了。对了，记得联网才能有效哦，我假期没网所以一直没成功！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/Failed-to-resolve-junit-junit-4-12解决方案-1/">展开全文 >></a>
         </p>
       
 
