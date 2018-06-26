@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>轮廓检测入门 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="人脸检测完成后，我们需要将检测到的人脸进行框选，那么就需要轮廓检测了。不讨论过多的算法方面的东西(因为实在不太懂)，我这次直接使用了opencv中的findContours()函数。12345678910111213141516171819202122232425262728293031def getcontours(img):    best_rate=2    best_w=0    best">
+<meta property="og:type" content="article">
+<meta property="og:title" content="轮廓检测入门">
+<meta property="og:url" content="http://yoursite.com/2018/06/26/轮廓检测入门/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="人脸检测完成后，我们需要将检测到的人脸进行框选，那么就需要轮廓检测了。不讨论过多的算法方面的东西(因为实在不太懂)，我这次直接使用了opencv中的findContours()函数。12345678910111213141516171819202122232425262728293031def getcontours(img):    best_rate=2    best_w=0    best">
+<meta property="og:updated_time" content="2018-06-26T03:37:20.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="轮廓检测入门">
+<meta name="twitter:description" content="人脸检测完成后，我们需要将检测到的人脸进行框选，那么就需要轮廓检测了。不讨论过多的算法方面的东西(因为实在不太懂)，我这次直接使用了opencv中的findContours()函数。12345678910111213141516171819202122232425262728293031def getcontours(img):    best_rate=2    best_w=0    best">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,295 +147,154 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-轮廓检测入门" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      轮廓检测入门
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/轮廓检测入门/" class="archive-article-date">
+  	<time datetime="2018-06-26T03:03:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人脸检测完成后，我们需要将检测到的人脸进行框选，那么就需要轮廓检测了。<br>不讨论过多的算法方面的东西(因为实在不太懂)，我这次直接使用了opencv中的<br>findContours()函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">def getcontours(img):</div><div class="line">    best_rate=2</div><div class="line">    best_w=0</div><div class="line">    best_h=0</div><div class="line">    best_x=0</div><div class="line">    best_y=0</div><div class="line">    rate=1</div><div class="line"></div><div class="line">    height=img.shape[0]</div><div class="line">    width=img.shape[1]</div><div class="line">    min_area=height*width/1000</div><div class="line"></div><div class="line">    want_op=img.copy()</div><div class="line">    want_op=cv2.cvtColor(want_op,cv2.COLOR_BGR2GRAY)</div><div class="line">    ret,bina=cv2.threshold(want_op,0,255,cv2.THRESH_BINARY)</div><div class="line">    _,contours,her=cv2.findContours(bina,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)</div><div class="line">    #连通区域，比例最接近，坐标限制；</div><div class="line">    for contour in contours:</div><div class="line">        area=cv2.contourArea(contour)</div><div class="line">        x, y, w, h = cv2.boundingRect(contour)</div><div class="line">        if x&gt;width/5 and x&lt;width*0.8 and y&lt;height/4:</div><div class="line">            if area &gt; min_area:</div><div class="line">                my_rate=w/h</div><div class="line">                if abs(my_rate-rate)&lt;abs(best_rate-rate):</div><div class="line">                    best_rate=my_rate</div><div class="line">                    best_h=h</div><div class="line">                    best_w=w</div><div class="line">                    best_x=x</div><div class="line">                    best_y=y</div><div class="line"></div><div class="line">    return best_x,best_y,best_w,best_h</div></pre></td></tr></table></figure></p>
+<p>直接说这段代码吧,我们会在其中看到这么一句:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_,contours,her=cv2.findContours(bina,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)</div></pre></td></tr></table></figure></p>
+<p>这个就是opencv内置的轮廓检测的函数，<br>这里一定要注意，在网上看到的大多数教程这个函数的返回值都是两个，<br>但是由于版本问题，我使用的其实返回了三个值,即使第一个值很少用，<br>但是如果不接就会报错: ValueError: too many values to unpack<br>返回值:<br>(1)基本用不到，处理的图像；<br>(2)轮廓的点集，在opencv中，轮廓就是一系列点的集合；<br>(3)各层轮廓的索引；<br>主要参数:<br>(1)二值图，一定是二值图，所以我们需要对图像进行预处理。<br>我这里其实之前传进去需要处理的就是一副黑白图，但是不知道为什么还会报错，所以<br>就把黑白图依然进行下述处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">want_op=cv2.cvtColor(want_op,cv2.COLOR_BGR2GRAY)</div><div class="line">ret,bina=cv2.threshold(want_op,0,255,cv2.THRESH_BINARY)</div></pre></td></tr></table></figure></p>
+<p>这个处理过程是原地处理，所以如果后续需要原图，那么最好copy()一下。</p>
+<p>(2)第二个参数是轮廓的检索方式<br>CV_RETR_EXTERNAL:<br>表示只检测外轮廓；<br>CV_RETR_LIST:<br>检测的轮廓不建立等级关系；<br>CV_RETR_CCOMP:<br>建立两个等级的轮廓，上面的一层为外边界，里面的一层为内孔的边界信息。<br>如果内孔内还有一个连通物体，这个物体的边界也在顶层；<br>CV_RETR_TREE:<br>建立一个等级树结构的轮廓；</p>
+<p>(3)第三个参数是轮廓的近似方法<br>CV_CHAIN_APPROX_NONE:<br>存储所有的轮廓点，相邻的两个点的像素位置差不超过1;<br>CV_CHAIN_APPROX_SIMPLE:<br>压缩水平方向，垂直方向，对角线方向的元素，只保留该方向的终点坐标，<br>例如一个矩形轮廓只需4个点来保存轮廓信息;<br>CV_CHAIN_APPROX_TC89_L1，CV_CHAIN_APPROX_TC89_KCOS使用teh-Chinl chain 近似算法。</p>
+<p>获取轮廓后，我们只要对返回的点集，也就是第二个参数进行遍历，每次遍历得到一个contour，<br>如果想要对其进行处理，比如标记等等，或者是在其中选出需要的轮廓(比如最大的轮廓)。<br>在循环中处理逻辑即可。</p>
+<p>下面的代码是对获取到的轮廓区域内的像素点进行统计投票，<br>如果满足条件的像素点数大于总像素点数的八分之三，返回0，否则返回1。<br>通过分析，还发现rectangle函数的框选区域把标记框也标记进去了，<br>而且轮廓线上左宽为2像素，下右宽为1像素,需要精确内部区域的一定要把框所占数量去掉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">def has_cap(bin_img,img):</div><div class="line">    red_cap=[[110,220],[0,100],[0,100]]</div><div class="line">    yellow_cap=[[205,255],[110,220],[0,100]]</div><div class="line">    white_cap=[[205,255],[205,255],[205,255]]</div><div class="line">    x,y,w,h=getcontours(bin_img)</div><div class="line">    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)</div><div class="line"></div><div class="line">    area=(w-3)*(h-3)</div><div class="line">    if w-3&lt;=0 or h-3&lt;=0:</div><div class="line">        return 2</div><div class="line">    #检测不到人头</div><div class="line"></div><div class="line">    #轮廓线上左宽为2，下右宽为1;</div><div class="line">    is_cap=np.zeros([h-3,w-3],np.int)</div><div class="line">    print(str(h)+&apos;,&apos;+str(w))</div><div class="line">    for i in range(y+2,y+h-1):</div><div class="line">        print(&apos; &apos;)</div><div class="line">        for j in range(x+2,x+w-1):</div><div class="line">            bgr=img[i,j]</div><div class="line">            print(bgr)</div><div class="line">            if bgr[0]&gt;=0 and bgr[0]&lt;=100:</div><div class="line">                if bgr[1]&gt;=0 and bgr[1]&lt;=100 and bgr[2]&gt;=110 and bgr[2]&lt;=220:</div><div class="line">                    is_cap[i-y-2,j-x-2]=1</div><div class="line">                elif bgr[1]&gt;=110 and bgr[1]&lt;=220 and bgr[2]&gt;=205 and bgr[2]&lt;=255:</div><div class="line">                    is_cap[i-y-2,j-x-2]=1</div><div class="line">            elif bgr[0]&gt;=205 and bgr[0]&lt;=255:</div><div class="line">                if bgr[1]&gt;=205 and bgr[1]&lt;=255 and bgr[2]&gt;=205 and bgr[2]&lt;=255:</div><div class="line">                    is_cap[i-y-2,j-x-2]=1</div><div class="line">    area2=0</div><div class="line">    for i in range(is_cap.shape[0]):</div><div class="line">        for j in range(is_cap.shape[1]):</div><div class="line">            area2+=is_cap[i,j]</div><div class="line">    print(str(area)+&apos;,&apos;+str(area2))</div><div class="line">    if area2/area&gt;3/8:</div><div class="line">        return 0</div><div class="line">    else:</div><div class="line">        return 1</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/12/学习笔记-决策树/" class="archive-article-date">
-  	<time datetime="2017-11-12T13:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/12/学习笔记-决策树/">&lt;学习笔记&gt; 决策树</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/26/轮廓检测入门/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/10/学习笔记-k-近邻算法/" class="archive-article-date">
-  	<time datetime="2017-11-10T02:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/10/学习笔记-k-近邻算法/">&lt;学习笔记&gt; k-近邻算法</a>
-    </h1>
+    <a href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          tp中CRUD add()方法添加数据主键自增，插入为空解决
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/24/肤色检测/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">肤色检测</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-最小生成树/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:33:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-最小生成树/">&lt;学习笔记&gt; 最小生成树</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-范数/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-范数/">&lt;学习笔记&gt; 范数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——初级入门/" class="archive-article-date">
-  	<time datetime="2017-10-22T03:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——初级入门/">&lt;学习笔记&gt;动态规划——初级入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/21/学习笔记-动态规划/" class="archive-article-date">
-  	<time datetime="2017-10-21T05:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/21/学习笔记-动态规划/">&lt;学习笔记&gt;动态规划————开篇理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +318,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

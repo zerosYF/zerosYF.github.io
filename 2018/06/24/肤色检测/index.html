@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>肤色检测 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="这几天做安全帽检测器，需要定位人脸的部位，就需要用到皮肤检测。在经过行人检测过后，定位图像中人的位置以后，标记出人的位置，然后将标记过后的行人框当作皮肤检测的目标范围。在网上学习了一下，目前有很多检测的技术，这篇文章里做个总结。1.基于RGB通道检测在检测范围内对每个像素点通过RGB值来进行判断:经过大量研究，肤色在RGB模型中的范围满足一下判别式：1234#均匀光照中：R&amp;gt;95 AND G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="肤色检测">
+<meta property="og:url" content="http://yoursite.com/2018/06/24/肤色检测/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="这几天做安全帽检测器，需要定位人脸的部位，就需要用到皮肤检测。在经过行人检测过后，定位图像中人的位置以后，标记出人的位置，然后将标记过后的行人框当作皮肤检测的目标范围。在网上学习了一下，目前有很多检测的技术，这篇文章里做个总结。1.基于RGB通道检测在检测范围内对每个像素点通过RGB值来进行判断:经过大量研究，肤色在RGB模型中的范围满足一下判别式：1234#均匀光照中：R&amp;gt;95 AND G">
+<meta property="og:image" content="http://yoursite.com/images/ellipse.png">
+<meta property="og:image" content="http://yoursite.com/images/hsv1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/hsv2.jpg">
+<meta property="og:updated_time" content="2018-06-26T03:01:53.094Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="肤色检测">
+<meta name="twitter:description" content="这几天做安全帽检测器，需要定位人脸的部位，就需要用到皮肤检测。在经过行人检测过后，定位图像中人的位置以后，标记出人的位置，然后将标记过后的行人框当作皮肤检测的目标范围。在网上学习了一下，目前有很多检测的技术，这篇文章里做个总结。1.基于RGB通道检测在检测范围内对每个像素点通过RGB值来进行判断:经过大量研究，肤色在RGB模型中的范围满足一下判别式：1234#均匀光照中：R&amp;gt;95 AND G">
+<meta name="twitter:image" content="http://yoursite.com/images/ellipse.png">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,295 +151,161 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-肤色检测" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      肤色检测
+    </h1>
+  
+
+        
+        <a href="/2018/06/24/肤色检测/" class="archive-article-date">
+  	<time datetime="2018-06-24T12:34:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-24</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这几天做安全帽检测器，需要定位人脸的部位，就需要用到皮肤检测。<br>在经过行人检测过后，定位图像中人的位置以后，标记出人的位置，然后将标记过后的行人框当作<br>皮肤检测的目标范围。<br>在网上学习了一下，目前有很多检测的技术，这篇文章里做个总结。<br>1.基于RGB通道检测<br>在检测范围内对每个像素点通过RGB值来进行判断:<br>经过大量研究，肤色在RGB模型中的范围满足一下判别式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#均匀光照中：</div><div class="line">R&gt;95 AND G&gt;40 B&gt;20 AND MAX(R,G,B)-MIN(R,G,B)&gt;15 AND ABS(R-G)&gt;15 AND R&gt;G AND R&gt;B</div><div class="line">#侧光情况中：</div><div class="line">R&gt;220 AND G&gt;210 AND B&gt;170 AND ABS(R-G)&lt;=15 AND R&gt;B AND G&gt;B</div></pre></td></tr></table></figure></p>
+<p>只要在像素通道值判断中通过上述表达式进行检测即可。</p>
+<p>2.基于YCrCb空间椭圆模型检测<br>同样是经过大量的研究，将皮肤模型映射到YCrCb空间中，那么在CrCb的二维空间当中，满足肤色的<br>值将会落在一个椭圆的区域内:<br><img src="/images/ellipse.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#椭圆参数如下：</div><div class="line">ellipse=cv2.ellipse(skincbcr,[113,155.6],[23.4,15.6],43.0,0.0,360.0,[255,255,255],-1)</div></pre></td></tr></table></figure></p>
+<p>那么通过代入(Cr,Cb)坐标的然后判断是否落在椭圆区域内即可。</p>
+<p>3.YCrCb空间中Cr分量+Otus阈值法<br>(1)YCrCb空间:<br>Y即为明亮度，CrCb即为色度，分别为色调与饱和度。<br>更多的关于YCrCb的信息网上都有，就不具体介绍了。<br>(2)最大类间方差法(Otus):<br>使用一个阈值将整个数据空间分为两类，通过两个类之间的方差值来获得最优的阈值。<br>我们需要做的就是将RGB空间映射到YCrCb空间，然后提取Cr分量;<br>然后对Cr进行二值化阈值分割,利用上面Otus法判断即可。</p>
+<p>4.基于YCrCb空间CrCb分量范围筛选<br>类似法一，也是通过前人的大量统计，<br>黄种人的Cr范围在133和173之间，Cb分量在77和127之间。<br>然后根据项目的实际情况灵活调控这个范围在进行范围检测即可。</p>
+<p>5.HSV空间H分量范围筛选<br>HSV空间：分别为H色调，S饱和度，V明度。根据颜色的直观特性建立的色彩空间模型，<br>也被称为六角锥模型。<br><img src="/images/hsv1.jpg" alt=""><br><img src="/images/hsv2.jpg" alt=""><br>(1)色调H：用角度度量，取值范围为0°～360°，<br>从红色开始按逆时针方向计算，红色为0°，绿色为120°,蓝色为240°。<br>它们的补色是：黄色为60°，青色为180°,品红为300°；<br>(2)饱和度S：取值范围为0.0～1.0；<br>(3)亮度V：取值范围为0.0(黑色)～1.0(白色)。<br>满足皮肤模型的范围:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(H&gt;=0 AND H&lt;=25) OR (H&gt;=335 AND H&lt;=360)</div><div class="line">(S&gt;=0.2 AND S&lt;=0.6) AND (V&gt;=0.4)</div></pre></td></tr></table></figure></p>
+<p>通过上面的范围判断即可。</p>
+<p>6.基于YCrCb空间高斯模型检测<br>高斯模型主要利用了统计学原理，肤色这样符合正态分布的统计样本，在特征空间中的分布应当<br>满足高斯分布。<br>关于高斯分布不做过多的介绍。<br>(1)我们要做的就是在YCrCb空间当中，<br>得到Cr和Cb分量的值，通过样本得到均值Mean(MCb,MCr)和协方差矩阵C(这是一个<br>  统计过程，所以说这种检测方法和机器学习结合可能实际效果好一些吧)。<br>(2)将均值和协方差矩阵代入二维高斯函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">P(Cb,Cr)=exp(-0.5*(x-Mean)*inv(C)*(x-Mean).T)</div><div class="line">#其中x=(Cb,Cr)，是一个1*2的矩阵；</div></pre></td></tr></table></figure></p>
+<p>下面是一个python实现的版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cbcr = np.array([[Cb], [Cr]])</div><div class="line">#得到一个2*1的矩阵;</div><div class="line">FaceProbImg[y, x] =</div><div class="line">    np.exp(-0.5 * ((cbcr - Mean).T * np.linalg.inv(C) * (cbcr - Mean))[0, 0])</div><div class="line">    #得到的是一个1*1的矩阵，取[0,0]即取出其值;</div><div class="line">    if FaceProbImg[y, x] &gt; threshhold:</div><div class="line">        img_bin[y, x] = [255,255,255]</div><div class="line">    else:</div><div class="line">        img_bin[y,x]=[0,0,0]</div></pre></td></tr></table></figure></p>
+<p>上面得到的FaceProbImg是像素属于皮肤区域的概率，我们设置一个阈值threshold,<br>比较得到的概率和阈值即可。</p>
+<p>经过上面的对比，最后选择了椭圆模型，感觉效果最好,相比来说实现也比较简单。<br>关键代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">img_ycbcr=img.copy()</div><div class="line">    img_bin=img.copy()</div><div class="line">    img_ycbcr=cv2.cvtColor(img_ycbcr,cv2.COLOR_BGR2YCrCb)</div><div class="line">    height=img_ycbcr.shape[0]</div><div class="line">    width=img_ycbcr.shape[1]</div><div class="line"></div><div class="line">    for y in range(height):</div><div class="line">        for x in range(width):</div><div class="line">            Y=img_ycbcr[y,x,0]</div><div class="line">            CrY=img_ycbcr[y,x,1]</div><div class="line">            CbY=img_ycbcr[y,x,2]</div><div class="line">            Cb,Cr=Before_Model(Y,CbY,CrY)</div><div class="line">            #椭圆模型；</div><div class="line">            ellipse=ellipse2()</div><div class="line">            cbcr=np.array([[Cb,Cr]])</div><div class="line">            if ellipse[cbcr[0,0]]&gt;0:</div><div class="line">                img_bin[y, x] = [255,255,255]</div><div class="line">            else:</div><div class="line">                img_bin[y,x]=[0,0,0]</div></pre></td></tr></table></figure></p>
+<p>上面这段代码可以更换结构，来使用不同的模型进行检测。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">Kl, Kh = 125, 188</div><div class="line">Ymin, Ymax = 16, 235</div><div class="line">Wlcb, Wlcr = 23, 20</div><div class="line">Whcb, Whcr = 14, 10</div><div class="line">Wcb, Wcr = 46.97, 38.76</div><div class="line">#这些数据是通过85万多个肤色点统计得出的;</div><div class="line"></div><div class="line">def Before_Model(Y,CbY,CrY):</div><div class="line">    if Y&lt;Kl or Y&gt;Kh:</div><div class="line">        if Y&lt;Kl:</div><div class="line">            CbY_evr=108+(Kl-Y)*(118-108)/(Kl-Ymin)</div><div class="line">            CrY_evr=154-(Kl-Y)*(154-144)/(Kl-Ymin)</div><div class="line"></div><div class="line">            WcbY=Wlcb+(Y-Ymin)*(Wcb-Wlcb)/(Kl-Ymin)</div><div class="line">            WcrY=Wlcr+(Y-Ymin)*(Wcr-Wlcr)/(Kl-Ymin)</div><div class="line"></div><div class="line">        elif Y&gt;Kh:</div><div class="line">            CbY_evr=108+(Y-Kh)*(118-108)/(Ymax-Kh)</div><div class="line">            CrY_evr=154+(Y-Kh)*(154-132)/(Ymax-Kh)</div><div class="line"></div><div class="line">            WcbY=Whcb+(Ymax-Y)*(Wcb-Whcb)/(Ymax-Kh)</div><div class="line">            WcrY=Whcr+(Ymax-Y)*(Wcr-Whcr)/(Ymax-Kh)</div><div class="line"></div><div class="line">        CbKh_aver = 108 + (Kh - Kh) * (118 - 108) / (Ymax - Kh)</div><div class="line">        CrKh_aver = 154 + (Kh - Kh) * (154 - 132) / (Ymax - Kh)</div><div class="line"></div><div class="line">        Cb=(CbY-CbY_evr)*Wcb/WcbY+CbKh_aver</div><div class="line">        Cr=(CrY-CrY_evr)*Wcr/WcrY+CrKh_aver</div><div class="line">    else:</div><div class="line">        Cb=CbY</div><div class="line">        Cr=CrY</div><div class="line">    return Cb,Cr</div></pre></td></tr></table></figure></p>
+<p>上面这段代码是<br>为了使肤色聚类不受亮度Y 的影响将YCbCr 颜色空间中的色度Cb、Cr进行非线性变换。<br>参考文献:<br>《基于分裂式K均值聚类的肤色检测方法》<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">def ellipse2():</div><div class="line">    skincbcr=np.zeros([256,256],cv2.CV_8UC1)</div><div class="line">    ellipse=cv2.ellipse(skincbcr,[113,155.6],[23.4,15.6],43.0,0.0,360.0,[255,255,255],-1)</div><div class="line">    return ellipse</div></pre></td></tr></table></figure></p>
+<p>目前学习到的就这些了。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/12/学习笔记-决策树/" class="archive-article-date">
-  	<time datetime="2017-11-12T13:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/12/学习笔记-决策树/">&lt;学习笔记&gt; 决策树</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/24/肤色检测/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/10/学习笔记-k-近邻算法/" class="archive-article-date">
-  	<time datetime="2017-11-10T02:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/10/学习笔记-k-近邻算法/">&lt;学习笔记&gt; k-近邻算法</a>
-    </h1>
+    <a href="/2018/06/26/轮廓检测入门/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          轮廓检测入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/24/pyinstaller遇到的问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pyinstaller遇到的问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-最小生成树/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:33:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-最小生成树/">&lt;学习笔记&gt; 最小生成树</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-范数/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-范数/">&lt;学习笔记&gt; 范数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——初级入门/" class="archive-article-date">
-  	<time datetime="2017-10-22T03:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——初级入门/">&lt;学习笔记&gt;动态规划——初级入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/21/学习笔记-动态规划/" class="archive-article-date">
-  	<time datetime="2017-10-21T05:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/21/学习笔记-动态规划/">&lt;学习笔记&gt;动态规划————开篇理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +329,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

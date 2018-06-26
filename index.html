@@ -145,6 +145,227 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-tp中CRUD-add-方法添加数据主键自增，插入为空解决" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/">tp中CRUD add()方法添加数据主键自增，插入为空解决</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/" class="archive-article-date">
+  	<time datetime="2018-06-26T03:42:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>thinkphp中操作数据库使用add()方法添加数据，然后查询，发现只有主键，<br>其他字段值并没有返回，然后去看了一下，发现字段值确实为空，说明add执行失败了。<br>经过一番请教，原来是缓存的原因，<br><img src="/images/tpadd.png" alt=""><br>如果在使用表过后，又手动更改了表结构，Runtime中缓存了表的结构信息，<br>然后手动修改表，并未与Runtime一致，就会导致这个原因，<br>只要将缓存清空即可，也就是将Runtime文件清空，问题就会解决。<br>我们也可以编写自己的脚本，来自动化这个Runtime清空过程。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-轮廓检测入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/26/轮廓检测入门/">轮廓检测入门</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/轮廓检测入门/" class="archive-article-date">
+  	<time datetime="2018-06-26T03:03:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人脸检测完成后，我们需要将检测到的人脸进行框选，那么就需要轮廓检测了。<br>不讨论过多的算法方面的东西(因为实在不太懂)，我这次直接使用了opencv中的<br>findContours()函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">def getcontours(img):</div><div class="line">    best_rate=2</div><div class="line">    best_w=0</div><div class="line">    best_h=0</div><div class="line">    best_x=0</div><div class="line">    best_y=0</div><div class="line">    rate=1</div><div class="line"></div><div class="line">    height=img.shape[0]</div><div class="line">    width=img.shape[1]</div><div class="line">    min_area=height*width/1000</div><div class="line"></div><div class="line">    want_op=img.copy()</div><div class="line">    want_op=cv2.cvtColor(want_op,cv2.COLOR_BGR2GRAY)</div><div class="line">    ret,bina=cv2.threshold(want_op,0,255,cv2.THRESH_BINARY)</div><div class="line">    _,contours,her=cv2.findContours(bina,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)</div><div class="line">    #连通区域，比例最接近，坐标限制；</div><div class="line">    for contour in contours:</div><div class="line">        area=cv2.contourArea(contour)</div><div class="line">        x, y, w, h = cv2.boundingRect(contour)</div><div class="line">        if x&gt;width/5 and x&lt;width*0.8 and y&lt;height/4:</div><div class="line">            if area &gt; min_area:</div><div class="line">                my_rate=w/h</div><div class="line">                if abs(my_rate-rate)&lt;abs(best_rate-rate):</div><div class="line">                    best_rate=my_rate</div><div class="line">                    best_h=h</div><div class="line">                    best_w=w</div><div class="line">                    best_x=x</div><div class="line">                    best_y=y</div><div class="line"></div><div class="line">    return best_x,best_y,best_w,best_h</div></pre></td></tr></table></figure></p>
+<p>直接说这段代码吧,我们会在其中看到这么一句:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_,contours,her=cv2.findContours(bina,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)</div></pre></td></tr></table></figure></p>
+<p>这个就是opencv内置的轮廓检测的函数，<br>这里一定要注意，在网上看到的大多数教程这个函数的返回值都是两个，<br>但是由于版本问题，我使用的其实返回了三个值,即使第一个值很少用，<br>但是如果不接就会报错: ValueError: too many values to unpack<br>返回值:<br>(1)基本用不到，处理的图像；<br>(2)轮廓的点集，在opencv中，轮廓就是一系列点的集合；<br>(3)各层轮廓的索引；<br>主要参数:<br>(1)二值图，一定是二值图，所以我们需要对图像进行预处理。<br>我这里其实之前传进去需要处理的就是一副黑白图，但是不知道为什么还会报错，所以<br>就把黑白图依然进行下述处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">want_op=cv2.cvtColor(want_op,cv2.COLOR_BGR2GRAY)</div><div class="line">ret,bina=cv2.threshold(want_op,0,255,cv2.THRESH_BINARY)</div></pre></td></tr></table></figure></p>
+<p>这个处理过程是原地处理，所以如果后续需要原图，那么最好copy()一下。</p>
+<p>(2)第二个参数是轮廓的检索方式<br>CV_RETR_EXTERNAL:<br>表示只检测外轮廓；<br>CV_RETR_LIST:<br>检测的轮廓不建立等级关系；<br>CV_RETR_CCOMP:<br>建立两个等级的轮廓，上面的一层为外边界，里面的一层为内孔的边界信息。<br>如果内孔内还有一个连通物体，这个物体的边界也在顶层；<br>CV_RETR_TREE:<br>建立一个等级树结构的轮廓；</p>
+<p>(3)第三个参数是轮廓的近似方法<br>CV_CHAIN_APPROX_NONE:<br>存储所有的轮廓点，相邻的两个点的像素位置差不超过1;<br>CV_CHAIN_APPROX_SIMPLE:<br>压缩水平方向，垂直方向，对角线方向的元素，只保留该方向的终点坐标，<br>例如一个矩形轮廓只需4个点来保存轮廓信息;<br>CV_CHAIN_APPROX_TC89_L1，CV_CHAIN_APPROX_TC89_KCOS使用teh-Chinl chain 近似算法。</p>
+<p>获取轮廓后，我们只要对返回的点集，也就是第二个参数进行遍历，每次遍历得到一个contour，<br>如果想要对其进行处理，比如标记等等，或者是在其中选出需要的轮廓(比如最大的轮廓)。<br>在循环中处理逻辑即可。</p>
+<p>下面的代码是对获取到的轮廓区域内的像素点进行统计投票，<br>如果满足条件的像素点数大于总像素点数的八分之三，返回0，否则返回1。<br>通过分析，还发现rectangle函数的框选区域把标记框也标记进去了，<br>而且轮廓线上左宽为2像素，下右宽为1像素,需要精确内部区域的一定要把框所占数量去掉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">def has_cap(bin_img,img):</div><div class="line">    red_cap=[[110,220],[0,100],[0,100]]</div><div class="line">    yellow_cap=[[205,255],[110,220],[0,100]]</div><div class="line">    white_cap=[[205,255],[205,255],[205,255]]</div><div class="line">    x,y,w,h=getcontours(bin_img)</div><div class="line">    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)</div><div class="line"></div><div class="line">    area=(w-3)*(h-3)</div><div class="line">    if w-3&lt;=0 or h-3&lt;=0:</div><div class="line">        return 2</div><div class="line">    #检测不到人头</div><div class="line"></div><div class="line">    #轮廓线上左宽为2，下右宽为1;</div><div class="line">    is_cap=np.zeros([h-3,w-3],np.int)</div><div class="line">    print(str(h)+&apos;,&apos;+str(w))</div><div class="line">    for i in range(y+2,y+h-1):</div><div class="line">        print(&apos; &apos;)</div><div class="line">        for j in range(x+2,x+w-1):</div><div class="line">            bgr=img[i,j]</div><div class="line">            print(bgr)</div><div class="line">            if bgr[0]&gt;=0 and bgr[0]&lt;=100:</div><div class="line">                if bgr[1]&gt;=0 and bgr[1]&lt;=100 and bgr[2]&gt;=110 and bgr[2]&lt;=220:</div><div class="line">                    is_cap[i-y-2,j-x-2]=1</div><div class="line">                elif bgr[1]&gt;=110 and bgr[1]&lt;=220 and bgr[2]&gt;=205 and bgr[2]&lt;=255:</div><div class="line">                    is_cap[i-y-2,j-x-2]=1</div><div class="line">            elif bgr[0]&gt;=205 and bgr[0]&lt;=255:</div><div class="line">                if bgr[1]&gt;=205 and bgr[1]&lt;=255 and bgr[2]&gt;=205 and bgr[2]&lt;=255:</div><div class="line">                    is_cap[i-y-2,j-x-2]=1</div><div class="line">    area2=0</div><div class="line">    for i in range(is_cap.shape[0]):</div><div class="line">        for j in range(is_cap.shape[1]):</div><div class="line">            area2+=is_cap[i,j]</div><div class="line">    print(str(area)+&apos;,&apos;+str(area2))</div><div class="line">    if area2/area&gt;3/8:</div><div class="line">        return 0</div><div class="line">    else:</div><div class="line">        return 1</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/26/轮廓检测入门/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-肤色检测" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/24/肤色检测/">肤色检测</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/24/肤色检测/" class="archive-article-date">
+  	<time datetime="2018-06-24T12:34:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这几天做安全帽检测器，需要定位人脸的部位，就需要用到皮肤检测。<br>在经过行人检测过后，定位图像中人的位置以后，标记出人的位置，然后将标记过后的行人框当作<br>皮肤检测的目标范围。<br>在网上学习了一下，目前有很多检测的技术，这篇文章里做个总结。<br>1.基于RGB通道检测<br>在检测范围内对每个像素点通过RGB值来进行判断:<br>经过大量研究，肤色在RGB模型中的范围满足一下判别式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#均匀光照中：</div><div class="line">R&gt;95 AND G&gt;40 B&gt;20 AND MAX(R,G,B)-MIN(R,G,B)&gt;15 AND ABS(R-G)&gt;15 AND R&gt;G AND R&gt;B</div><div class="line">#侧光情况中：</div><div class="line">R&gt;220 AND G&gt;210 AND B&gt;170 AND ABS(R-G)&lt;=15 AND R&gt;B AND G&gt;B</div></pre></td></tr></table></figure></p>
+<p>只要在像素通道值判断中通过上述表达式进行检测即可。</p>
+<p>2.基于YCrCb空间椭圆模型检测<br>同样是经过大量的研究，将皮肤模型映射到YCrCb空间中，那么在CrCb的二维空间当中，满足肤色的<br>值将会落在一个椭圆的区域内:<br><img src="/images/ellipse.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#椭圆参数如下：</div><div class="line">ellipse=cv2.ellipse(skincbcr,[113,155.6],[23.4,15.6],43.0,0.0,360.0,[255,255,255],-1)</div></pre></td></tr></table></figure></p>
+<p>那么通过代入(Cr,Cb)坐标的然后判断是否落在椭圆区域内即可。</p>
+<p>3.YCrCb空间中Cr分量+Otus阈值法<br>(1)YCrCb空间:<br>Y即为明亮度，CrCb即为色度，分别为色调与饱和度。<br>更多的关于YCrCb的信息网上都有，就不具体介绍了。<br>(2)最大类间方差法(Otus):<br>使用一个阈值将整个数据空间分为两类，通过两个类之间的方差值来获得最优的阈值。<br>我们需要做的就是将RGB空间映射到YCrCb空间，然后提取Cr分量;<br>然后对Cr进行二值化阈值分割,利用上面Otus法判断即可。</p>
+<p>4.基于YCrCb空间CrCb分量范围筛选<br>类似法一，也是通过前人的大量统计，<br>黄种人的Cr范围在133和173之间，Cb分量在77和127之间。<br>然后根据项目的实际情况灵活调控这个范围在进行范围检测即可。</p>
+<p>5.HSV空间H分量范围筛选<br>HSV空间：分别为H色调，S饱和度，V明度。根据颜色的直观特性建立的色彩空间模型，<br>也被称为六角锥模型。<br><img src="/images/hsv1.jpg" alt=""><br><img src="/images/hsv2.jpg" alt=""><br>(1)色调H：用角度度量，取值范围为0°～360°，<br>从红色开始按逆时针方向计算，红色为0°，绿色为120°,蓝色为240°。<br>它们的补色是：黄色为60°，青色为180°,品红为300°；<br>(2)饱和度S：取值范围为0.0～1.0；<br>(3)亮度V：取值范围为0.0(黑色)～1.0(白色)。<br>满足皮肤模型的范围:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(H&gt;=0 AND H&lt;=25) OR (H&gt;=335 AND H&lt;=360)</div><div class="line">(S&gt;=0.2 AND S&lt;=0.6) AND (V&gt;=0.4)</div></pre></td></tr></table></figure></p>
+<p>通过上面的范围判断即可。</p>
+<p>6.基于YCrCb空间高斯模型检测<br>高斯模型主要利用了统计学原理，肤色这样符合正态分布的统计样本，在特征空间中的分布应当<br>满足高斯分布。<br>关于高斯分布不做过多的介绍。<br>(1)我们要做的就是在YCrCb空间当中，<br>得到Cr和Cb分量的值，通过样本得到均值Mean(MCb,MCr)和协方差矩阵C(这是一个<br>  统计过程，所以说这种检测方法和机器学习结合可能实际效果好一些吧)。<br>(2)将均值和协方差矩阵代入二维高斯函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">P(Cb,Cr)=exp(-0.5*(x-Mean)*inv(C)*(x-Mean).T)</div><div class="line">#其中x=(Cb,Cr)，是一个1*2的矩阵；</div></pre></td></tr></table></figure></p>
+<p>下面是一个python实现的版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cbcr = np.array([[Cb], [Cr]])</div><div class="line">#得到一个2*1的矩阵;</div><div class="line">FaceProbImg[y, x] =</div><div class="line">    np.exp(-0.5 * ((cbcr - Mean).T * np.linalg.inv(C) * (cbcr - Mean))[0, 0])</div><div class="line">    #得到的是一个1*1的矩阵，取[0,0]即取出其值;</div><div class="line">    if FaceProbImg[y, x] &gt; threshhold:</div><div class="line">        img_bin[y, x] = [255,255,255]</div><div class="line">    else:</div><div class="line">        img_bin[y,x]=[0,0,0]</div></pre></td></tr></table></figure></p>
+<p>上面得到的FaceProbImg是像素属于皮肤区域的概率，我们设置一个阈值threshold,<br>比较得到的概率和阈值即可。</p>
+<p>经过上面的对比，最后选择了椭圆模型，感觉效果最好,相比来说实现也比较简单。<br>关键代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">img_ycbcr=img.copy()</div><div class="line">    img_bin=img.copy()</div><div class="line">    img_ycbcr=cv2.cvtColor(img_ycbcr,cv2.COLOR_BGR2YCrCb)</div><div class="line">    height=img_ycbcr.shape[0]</div><div class="line">    width=img_ycbcr.shape[1]</div><div class="line"></div><div class="line">    for y in range(height):</div><div class="line">        for x in range(width):</div><div class="line">            Y=img_ycbcr[y,x,0]</div><div class="line">            CrY=img_ycbcr[y,x,1]</div><div class="line">            CbY=img_ycbcr[y,x,2]</div><div class="line">            Cb,Cr=Before_Model(Y,CbY,CrY)</div><div class="line">            #椭圆模型；</div><div class="line">            ellipse=ellipse2()</div><div class="line">            cbcr=np.array([[Cb,Cr]])</div><div class="line">            if ellipse[cbcr[0,0]]&gt;0:</div><div class="line">                img_bin[y, x] = [255,255,255]</div><div class="line">            else:</div><div class="line">                img_bin[y,x]=[0,0,0]</div></pre></td></tr></table></figure></p>
+<p>上面这段代码可以更换结构，来使用不同的模型进行检测。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">Kl, Kh = 125, 188</div><div class="line">Ymin, Ymax = 16, 235</div><div class="line">Wlcb, Wlcr = 23, 20</div><div class="line">Whcb, Whcr = 14, 10</div><div class="line">Wcb, Wcr = 46.97, 38.76</div><div class="line">#这些数据是通过85万多个肤色点统计得出的;</div><div class="line"></div><div class="line">def Before_Model(Y,CbY,CrY):</div><div class="line">    if Y&lt;Kl or Y&gt;Kh:</div><div class="line">        if Y&lt;Kl:</div><div class="line">            CbY_evr=108+(Kl-Y)*(118-108)/(Kl-Ymin)</div><div class="line">            CrY_evr=154-(Kl-Y)*(154-144)/(Kl-Ymin)</div><div class="line"></div><div class="line">            WcbY=Wlcb+(Y-Ymin)*(Wcb-Wlcb)/(Kl-Ymin)</div><div class="line">            WcrY=Wlcr+(Y-Ymin)*(Wcr-Wlcr)/(Kl-Ymin)</div><div class="line"></div><div class="line">        elif Y&gt;Kh:</div><div class="line">            CbY_evr=108+(Y-Kh)*(118-108)/(Ymax-Kh)</div><div class="line">            CrY_evr=154+(Y-Kh)*(154-132)/(Ymax-Kh)</div><div class="line"></div><div class="line">            WcbY=Whcb+(Ymax-Y)*(Wcb-Whcb)/(Ymax-Kh)</div><div class="line">            WcrY=Whcr+(Ymax-Y)*(Wcr-Whcr)/(Ymax-Kh)</div><div class="line"></div><div class="line">        CbKh_aver = 108 + (Kh - Kh) * (118 - 108) / (Ymax - Kh)</div><div class="line">        CrKh_aver = 154 + (Kh - Kh) * (154 - 132) / (Ymax - Kh)</div><div class="line"></div><div class="line">        Cb=(CbY-CbY_evr)*Wcb/WcbY+CbKh_aver</div><div class="line">        Cr=(CrY-CrY_evr)*Wcr/WcrY+CrKh_aver</div><div class="line">    else:</div><div class="line">        Cb=CbY</div><div class="line">        Cr=CrY</div><div class="line">    return Cb,Cr</div></pre></td></tr></table></figure></p>
+<p>上面这段代码是<br>为了使肤色聚类不受亮度Y 的影响将YCbCr 颜色空间中的色度Cb、Cr进行非线性变换。<br>参考文献:<br>《基于分裂式K均值聚类的肤色检测方法》<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">def ellipse2():</div><div class="line">    skincbcr=np.zeros([256,256],cv2.CV_8UC1)</div><div class="line">    ellipse=cv2.ellipse(skincbcr,[113,155.6],[23.4,15.6],43.0,0.0,360.0,[255,255,255],-1)</div><div class="line">    return ellipse</div></pre></td></tr></table></figure></p>
+<p>目前学习到的就这些了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/24/肤色检测/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-pyinstaller遇到的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/24/pyinstaller遇到的问题/">pyinstaller遇到的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/24/pyinstaller遇到的问题/" class="archive-article-date">
+  	<time datetime="2018-06-24T10:54:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天花了一早晨的时间，终于将最近做的一个安全帽检测器收了尾，做的虽然不是很满意，但是<br>期间踩了很多坑，涨了一波姿势，同时也是自己第一次真正的用机器学习做项目，感受了这个漫长<br>的过程，学了不少东西，不亏不亏。<br>因为当初觉得python写机器学习的东西，方便一点，所以就用python开始了。快收尾的时候，发现，<br>其实用c++写问题也不大啊，这个项目主要用的wx和opencv依然可以随便用啊。。但是都快写完了，<br>这么多代码移植一下真的太费时间了，但是python写完之后，就是要面对这么一个问题，我们写成<br>的程序是多个py文件，如果换一台没有解析器，第三方模块没装全的机器，那就废了，所以就要想<br>办法把他们打包成一个exe文件，开始吧。<br>首先两种选择，py2exe和pyinstaller，对比了一下，py2exe也太老了，而且在官网好像找不到<br>支持py3的了，而且网上的一致观点是py2exe效果很不好，打包成的exe存在包括兼容性的一系列<br>问题，于是便选择了pyinstaller。<br>直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install pyinstaller</div></pre></td></tr></table></figure></p>
+<p>装好了，那么开始做吧，于是第一步就遇到了问题，cmd下进入要打包的py文件所在的目录，<br>执行pyinstaller -F 指令，然后结果只有一句：<br>failed to create process<br>这是什么鬼，于是到网上一搜，这样解决：<br>去第三方库中找到文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyinstaller-script.py</div></pre></td></tr></table></figure></p>
+<p>会看到第一行是一个python.exe路径,把这行的”路径”用引号括起来，保存，再次执行命令，<br>这个信息不会在出现了，开始打包过程，然而在打包过程就失败了，出现错误。<br>这里就要说一个问题了，目前来说，以pip方式安装的pyinstaller对于py3.5以上的版本<br>支持并不是很完善，因此就会出现各种各样的错误。<br>所以到这里，依然决然的从github上下载源zip的方式进行安装。<br>下载以后，然后解压后，里面会有一个pyinstaller文件夹，进入<br>执行setup.py文件即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python setup.py install</div></pre></td></tr></table></figure></p>
+<p>然后再次执行打包命令就不会出现错误了…有点坑…<br>这次成功打包了，生成了exe文件，于是迫不及待的运行它。<br>然后跳出了控制台窗口，然后就报错了，说找不到我导入的模块，这个找不到的文件夹就是我的<br>的打包目录，因为我打算打包的是几个py文件，并不是只有一个，我以为只要将程序入口设在一个<br>py文件当中，然后将目录里其他模块import就好了，但是报错找不到。<br>上网了寻求了一下帮助，并没有找到打包多个py的正确方式，所有的打包都是针对单个py的，对于<br>其他导入的第三方模块，比如cv2，wx之类的并未报错，说明打包过程至少是可以识别python的<br>sit-packages文件夹的，所以可能将我们的文件都放进去打包应该没啥问题了吧。想了一下，<br>那我的第三方文件夹就乱套了啊。果断放弃，把所有的文件的代码全部整合到一个py文件当中，<br>重新打包，ok了，这个时候我的UI窗口可以执行了。<br>开始运行，导入视频，然后又出问题了，我在控制台中捕捉的视频帧数是0，说明程序中这行代码<br>并未执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.VideoCapture(filename)</div><div class="line">#通过文件读取视频</div></pre></td></tr></table></figure></p>
+<p>然而这句代码却执行了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.VideoCapture(0)</div><div class="line">#通过摄像头读取视频</div></pre></td></tr></table></figure></p>
+<p>解决这个问题的方法：<br>在cv2库中找到如下dll文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">opencv_ffmpegXYZ.dll</div><div class="line">opencv_ffmpegXYZ_64.dll</div><div class="line">#XYZ为opencv版本号;</div></pre></td></tr></table></figure></p>
+<p>32位选择第一个，64位选择第二个，然后将这个文件夹放到exe文件所在的同级目录当中，<br>在我们编写的py文件开头加入一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import ctypes</div><div class="line">try:</div><div class="line">    temp=ctypes.windll.LoadLibrary(&apos;opencv_ffmpegXYZ.dll&apos;)</div><div class="line">except:</div><div class="line">    print(&quot;load binary failed&quot;)</div><div class="line">    pass</div></pre></td></tr></table></figure></p>
+<p>然后重新打包，一定要将动态链接库和打包的exe一直放在一起。<br>同理，我们训练完成的模型bin文件，音频文件以及其他exe中要使用到的文件，<br>都要放在和exe同级文件夹当中，并且所有类似load()的函数都直接写成文件名即可，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ctypes.windll.LoadLibrary(&apos;opencv_ffmpeg341.dll&apos;)</div><div class="line"></div><div class="line">hog = cv2.HOGDescriptor()</div><div class="line">hog.load(&quot;myHogDector1.bin&quot;)</div><div class="line"></div><div class="line">winsound.PlaySound(&quot;901028.wav&quot;,winsound.SND_FILENAME)</div></pre></td></tr></table></figure></p>
+<p>打包完成，能够正常运行了,大功告成。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/24/pyinstaller遇到的问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-学习笔记-gxx-personality-sj0错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -445,221 +666,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/03/21/学习笔记-核函数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-问题笔记-Android-click与longclick冲突" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/19/问题笔记-Android-click与longclick冲突/">&lt;问题笔记&gt; Android click与longclick冲突</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/19/问题笔记-Android-click与longclick冲突/" class="archive-article-date">
-  	<time datetime="2018-03-19T13:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这几天赶工一个志愿者的项目，出现了这么一个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">E/WindowManager: android.view.WindowLeaked: Activity com.zeros.zeros.volunteer.HavePutActivity has leaked window com.android.internal.policy.PhoneWindow$DecorView&#123;46e4818 V.E...... R....... 0,0-729,272&#125; that was originally added here</div><div class="line">                     at android.view.ViewRootImpl.&lt;init&gt;(ViewRootImpl.java:368)</div><div class="line">                     at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:299)</div><div class="line">                     at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:85)</div><div class="line">                     at android.app.Dialog.show(Dialog.java:319)</div><div class="line">                     at android.app.AlertDialog$Builder.show(AlertDialog.java:1112)</div><div class="line">                     at com.zeros.zeros.volunteer.HavePutActivity$4.onItemLongClick(HavePutActivity.java:133)</div><div class="line">                     at android.widget.AbsListView.performLongPress(AbsListView.java:3127)</div><div class="line">                     at android.widget.AbsListView$CheckForLongPress.run(AbsListView.java:3059)</div><div class="line">                     at android.os.Handler.handleCallback(Handler.java:739)</div><div class="line">                     at android.os.Handler.dispatchMessage(Handler.java:95)</div><div class="line">                     at android.os.Looper.loop(Looper.java:148)</div><div class="line">                     at android.app.ActivityThread.main(ActivityThread.java:5417)</div><div class="line">                     at java.lang.reflect.Method.invoke(Native Method)</div><div class="line">                     at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)</div><div class="line">                     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)</div><div class="line">E/Surface: getSlotFromBufferLocked: unknown buffer: 0xae471700</div></pre></td></tr></table></figure></p>
-<p>问题是窗口泄露，当我们依托于一个activity来新建一个dialog的时候，如果在dialog还未dismiss之前，就将activity finish()掉，<br>就会产生这样的问题，于是，我开始分析自己的代码，难道我在dismiss之前关掉了这个activity？<br>然后发现，既要满足触发条件，有会产生触发结果的位置一定是这个listview，<br>因为我既要finish()，又要产生这样的错误，一定在点击事件里，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">listview.setOnItemClickListener(new AdapterView.OnItemClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</div><div class="line">                String activity_id=haveput_id.get(position);</div><div class="line">                Bundle bundle=new Bundle();</div><div class="line">                bundle.putString(&quot;activity_id&quot;,activity_id);</div><div class="line">                Intent intent=new Intent(HavePutActivity.this,PersonsActivity.class);</div><div class="line">                intent.putExtra(&quot;activity_id&quot;,bundle);</div><div class="line">                startActivity(intent);</div><div class="line">                finish();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</div><div class="line">                final String activity_id=haveput_id.get(position);</div><div class="line">                new AlertDialog.Builder(HavePutActivity.this)</div><div class="line">                        .setMessage(&quot;确定要删除这个活动吗？&quot;)</div><div class="line">                        .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() &#123;</div><div class="line">                            @Override</div><div class="line">                            public void onClick(DialogInterface dialog, int which) &#123;</div><div class="line">                                delete_request(activity_id);</div><div class="line">                            &#125;</div><div class="line">                        &#125;)</div><div class="line">                        .setNegativeButton(&quot;取消&quot;, new DialogInterface.OnClickListener() &#123;</div><div class="line">                            @Override</div><div class="line">                            public void onClick(DialogInterface dialog, int which) &#123;</div><div class="line">                                dialog.dismiss();</div><div class="line">                            &#125;</div><div class="line">                        &#125;).show();</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
-<p>难道这两个会冲突？答案是，设置出现纰漏确实会冲突。<br>让我们看看源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * Interface definition for a callback to be invoked when an item in this</div><div class="line">     * AdapterView has been clicked.</div><div class="line">     */</div><div class="line">    public interface OnItemClickListener &#123;</div><div class="line"></div><div class="line">        /**</div><div class="line">         * Callback method to be invoked when an item in this AdapterView has</div><div class="line">         * been clicked.</div><div class="line">         * &lt;p&gt;</div><div class="line">         * Implementers can call getItemAtPosition(position) if they need</div><div class="line">         * to access the data associated with the selected item.</div><div class="line">         *</div><div class="line">         * @param parent The AdapterView where the click happened.</div><div class="line">         * @param view The view within the AdapterView that was clicked (this</div><div class="line">         *            will be a view provided by the adapter)</div><div class="line">         * @param position The position of the view in the adapter.</div><div class="line">         * @param id The row id of the item that was clicked.</div><div class="line">         */</div><div class="line">        void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Interface definition for a callback to be invoked when an item in this</div><div class="line">     * view has been clicked and held.</div><div class="line">     */</div><div class="line">    public interface OnItemLongClickListener &#123;</div><div class="line">        /**</div><div class="line">         * Callback method to be invoked when an item in this view has been</div><div class="line">         * clicked and held.</div><div class="line">         *</div><div class="line">         * Implementers can call getItemAtPosition(position) if they need to access</div><div class="line">         * the data associated with the selected item.</div><div class="line">         *</div><div class="line">         * @param parent The AbsListView where the click happened</div><div class="line">         * @param view The view within the AbsListView that was clicked</div><div class="line">         * @param position The position of the view in the list</div><div class="line">         * @param id The row id of the item that was clicked</div><div class="line">         * @return true if the callback consumed the long click, false otherwise</div><div class="line">         */</div><div class="line">        boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view, int position, long id);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>注意下满参数注释：当我们将长事件callback返回值设置为true，系统才会消耗掉长事件！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/19/问题笔记-Android-click与longclick冲突/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-支持向量机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/22/学习笔记-支持向量机/">&lt;学习笔记&gt; 支持向量机</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/22/学习笔记-支持向量机/" class="archive-article-date">
-  	<time datetime="2018-01-21T16:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>书中说理解支持向量机需要掌握一定的理论知识，而且读懂的它的代码难度很大，瞬间我的兴趣就来了。<br>支持向量机（Support Vector Machines）被有些人称为最好的现成的分类器，不加修改，就可以得到低错误率的结果。<br>SVM有很多种实现，书中只介绍了最流行的一种-序列最小优化算法，那么我就先把这种算法做一个笔记哈。<br>1.基础概念<br>考虑我们分隔数据的方法，将我们的数据点放入一个二维的坐标图中，如果我们的数据可以经由一条直线很容易的分开，<br>这组数据就可以被称为线性可分，这条直线称为分隔超平面。将我们的这个平面图放入三维的图中，很明显我们的这条直线其实<br>是一个平面的截面，更高维以此类推，顾名思义。<br>如果数据集是一个1024维的，那么我们就需要一个1023维的某对象进行分隔。这个某对象就是我们的超平面，也就是分类的决策边界。<br>我们希望我们基于一下思想来构造分类器：<br>如果数据点离我们的超平面距离越远，那么预测结果也就越可信。<br>我们的方案是找到离超平面最近的点，确保它们离分隔面的距离尽可能远。这些点到分隔面的距离我们称为间隔。<br>支持向量就是离超平面最近的那些点，接着就要最大化支持向量到分隔面的距离，我们就要找这种优化方法。<br>分隔超平面的形式我们可以很轻易的写出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">y=(w^T)x+b</div></pre></td></tr></table></figure></p>
-<p>那么根据点到直线的距离公式，可写出任意一点a距离：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L=|(w^T)a+b|/|w|</div></pre></td></tr></table></figure></p>
-<p>常数b类似与logistic回归中的截距，向量w和截距b一同描述了超平面。<br>2.分类器工作原理<br>在logistic回归中，我们使用的输出标签是0和1，这里我们将会使用-1和+1。换用这两个是因为它们只相差一个符号，方便数学上的处理。<br>我们可以通过一个同=统一的公式来表示间隔或者数据点到超平面之间的距离，不必担心一些无关紧要的问题。<br>当计算分隔面的距离并确定分隔面的放置位置的时候，间隔通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label*[(w^T)x+b]</div></pre></td></tr></table></figure></p>
-<p>来计算，这时就能看出来我们标签选择-1和+1的好处了。<br>如果数据点处于正方向或者负方向并且远离分隔面的时候，我们得到的结果都会是很大的正数。<br>我们的目标就是要找出能够描述边界的向量w和截距b。<br>接下来，我们就可以将问题转化为寻找具有最小间隔的数据点，也就是我们的支持向量。然后我们就对该间隔进行最大化处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arg max&#123;min(label*(w^Tx+b))*(1/|w|)&#125;</div></pre></td></tr></table></figure></p>
-<p>我们采用固定其中一个因子然后最大化其他因子的方式进行优化。令我们的所有的支持向量label<em>[(w^T)x+b]均为1，然后<br>通过求我们的|w|^(-1)的最大值来求解。但是并不似每一个数据点的label</em>[(w^T)x+b]都为1，只有支持向量才能是1，<br>那么我们就给定一些约束条件，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label*[(w^T)x+b]&gt;=1</div></pre></td></tr></table></figure></p>
-<p>在此约束条件下，我们采用一种著名的求解方法，拉格朗日乘子法。通过引入拉格朗日乘子，就可以进行优化求解了。<br>那么我们的优化函数就变了另外一种形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max[∑α-(1/2)label(i)*label(j)*ai*aj&lt;x(i),x(j)&gt;]</div></pre></td></tr></table></figure></p>
-<p>其中最后尖括号的两项表示xi与xj的内积。<br>其约束条件为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">α&gt;=0 and ∑αi*label(i)=0</div></pre></td></tr></table></figure></p>
-<p>鉴于我们要的目标，数据必须完全可分。那么我们此时得到的数据用书里的话说就是不那么干净，此时通过引入松弛变量来<br>放宽松我们的标准，使得我们可以允许一些小的错误的分类。<br>那么我们的约束条件要进行修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">C&gt;α&gt;=0 and ∑αi*label(i)=0</div></pre></td></tr></table></figure></p>
-<p>这里的常熟C用来控制“最大化间隔”和“保证大部分点的函数间隔小于1.0”的权重。<br>我们的问题接下来就又转化为求参数α，我们的支持向量机的工作就是如此。<br>3.SVM应用的基本框架<br>SMO高效优化算法<br>工作原理：<br>每次循环选择两个α的值进行优化，一旦找到合适的一对，那么就增大其中一个减小另外一个。<br>所谓合适，就是它们要符合两个条件：<br>(1)两个alpha的值要在间隔边界之外；<br>(2)两个alpha未进行过区间化处理或者不在边界上。<br>优化最佳alpha对：在数据集上遍历每一个alpha，然后在剩下的alpha集合中随机选择另一个，构建alpha对。<br>由于改变一个alpha会使约束条件失效，因此我们同时改变两个。<br>为此，我么将会构造一个辅助函数，用于在某个区间内选择一个随机的整数。<br>同时还有另一个辅助函数，用于在数值太大时进行调整。<br>下面是这两个辅助函数以及数据载入函数的python实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">import random</div><div class="line">def loaddataset(filename):</div><div class="line">    datamat = []</div><div class="line">    labelmat = []</div><div class="line">    fr=open(filename)</div><div class="line">    for line in fr.readlines():</div><div class="line">        linearr=line.strip().split(&apos;\t&apos;)</div><div class="line">        datamat.append([float(linearr[0]),float(linearr[1])])</div><div class="line">        labelmat.append(float(linearr[2]))</div><div class="line">    return datamat,labelmat</div><div class="line">def selectjrand(i,m):</div><div class="line">    j=i</div><div class="line">    while(j==i):</div><div class="line">        j=int(random.uniform(0,m))</div><div class="line">    return j</div><div class="line">def clipalpha(aj,H,L):</div><div class="line">    if aj&gt;H:</div><div class="line">        aj=H</div><div class="line">    if L&gt;aj:</div><div class="line">        aj=L</div><div class="line">    return aj</div></pre></td></tr></table></figure></p>
-<p>以下代码是我们展示的一个smo算法的示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">def smosimple(datamatin,classlabels,c,toler,maxiter):</div><div class="line">    datamatrix=mat(datamatin)</div><div class="line">    labelmatrix=mat(classlabels).transpose()</div><div class="line">    b=0</div><div class="line">    m,n=shape(datamatrix)</div><div class="line">    alphas=mat(zeros(m,1))</div><div class="line">    iter=0</div><div class="line">    while(iter&lt;maxiter):</div><div class="line">        alpahpairschanged=0</div><div class="line">        for i in range(m):</div><div class="line">            fxi=float(multiply(alphas,labelmatrix).T*(datamatrix*datamatrix[i,:].T))+b</div><div class="line">            ei=fxi-float(labelmatrix[i])</div><div class="line">            if((labelmatrix[i]*ei&lt;-toler)and(alphas[i]&lt;c))\</div><div class="line">                or((labelmatrix[i]*ei&gt;toler)and(alphas[i]&gt;0)):</div><div class="line">                j=selectjrand(i,m)</div><div class="line">                fxj=float(multiply(alphas,labelmatrix.T*(datamatrix*datamatrix[j,:]).T))+b</div><div class="line">                ej=fxj-float(labelmatrix[j])</div><div class="line">                alphaiold=alphas[i].copy()</div><div class="line">                alphajold=alphas[j].copy()</div><div class="line">                if (labelmatrix[i]!=labelmatrix[j]):</div><div class="line">                    L=max(0,alphas[j]-alphas[i])</div><div class="line">                    H=min(c,c+alphas[j]-alphas[i])</div><div class="line">                else:</div><div class="line">                    L=max(0,alphas[j]+alphas[i]-c)</div><div class="line">                    H=min(c,alphas[j]+alphas[i])</div><div class="line">                if L==H:</div><div class="line">                    print(&quot;L=H&quot;)</div><div class="line">                    continue</div><div class="line">                eta=2.0*datamatrix[i,:]*datamatrix[j,:].T-\</div><div class="line">                    datamatrix[i,:]*datamatrix[i,:].T-\</div><div class="line">                    datamatrix[j,:]*datamatrix[j,:].T</div><div class="line">                if eta&gt;=0:</div><div class="line">                    print(&quot;eta&gt;=0&quot;)</div><div class="line">                    continue</div><div class="line">                alphas[j]-=labelmatrix[j]*(ei-ej)/eta</div><div class="line">                alphas[j]=clipalpha(alphas[j],H,L)</div><div class="line">                if (abs(alphas[j]-alphajold)&lt;0.00001):</div><div class="line">                    print(&quot;j not move enough&quot;)</div><div class="line">                    continue</div><div class="line">                alphas[i]+=labelmatrix[j]*labelmatrix[i]*(alphajold-alphas[j])</div><div class="line">                b1=b-ei-labelmatrix[i]*(alphas[i]-alphaiold)*\</div><div class="line">                    datamatrix[i,:]*datamatrix[i,:].T-labelmatrix[j]*(alphas[j]-alphajold)*\</div><div class="line">                    datamatrix[i,:]*datamatrix[j,:].T</div><div class="line">                b2=b-ei-labelmatrix[i]*(alphas[i]-alphaiold)*\</div><div class="line">                    datamatrix[i,:]*datamatrix[j,:].T-labelmatrix[j]*(alphas[j]-alphajold)*\</div><div class="line">                    datamatrix[j,:]*datamatrix[j,:].T</div><div class="line">                if (alphas[i]&gt;0) and (alphas[i]&lt;c):</div><div class="line">                    b=b1</div><div class="line">                elif (alphas[j]&gt;0) and (alphas[j]&lt;c):</div><div class="line">                    b=b2</div><div class="line">                else:</div><div class="line">                    b=b1+b2/2.0</div><div class="line">                alpahpairschanged+=1</div><div class="line">                print(&quot;iter:%d i:%d,pairs changed %d&quot;%(iter,i,alpahpairschanged))</div><div class="line">        if (alpahpairschanged==0):</div><div class="line">            iter+=1</div><div class="line">        else:</div><div class="line">            iter=0</div><div class="line">        print(&quot;iteration number is %d&quot;%iter)</div><div class="line">    return b,alphas</div></pre></td></tr></table></figure></p>
-<p>该函数共有5个输入参数：数据集，类别标签，常数c，容错率，最大循环次数。<br>上述的函数将我们输入的列表转化成numpy矩阵来进行计算。我们将列表进行了装置，因此相当于将行向量变成了列向量。<br>每次循环当中，将我们的alphapairschanged先设置为0，然后对整个集合进行遍历，这个变量的作用是记录是否对alpha<br>进行了优化。fxi是我们要预测的类别，ei是我们的误差，误差大，就要对对应的alpha进行优化。在过程当中，我们要对<br>alpha的值进行检查，保证不能等于0或者c。在后续的处理当中，我们将不在0到c之间的值归为0或者c，那么如果我们发现<br>它们等于0或者等于c时，它们就不能够进行减小或者增大，不值得再进行优化了。程序当中的L和H便是用来将我们的值控制<br>在0和c之间。<br>eta是alpha[j]的最优修改量，如果eta为0，那么我们需要退出当前的for迭代过程。<br>我们在过程党总检测alpha[j]是否发生了微小的改变，如果有，那么退出for循环。alpha[i]和alpha[j]的改变的大小相同，<br>但方向是相反的。对它们优化之后，设置一个常数项b。</p>
-<p>4.利用完整的platt smo算法进行加速优化<br>上述我们学习了简化的smo算法，然而当面对非常大的数据量的时候，简化版就会变得非常慢，此时我们就需要完整版了。<br>二者在优化过程当中唯一的不同在于对alpha的选择方式。<br>plattsmo算法是通过一个外循环来选择第一个alpha，并且在选择过程当中在两种方式之间交替：<br>一种方式在所有的数据集上进行扫描，另一种是在非边界的alpha值中实现单遍扫描。<br>非边界就是不是0也不是c的值。<br>在实现非边界alpha值的扫描时，首先要建立这些alpha值的列表，然后再对这个表进行遍历，这个过程当中还要跳过那些<br>不会变化的alpha值。<br>选择完第一个alpha值之后，通过一个内循环来选择第二个alpha，简化版中，我们在选择j之后计算错误率ej，在加强版中，<br>我们通过一个全局缓存来保存误差值，然后依据步长最大的alpha值。<br>下面这段代码包含了一个用于清理代码的数据结构，和三个对e进行缓存的辅助函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class optStruct:    #存储重要数据的结构；</div><div class="line">    def __init__(self,datamatin,classlebels,c,toler，kTup):</div><div class="line">        self.x=datamatin    </div><div class="line">        self.labelmat=classlebels</div><div class="line">        self.c=c</div><div class="line">        self.tol=toler</div><div class="line">        self.m=shape(datamatin)[0]</div><div class="line">        self.alphas=mat(zeros(self.m,1))</div><div class="line">        self.b=0</div><div class="line">        self.ecache=mat(zeros(self.m,2))</div><div class="line"></div><div class="line">        self.K=mat(zeros((self.m,self.m)))</div><div class="line">        for i in range(self.m):</div><div class="line">        self.K[:,i]=kerneltrans(self.x,self.x[i,:],kTup)</div><div class="line"></div><div class="line">def calcek(os,k):</div><div class="line">    fxk=float(multiply(os.alphas,os.labelmat).T*(os.x*os.x[k,:].T))+os.b</div><div class="line">    ek=fxk-float(os.labelmat[k])</div><div class="line">    return ek</div><div class="line">def selectj(i,os,ei):</div><div class="line">    maxk=-1</div><div class="line">    maxdeltae=0</div><div class="line">    ej=0</div><div class="line">    os.ecache[i]=[1,ei]</div><div class="line">    validecachelist=nonzero(os.ecache[:,0].A)[0]</div><div class="line">    if(len(validecachelist))&gt;1:</div><div class="line">        for k in validecachelist:</div><div class="line">            if k==i:</div><div class="line">                continue</div><div class="line">            ek=calcek(os,k)</div><div class="line">            deltae=abs(ei-ek)</div><div class="line">            if(deltae&gt;maxdeltae):</div><div class="line">                maxk=k</div><div class="line">                maxdeltae=deltae</div><div class="line">                ej=ek</div><div class="line">        return maxk,ej</div><div class="line">    else:</div><div class="line">        j=selectjrand(i,os.m)</div><div class="line">        ej=calcek(os,j)</div><div class="line">    return j,ej</div><div class="line">def updateek(os,k):</div><div class="line">    ek=calcek(os,k)</div><div class="line">    os.ecache[k]=[1,ek]</div></pre></td></tr></table></figure></p>
-<p>这里我们使用一个对象来存储所有的重要值。这里使用对象的目的并不是要进行面向对象编程，而只是<br>将其作为一个数据结构来使用。在将值传给函数的时候，我们就可以将所有的数据整合为一个对象结构<br>当中去实现，从而省去了手动输入的麻烦。<br>ecache矩阵的第一列给出的是ecache是否有效的标志位，第二列给出的是实际的e值。<br>对于给定的alpha值，辅助函数calcek()能够计算e的值并返回。我们其实是将之前嵌入到程序当中的一部分<br>提了出来，因为我们要在多个地方使用这部分，将其函数独立化会更方便。<br>辅助函数selectj()用于内循环的alpha值的选择。核心思想是保证步长最大。<br>nonzero()语句返回的是非零e值对应的alpha值，程序将所有的值遍历选中其中最大的那个。<br>辅助函数updateek()计算误差值并且存入缓存当中。上面这段代码自身的作用并不是特别大，但和我们接下里<br>介绍的优化过程以及外循环组合起来就是强大的smo算法。<br>用于寻找决策边界的优化例程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">def innerL(i,os):</div><div class="line">    ei=calcek(os,i)</div><div class="line">    if((os.labelmat[i]*ei&lt;-os.tol) and (os.alphas[i]&lt;os.c))\</div><div class="line">        or ((os.labelmat[i]*ei&gt;os.tol) and (os.alphas[i]&gt;0)):</div><div class="line">        j,ej=selectj(i,os,ei)</div><div class="line">        alphaIold=os.alphas[i].copy()</div><div class="line">        alphaJold=os.alphas[j].copy()</div><div class="line">        if(os.labelmat[i]!=os.labelmat[j]):</div><div class="line">            L=max(0,os.alphas[j]-os.alphas[i])</div><div class="line">            H=min(os.c,os.c+os.alphas[j]-os.alphas[i])</div><div class="line">        else:</div><div class="line">            L=max(0,os.alphas[j]+os.alphas[i]-os.c)</div><div class="line">            H=min(os.c,os.alphas[j]+os.alphas[i])</div><div class="line">        if L==H:</div><div class="line">            print(&quot;L==H&quot;)</div><div class="line">            return 0</div><div class="line">        eta=2.0*os.x[i,:]*os.x[j,:].T\</div><div class="line">            -os.x[i,:]*os.x[i,:].T\</div><div class="line">            -os.x[j,:]*os.x[j,:].T;</div><div class="line">        if eta&gt;=0:</div><div class="line">            print(&quot;eta&gt;=0&quot;)</div><div class="line">            return 0</div><div class="line">        os.alphas[j]-=os.labelmat[j]*(ei-ej)/eta</div><div class="line">        os.alphas[j]=clipalpha(os.alphas[j],H,L)</div><div class="line">        updateek(os,j)</div><div class="line">        if (abs(os.alphas[j]-alphaJold)&lt;0.00001):</div><div class="line">            print(&quot;j not moving enough&quot;)</div><div class="line">            return 0</div><div class="line">        os.alphas[i]+=os.labelmat[j]*os.labelmat[i]*\</div><div class="line">                      (alphaJold-os.alphas[j])</div><div class="line">        updateek(os,i)</div><div class="line">        b1=os.b-ei\</div><div class="line">            -os.labelmat[i]*(os.alphas[i]-alphaIold)*\</div><div class="line">            os.x[i,:]*os.x[i,:].T\</div><div class="line">            -os.labelmat[j]*(os.alphas[j]-alphaJold)*\</div><div class="line">            os.x[i,:]*os.x[j,:].T</div><div class="line">        b2=os.b-ej\</div><div class="line">            -os.labelmat[i]*(os.alphas[i]-alphaIold)*\</div><div class="line">            os.x[i,:]*os.x[j,:].T\</div><div class="line">            -os.labelmat[j]*(os.alphas[j]-alphaJold)*\</div><div class="line">            os.x[j,:]*os.x[j,:].T</div><div class="line">        if (0&lt;os.alphas[i]) and (os.c&gt;os.alphas[i]):</div><div class="line">            os.b=b1</div><div class="line">        elif (0&lt;os.alphas[i]) and (os.c&gt;os.alphas[j]):</div><div class="line">            os.b=b2</div><div class="line">        else:</div><div class="line">            os.b=(b1+b2)/2.0</div><div class="line">        return 1</div><div class="line">    else:</div><div class="line">        return 0</div></pre></td></tr></table></figure></p>
-<p>我们可以看到这段代码和我们上面的简化版smo大同小异，但是这里我们已经将重要的数据<br>整合到了结构当中，这个结构利用对象os进行传递。<br>除此之外，还有一个重要的修改就是我们使用上面的selectJ()函数来选择alpha的值。<br>最后在alpha值改变的时候更新缓存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">def smop(datamatin,classlabels,c,toler,maxiter,ktup=(&apos;lin&apos;,0)):</div><div class="line">    os=optStruct(mat(datamatin),mat(classlabels).transpose(),c,toler)</div><div class="line">    iter=0</div><div class="line">    entireSet=True</div><div class="line">    alphaPairsChanged=0</div><div class="line">    while (iter&lt;maxiter) and ((alphaPairsChanged&gt;0)or (entireSet)):</div><div class="line">        alphaPairsChanged=0</div><div class="line">        if entireSet:</div><div class="line">            for i in range(os.m):</div><div class="line">                alphaPairsChanged+=innerL(i,os)</div><div class="line">            print(&quot;fullset,iter:%d i: %d,pairs changed %d&quot;%(iter,i, alphaPairsChanged))</div><div class="line">            iter+=1</div><div class="line">        else:</div><div class="line">            nonBoundIs=nonzero((os.alphas.A&gt;0)*(os.alphas.A&lt;c))[0]</div><div class="line">            for i in nonBoundIs:</div><div class="line">                alphaPairsChanged+=innerL(i,os)</div><div class="line">                print(&quot;non-bound,iter:%d i: %d,pairs changed %d&quot;%(iter,i,alphaPairsChanged))</div><div class="line">            iter+=1</div><div class="line">        if entireSet:</div><div class="line">            entireSet=False</div><div class="line">        elif (alphaPairsChanged==0):</div><div class="line">            entireSet=True</div><div class="line">        print(&quot;iteration number:%d&quot;%iter)</div><div class="line">    return os.b,os.alphas</div></pre></td></tr></table></figure></p>
-<p>上面的代码是完整版的smo算法的基本框架，也就是选择第一个alpha值的外循环。<br>函数一开始构建一个数据结构os来将重要的数据整合起来，退出主循环的条件有两个，一个是当迭代次数超过指定的<br>最大值，另一个是遍历整个集合未对alpha对进行修改。<br>这里的maxiter的作用和简化版中的稍有不同，后者当没有alpha值发生变化时会将整个集合的一次遍历过程记作一次迭代，<br>而在这里的一次迭代则为一次循环过程，而不管它到底做了什么事。<br>如果再优化过程当中发生波动就会停止，这里的做法优于简化版。<br>c值给出的是不同优化问题的权重，常数c一方面要保障所有的样例之间的间隔不小于1.0，另一方面又要使得分类间隔尽可能<br>的大，并且要在这两个方面平衡。<br>得到了alpha的值以后，我们就要进行真正的分类了，首先必须基于alpha得到超平面，<br>下面的函数可以实现我们所需要的，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">def calcWs(alphas,dataArr,classLabels):</div><div class="line">    x=mat(dataArr)</div><div class="line">    labelmat=mat(classLabels).transpose()</div><div class="line">    m,n=shape(x)</div><div class="line">    w=zeros((n,1))</div><div class="line">    for i in range(m):</div><div class="line">        w+=multiply(alphas[i]*labelmat[i],x[i,:].T)</div><div class="line">    return w</div></pre></td></tr></table></figure></p>
-<p>上面的函数其实就相当于多个数的乘积，其中alpha表中的值其实大部分都是0，而非零的对应的alpha就是支持向量，<br>可想而知我们可以通过上面的方式舍弃其中对我们分类没什么作用的0值，留下有用的支持向量。<br>有时候我们的数据集并不是线性可分的，那么我们就要借助核函数了。<br>核函数的计算方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">def kerneltrans(X,A,kTup):</div><div class="line">    m,n=shape(X)</div><div class="line">    K=mat(zeros(m,1))</div><div class="line">    if kTup[0]==&apos;lin&apos;:</div><div class="line">        K=X*A.T</div><div class="line">    elif kTup[0]==&apos;rbf&apos;:</div><div class="line">        for j in range(m):</div><div class="line">            deltaRow=X[j,:]</div><div class="line">            K[j]=deltaRow*deltaRow.T</div><div class="line">        K=exp(K/(-1*kTup[1]**2))</div><div class="line">    else:</div><div class="line">        raise NameError(&apos;Houston we have a problem\</div><div class="line">                        that kernel is not recognized&apos;)</div><div class="line">    return K</div></pre></td></tr></table></figure></p>
-<p>并且在optstruct结构中加入K；<br>那么当我们需要核函数的时候，调用就好了。<br>当使用核函数的时候，需要对innerL()和calcEk()两个函数进行修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">def innerL():</div><div class="line">    ...</div><div class="line">    eta=2.0*os.K[i,j]-os.K[i,i]-os.K[j,j]</div><div class="line">    ...</div><div class="line">    b1=os.b-ei\</div><div class="line">        -os.labelmat[i]*(os.alphas[i]-alphaIold)*\</div><div class="line">        os.K[i,i]\</div><div class="line">        -os.labelmat[j]*(os.alphas[j]-alphaJold)*\</div><div class="line">        os.K[i,j]</div><div class="line">    b2=os.b-ej\</div><div class="line">        -os.labelmat[i]*(os.alphas[i]-alphaIold)*\</div><div class="line">        os.K[i,j]\</div><div class="line">        -os.labelmat[j]*(os.alphas[j]-alphaJold)*\</div><div class="line">        os.K[j,j]</div><div class="line">    ...</div><div class="line">def calcEk(os,k):</div><div class="line">    fxk=float(multiply(os.alphas,os.labelmat).T*os.K[:,k]+os.b)</div><div class="line">    ek=fxk-float(os.labelmat[k])</div><div class="line">    return ek</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/22/学习笔记-支持向量机/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-MFC像素问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/19/学习笔记-MFC像素问题/">&lt;学习笔记&gt; MFC像素问题</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/19/学习笔记-MFC像素问题/" class="archive-article-date">
-  	<time datetime="2017-12-19T15:51:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>懒有时候真的会促进世界的发展。<br>今天练习一个颜色碰撞检测的程序时，实在不想通过编代码的方式来设定窗口的大小(为了和我的位图匹配)。<br>想通过手动调试对话框资源来改变，然而发现好像我们的mfc中资源的大小度量单位和pixel有一点区别，于是<br>就百度了一下，还真有讲解的。<br>对话框资源中的尺寸数值是对话框单位，该大小的单位不是像素而是DLU（dialog logical units），<br>它是与分辨率无关的坐标单位。它与像素之间的转换关系与当前对话框字体有关。<br>如果我们想进行手动计算，<br>那么我们可以通过MapDialogRect函数来进行转换。<br>函数原型：BOOL MapDialogRect(HWND hDlg,LPRECT IpRect);<br>其中第一个参数时对话框句柄，第二个参数是Rect结构指针；<br>这个函数假定Rect结构中的起始坐标作为对话框单位，那么我们将他们转换为像素，还要经过以下算法：<br>  pixelX = MulDiv(dialogX, 对话框水平基本单位, 4)<br>  pixelY = MulDiv(dialogY, 对话框垂直基本单位, 8)<br>以上是关于vc++中的一些基本内容，我想做的是简单明了的设置我的对话框，找到了方法：<br>设置对话框的字体为Verdana，然后将其调整为10号字号，设置完成，此时我们的字体相当于等宽字体，<br>假设我们将想要将我们的对话框调整为800<em>300（像素单位），那么我们就将窗口调整为400</em>150即可。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/19/学习笔记-MFC像素问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-MFC-OnTimer初入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">&lt;学习笔记&gt; MFC OnTimer初入</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/14/学习笔记-MFC-OnTimer初入/" class="archive-article-date">
-  	<time datetime="2017-12-14T07:33:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有时候想想，我们一条路走长了，换一条路，总想以走老路的方式继续，然而发现根本不行。<br>学了好久的Visual c++,之前用mfc做过各种条条框框，后来在普通的Win32里面学习游戏编程，<br>练到了物理碰撞检测，突然参考书上出来了一段代码，竟然实在mfc里做的，虽然好多winapi被封装了，<br>封装就封装了呗，用法没多大区别吧。<br>然后就是各种问题了。<br>我就把次的debug关键记录一下吧。<br>在修改之前先来点基础干货吧。<br>mfc计时器<br>核心就是三个函数：SetTimer(),OnTimer(),KillTimer()<br>这里很简单，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UINT SetTimer(</div><div class="line">      HWND hWnd,              // handle of window for timer messages</div><div class="line">      UINT nIDEvent,          // timer identifier</div><div class="line">      UINT uElapse,           // time-out value</div><div class="line">      TIMERPROC lpTimerFunc       // address of timer procedure</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>函数参数简单理解：<br>窗口类指针：谁处理时间就是谁；<br>计时器id：计时器的身份证号；<br>时间延迟：执行我们函数的间隔时间；<br>执行函数地址：我们每隔一段时间要执行的函数；<br>一般情况下我们我们写后三个参数就可以用，然后在类属性列表里设置消息WM_Timer选项为OnTimer()<br>会自动生成OnTimer函数，我们的第四个回调函数默认为OnTimer(),可以写成NULL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BOOL KillTimer(</div><div class="line">    HWND hWnd,      // handle of window that installed timer</div><div class="line">    UINT uIDEvent     // timer identifier</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>参数就不解释了。<br>再来看我们的核心(我自认为的核心):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">afx_msg void OnTimer( UINT nIDEvent);</div></pre></td></tr></table></figure></p>
-<p>我自己理解的事件驱动过程：<br>我们在适当的地方添加SetTimer方法，例如如果我们想在程序开始运行开始我们的动作，我们就把他添加在OnInitDialog()<br>函数里面就好。<br>没经过一段时间我们就会发送消息触发OnTimer函数，执行我们在这个方法里面的行为，<br>我们在自己需要的地方如果想要停止这个计时器，我们就在这个地方添加KillTimer方法就好了。<br>干货已经献上，接下来我就直接贴代码来说明我在开头遇到的各种情况吧，<br>虽然只是一个函数，但真的搞了好久，想了好久，查了好久.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">void CMFCExample_10Dlg::OnTimer(UINT_PTR nIDEvent)</div><div class="line">&#123;</div><div class="line">	// TODO: 在此添加消息处理程序代码和/或调用默认值</div><div class="line">	CDC *dc = GetDC();</div><div class="line">  //这个相当于普通Win32里面的HDC，本设备的上下文(我觉得和androidContext大同小异);</div><div class="line">	mdc = new CDC;</div><div class="line">  //mdc只有一个空构造函数；</div><div class="line">	mdc-&gt;CreateCompatibleDC(dc);</div><div class="line">  //创建一个适配本设备的内存上下文，用来读取我们要用的一些资源吧。</div><div class="line">  //[!]这个在win32里面感觉就相当于对mdc的一个初始化，然而在MFC里光有这个出错了，好像必须加上面的空构造;</div><div class="line">	mdc-&gt;SelectObject(bg);</div><div class="line">	dc-&gt;BitBlt(0,0,640,480,mdc,0,0,SRCCOPY);</div><div class="line">  //之前是没有上面这两句的，然而结果就是我在每次更新画面之后之前的画面仍然在，并没有达到动画的效果；</div><div class="line">  //百度了，上面有各种方法，双缓冲多线程，因为我还要进行其他学习所以就没多看，之后可能会专门来一篇；</div><div class="line">  //我这个方法就是每次更新画面先在之前的面板上贴上背景，相当于将之前的绘制覆盖掉，然后在贴本次的图；</div><div class="line">	mdc-&gt;SelectObject(car1);</div><div class="line">	dc-&gt;BitBlt(x1, 165, 200, 60, mdc, 0, 0, SRCCOPY);</div><div class="line">	mdc-&gt;SelectObject(car2);</div><div class="line">	dc-&gt;BitBlt(x2, 150, 140, 80, mdc, 0, 0, SRCCOPY);</div><div class="line">	if (x1 + 200 &gt; x2) &#123;</div><div class="line">		KillTimer(nIDEvent);</div><div class="line">	&#125;//距离法碰撞检测结果；</div><div class="line">	x1 += vx1;</div><div class="line">	x2 += vx2;</div><div class="line"></div><div class="line">	ReleaseDC(dc);</div><div class="line">	mdc-&gt;DeleteDC();</div><div class="line">  //[!]上面这两句是重点；</div><div class="line">  //之前在win32里面我的dc和mdc在整个程序里都是一次初始化一次释放，然后我就沿用之前的方式，在构造函数里</div><div class="line">  //添加了设备上下文的释放，结果就是我们的画面只更新一次，然后就卡死不动了。</div><div class="line">  //仔细想想，我们的dc和mdc其实相当于只是在这个函数里面具有“存活的意义”，我们每次触发这个函数其实</div><div class="line">  //相当于搞了一个全新的mdc和dc，所以每次用完都要释放。</div><div class="line">  //这其实是个逻辑上的问题，搞了好久...</div><div class="line">	CDialogEx::OnTimer(nIDEvent);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>MFC入门小白的个人理解…</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/14/学习笔记-MFC-OnTimer初入/">展开全文 >></a>
         </p>
       
 

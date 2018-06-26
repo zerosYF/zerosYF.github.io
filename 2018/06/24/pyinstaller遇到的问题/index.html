@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>pyinstaller遇到的问题 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="今天花了一早晨的时间，终于将最近做的一个安全帽检测器收了尾，做的虽然不是很满意，但是期间踩了很多坑，涨了一波姿势，同时也是自己第一次真正的用机器学习做项目，感受了这个漫长的过程，学了不少东西，不亏不亏。因为当初觉得python写机器学习的东西，方便一点，所以就用python开始了。快收尾的时候，发现，其实用c++写问题也不大啊，这个项目主要用的wx和opencv依然可以随便用啊。。但是都快写完了，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pyinstaller遇到的问题">
+<meta property="og:url" content="http://yoursite.com/2018/06/24/pyinstaller遇到的问题/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="今天花了一早晨的时间，终于将最近做的一个安全帽检测器收了尾，做的虽然不是很满意，但是期间踩了很多坑，涨了一波姿势，同时也是自己第一次真正的用机器学习做项目，感受了这个漫长的过程，学了不少东西，不亏不亏。因为当初觉得python写机器学习的东西，方便一点，所以就用python开始了。快收尾的时候，发现，其实用c++写问题也不大啊，这个项目主要用的wx和opencv依然可以随便用啊。。但是都快写完了，">
+<meta property="og:updated_time" content="2018-06-24T12:31:55.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="pyinstaller遇到的问题">
+<meta name="twitter:description" content="今天花了一早晨的时间，终于将最近做的一个安全帽检测器收了尾，做的虽然不是很满意，但是期间踩了很多坑，涨了一波姿势，同时也是自己第一次真正的用机器学习做项目，感受了这个漫长的过程，学了不少东西，不亏不亏。因为当初觉得python写机器学习的东西，方便一点，所以就用python开始了。快收尾的时候，发现，其实用c++写问题也不大啊，这个项目主要用的wx和opencv依然可以随便用啊。。但是都快写完了，">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,295 +147,155 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-pyinstaller遇到的问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pyinstaller遇到的问题
+    </h1>
+  
+
+        
+        <a href="/2018/06/24/pyinstaller遇到的问题/" class="archive-article-date">
+  	<time datetime="2018-06-24T10:54:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-24</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天花了一早晨的时间，终于将最近做的一个安全帽检测器收了尾，做的虽然不是很满意，但是<br>期间踩了很多坑，涨了一波姿势，同时也是自己第一次真正的用机器学习做项目，感受了这个漫长<br>的过程，学了不少东西，不亏不亏。<br>因为当初觉得python写机器学习的东西，方便一点，所以就用python开始了。快收尾的时候，发现，<br>其实用c++写问题也不大啊，这个项目主要用的wx和opencv依然可以随便用啊。。但是都快写完了，<br>这么多代码移植一下真的太费时间了，但是python写完之后，就是要面对这么一个问题，我们写成<br>的程序是多个py文件，如果换一台没有解析器，第三方模块没装全的机器，那就废了，所以就要想<br>办法把他们打包成一个exe文件，开始吧。<br>首先两种选择，py2exe和pyinstaller，对比了一下，py2exe也太老了，而且在官网好像找不到<br>支持py3的了，而且网上的一致观点是py2exe效果很不好，打包成的exe存在包括兼容性的一系列<br>问题，于是便选择了pyinstaller。<br>直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install pyinstaller</div></pre></td></tr></table></figure></p>
+<p>装好了，那么开始做吧，于是第一步就遇到了问题，cmd下进入要打包的py文件所在的目录，<br>执行pyinstaller -F 指令，然后结果只有一句：<br>failed to create process<br>这是什么鬼，于是到网上一搜，这样解决：<br>去第三方库中找到文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyinstaller-script.py</div></pre></td></tr></table></figure></p>
+<p>会看到第一行是一个python.exe路径,把这行的”路径”用引号括起来，保存，再次执行命令，<br>这个信息不会在出现了，开始打包过程，然而在打包过程就失败了，出现错误。<br>这里就要说一个问题了，目前来说，以pip方式安装的pyinstaller对于py3.5以上的版本<br>支持并不是很完善，因此就会出现各种各样的错误。<br>所以到这里，依然决然的从github上下载源zip的方式进行安装。<br>下载以后，然后解压后，里面会有一个pyinstaller文件夹，进入<br>执行setup.py文件即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python setup.py install</div></pre></td></tr></table></figure></p>
+<p>然后再次执行打包命令就不会出现错误了…有点坑…<br>这次成功打包了，生成了exe文件，于是迫不及待的运行它。<br>然后跳出了控制台窗口，然后就报错了，说找不到我导入的模块，这个找不到的文件夹就是我的<br>的打包目录，因为我打算打包的是几个py文件，并不是只有一个，我以为只要将程序入口设在一个<br>py文件当中，然后将目录里其他模块import就好了，但是报错找不到。<br>上网了寻求了一下帮助，并没有找到打包多个py的正确方式，所有的打包都是针对单个py的，对于<br>其他导入的第三方模块，比如cv2，wx之类的并未报错，说明打包过程至少是可以识别python的<br>sit-packages文件夹的，所以可能将我们的文件都放进去打包应该没啥问题了吧。想了一下，<br>那我的第三方文件夹就乱套了啊。果断放弃，把所有的文件的代码全部整合到一个py文件当中，<br>重新打包，ok了，这个时候我的UI窗口可以执行了。<br>开始运行，导入视频，然后又出问题了，我在控制台中捕捉的视频帧数是0，说明程序中这行代码<br>并未执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.VideoCapture(filename)</div><div class="line">#通过文件读取视频</div></pre></td></tr></table></figure></p>
+<p>然而这句代码却执行了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.VideoCapture(0)</div><div class="line">#通过摄像头读取视频</div></pre></td></tr></table></figure></p>
+<p>解决这个问题的方法：<br>在cv2库中找到如下dll文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">opencv_ffmpegXYZ.dll</div><div class="line">opencv_ffmpegXYZ_64.dll</div><div class="line">#XYZ为opencv版本号;</div></pre></td></tr></table></figure></p>
+<p>32位选择第一个，64位选择第二个，然后将这个文件夹放到exe文件所在的同级目录当中，<br>在我们编写的py文件开头加入一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import ctypes</div><div class="line">try:</div><div class="line">    temp=ctypes.windll.LoadLibrary(&apos;opencv_ffmpegXYZ.dll&apos;)</div><div class="line">except:</div><div class="line">    print(&quot;load binary failed&quot;)</div><div class="line">    pass</div></pre></td></tr></table></figure></p>
+<p>然后重新打包，一定要将动态链接库和打包的exe一直放在一起。<br>同理，我们训练完成的模型bin文件，音频文件以及其他exe中要使用到的文件，<br>都要放在和exe同级文件夹当中，并且所有类似load()的函数都直接写成文件名即可，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ctypes.windll.LoadLibrary(&apos;opencv_ffmpeg341.dll&apos;)</div><div class="line"></div><div class="line">hog = cv2.HOGDescriptor()</div><div class="line">hog.load(&quot;myHogDector1.bin&quot;)</div><div class="line"></div><div class="line">winsound.PlaySound(&quot;901028.wav&quot;,winsound.SND_FILENAME)</div></pre></td></tr></table></figure></p>
+<p>打包完成，能够正常运行了,大功告成。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/12/学习笔记-决策树/" class="archive-article-date">
-  	<time datetime="2017-11-12T13:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/12/学习笔记-决策树/">&lt;学习笔记&gt; 决策树</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/24/pyinstaller遇到的问题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/10/学习笔记-k-近邻算法/" class="archive-article-date">
-  	<time datetime="2017-11-10T02:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/10/学习笔记-k-近邻算法/">&lt;学习笔记&gt; k-近邻算法</a>
-    </h1>
+    <a href="/2018/06/24/肤色检测/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          肤色检测
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/30/学习笔记-gxx-personality-sj0错误/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&lt;学习笔记&gt; gxx_personality_sj0错误</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-最小生成树/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:33:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-最小生成树/">&lt;学习笔记&gt; 最小生成树</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-范数/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-范数/">&lt;学习笔记&gt; 范数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——初级入门/" class="archive-article-date">
-  	<time datetime="2017-10-22T03:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——初级入门/">&lt;学习笔记&gt;动态规划——初级入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/21/学习笔记-动态规划/" class="archive-article-date">
-  	<time datetime="2017-10-21T05:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/21/学习笔记-动态规划/">&lt;学习笔记&gt;动态规划————开篇理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +319,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

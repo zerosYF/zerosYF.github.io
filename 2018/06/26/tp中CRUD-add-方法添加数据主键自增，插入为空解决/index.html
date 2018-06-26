@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Zeros</title>
+  <title>tp中CRUD add()方法添加数据主键自增，插入为空解决 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="thinkphp中操作数据库使用add()方法添加数据，然后查询，发现只有主键，其他字段值并没有返回，然后去看了一下，发现字段值确实为空，说明add执行失败了。经过一番请教，原来是缓存的原因，如果在使用表过后，又手动更改了表结构，Runtime中缓存了表的结构信息，然后手动修改表，并未与Runtime一致，就会导致这个原因，只要将缓存清空即可，也就是将Runtime文件清空，问题就会解决。我们也可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tp中CRUD add()方法添加数据主键自增，插入为空解决">
+<meta property="og:url" content="http://yoursite.com/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="thinkphp中操作数据库使用add()方法添加数据，然后查询，发现只有主键，其他字段值并没有返回，然后去看了一下，发现字段值确实为空，说明add执行失败了。经过一番请教，原来是缓存的原因，如果在使用表过后，又手动更改了表结构，Runtime中缓存了表的结构信息，然后手动修改表，并未与Runtime一致，就会导致这个原因，只要将缓存清空即可，也就是将Runtime文件清空，问题就会解决。我们也可">
+<meta property="og:image" content="http://yoursite.com/images/tpadd.png">
+<meta property="og:updated_time" content="2018-06-26T03:57:34.645Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="tp中CRUD add()方法添加数据主键自增，插入为空解决">
+<meta name="twitter:description" content="thinkphp中操作数据库使用add()方法添加数据，然后查询，发现只有主键，其他字段值并没有返回，然后去看了一下，发现字段值确实为空，说明add执行失败了。经过一番请教，原来是缓存的原因，如果在使用表过后，又手动更改了表结构，Runtime中缓存了表的结构信息，然后手动修改表，并未与Runtime一致，就会导致这个原因，只要将缓存清空即可，也就是将Runtime文件清空，问题就会解决。我们也可">
+<meta name="twitter:image" content="http://yoursite.com/images/tpadd.png">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,295 +149,138 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-tp中CRUD-add-方法添加数据主键自增，插入为空解决" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      tp中CRUD add()方法添加数据主键自增，插入为空解决
+    </h1>
+  
+
+        
+        <a href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/" class="archive-article-date">
+  	<time datetime="2018-06-26T03:42:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>thinkphp中操作数据库使用add()方法添加数据，然后查询，发现只有主键，<br>其他字段值并没有返回，然后去看了一下，发现字段值确实为空，说明add执行失败了。<br>经过一番请教，原来是缓存的原因，<br><img src="/images/tpadd.png" alt=""><br>如果在使用表过后，又手动更改了表结构，Runtime中缓存了表的结构信息，<br>然后手动修改表，并未与Runtime一致，就会导致这个原因，<br>只要将缓存清空即可，也就是将Runtime文件清空，问题就会解决。<br>我们也可以编写自己的脚本，来自动化这个Runtime清空过程。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/12/学习笔记-决策树/" class="archive-article-date">
-  	<time datetime="2017-11-12T13:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/12/学习笔记-决策树/">&lt;学习笔记&gt; 决策树</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/10/学习笔记-k-近邻算法/" class="archive-article-date">
-  	<time datetime="2017-11-10T02:33:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/10/学习笔记-k-近邻算法/">&lt;学习笔记&gt; k-近邻算法</a>
-    </h1>
+  
+    <a href="/2018/06/26/轮廓检测入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">轮廓检测入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-最小生成树/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:33:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-最小生成树/">&lt;学习笔记&gt; 最小生成树</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/学习笔记-范数/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/学习笔记-范数/">&lt;学习笔记&gt; 范数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——中级进阶/" class="archive-article-date">
-  	<time datetime="2017-10-22T08:08:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——中级进阶/">&lt;学习笔记&gt;动态规划——中级进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/22/学习笔记-动态规划——初级入门/" class="archive-article-date">
-  	<time datetime="2017-10-22T03:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/22/学习笔记-动态规划——初级入门/">&lt;学习笔记&gt;动态规划——初级入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/21/学习笔记-动态规划/" class="archive-article-date">
-  	<time datetime="2017-10-21T05:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/21/学习笔记-动态规划/">&lt;学习笔记&gt;动态规划————开篇理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/06/编译原理-NFA确定化与DFA最小化/" class="archive-article-date">
-  	<time datetime="2017-10-06T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/06/编译原理-NFA确定化与DFA最小化/">&lt;编译原理&gt; NFA确定化与DFA最小化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-迪克斯彻算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T09:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-迪克斯彻算法/">&lt;学习笔记&gt; 迪克斯彻算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/05/学习笔记-线性查找算法/" class="archive-article-date">
-  	<time datetime="2017-10-05T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/05/学习笔记-线性查找算法/">&lt;学习笔记&gt; 线性查找算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +304,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
