@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | Zeros</title>
+  <title>遗传算法--背包问题 | Zeros</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zeros">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="背包问题描述：有n个物品，每个物品有2个属性：重量w和价值v。指定一个背包，该背包能承受的最大重量为W，对每个物品来说，只有放入背包和不放入背包2种选择。求解：如何在不超过该背包最大承重W的前提下，使得放入物品的总价值V最大？ 曾经用动态规划和分支限界搞定过，换个方法玩一下。达尔文说过：能够生存下来的往往不是最强大的物种，也不是最聪明的物种，而是最能适应环境的物种。这个算法就是这么来的，物竞天择，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遗传算法--背包问题">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/遗传算法-背包问题/index.html">
 <meta property="og:site_name" content="Zeros">
+<meta property="og:description" content="背包问题描述：有n个物品，每个物品有2个属性：重量w和价值v。指定一个背包，该背包能承受的最大重量为W，对每个物品来说，只有放入背包和不放入背包2种选择。求解：如何在不超过该背包最大承重W的前提下，使得放入物品的总价值V最大？ 曾经用动态规划和分支限界搞定过，换个方法玩一下。达尔文说过：能够生存下来的往往不是最强大的物种，也不是最聪明的物种，而是最能适应环境的物种。这个算法就是这么来的，物竞天择，">
+<meta property="og:updated_time" content="2018-10-10T16:48:35.949Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zeros">
+<meta name="twitter:title" content="遗传算法--背包问题">
+<meta name="twitter:description" content="背包问题描述：有n个物品，每个物品有2个属性：重量w和价值v。指定一个背包，该背包能承受的最大重量为W，对每个物品来说，只有放入背包和不放入背包2种选择。求解：如何在不超过该背包最大承重W的前提下，使得放入物品的总价值V最大？ 曾经用动态规划和分支限界搞定过，换个方法玩一下。达尔文说过：能够生存下来的往往不是最强大的物种，也不是最聪明的物种，而是最能适应环境的物种。这个算法就是这么来的，物竞天择，">
   
     <link rel="alternative" href="/atom.xml" title="Zeros" type="application/atom+xml">
   
@@ -143,295 +147,142 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-遗传算法-背包问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      遗传算法--背包问题
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/10/遗传算法-背包问题/" class="archive-article-date">
+
+        
+        <a href="/2018/10/10/遗传算法-背包问题/" class="archive-article-date">
   	<time datetime="2018-10-10T09:41:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/10/遗传算法-背包问题/">遗传算法--背包问题</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>背包问题描述：<br>有n个物品，每个物品有2个属性：重量w和价值v。指定一个背包，该背包能承受的最大重量为W，<br>对每个物品来说，只有放入背包和不放入背包2种选择。<br>求解：如何在不超过该背包最大承重W的前提下，使得放入物品的总价值V最大？</p>
+<p>曾经用动态规划和分支限界搞定过，换个方法玩一下。<br>达尔文说过：能够生存下来的往往不是最强大的物种，也不是最聪明的物种，而是最能适应环境的物种。<br>这个算法就是这么来的，物竞天择，适者生存。<br>那么这个算法就有四个基本的要点：<br>种群：由个体组成，每个个体携带有染色体和基因。<br>选择：优胜劣汰。<br>交叉：通过交叉来进行基因的重组。<br>变异：基因概率突变。</p>
+<p>1.初始化：<br>那么背包问题如何与生物这个遗传进化的过程相联系呢。<br>我们将染色体用二进制，那么0表示物品不装入背包，1表示物品装入背包。<br>在进化过程当中，0即为基因丢失，1即为基因保留。<br>个体的适应性用适应度衡量，背包问题中也就是我们背包中的价值总和越高越好，但是这里的总重量<br>不可以超过背包的预设重量，进化不可逆自然规律而行。<br>2.选择：<br>从总体中选择合适的个体，让其进行交配。<br>这里为了保证生物的多样性，不至于在几代之后差异过小，那么选用轮赌法。<br>也就是相当于将一个圆分为总体中染色体数量的n个部分，每条染色体所占圆的面积由其适应度按比例来<br>界定。<br>那么为这个圆设置一个指针，轮盘旋转，当轮盘停下的时候指针所指即为所选择个体，<br>那么重复这个过程两次，即可选中两个亲本。<br>3.交叉：<br>交叉分为很多中，单点交叉，多点交叉，均匀交叉，这里选择单点交叉。<br>随机在染色体上选择一个交叉点，然后交换交叉点前后的部分，形成两个新的个体。<br>表现在这里，就是我们的二进制序列上选择一个分界点，亲本的前半部分和后半部分分别重新组合即可。<br>4.变异：<br>生物在进化过程当中，不仅有遗传，还有变异。<br>体现在我们这里就是二进制序列上的某一位概率的发生改变。</p>
+<p>这个过程进行完，那么就基本完成了一个进化的过程，也就是一轮繁殖。<br>那么我们什么时候找到最好的那一代呢，也就是进化最完全的那一代呢。<br>也就是如何找到最佳的适应水平。<br>一般有如下几种适应条件：<br>1.再进行繁殖不会发生太大的改变，趋于稳定。<br>2.事先规定迭代次数。<br>3.事先预定最佳的适应度。</p>
+<p>以下即为模拟过程代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div></pre></td><td class="code"><pre><div class="line">PACK_MAX_CAP=1000</div><div class="line">MAX_GENERATION=100</div><div class="line">import random</div><div class="line">def getRand():</div><div class="line">    intnum=random.randint(0,65535)</div><div class="line">    return intnum</div><div class="line">def getRand_float():</div><div class="line">    floatnum=random.uniform(0,1)</div><div class="line">    return floatnum</div><div class="line"></div><div class="line">class good:</div><div class="line">    def __init__(self,weight,value):</div><div class="line">        self.weight=weight</div><div class="line">        self.value=value</div><div class="line"></div><div class="line">class entity:</div><div class="line">    def __init__(self,goods_num):</div><div class="line">        self.fitness = 0</div><div class="line">        self.sum_weight = 0</div><div class="line">        self.generation_id = 0</div><div class="line">        self.gene = []</div><div class="line">        self.initgene(goods_num)</div><div class="line"></div><div class="line">    def initgene(self,goods_num):</div><div class="line">        for i in range(goods_num):</div><div class="line">            self.gene.append(0)</div><div class="line"></div><div class="line">class gene_algorithm:</div><div class="line">    def __init__(self,grnum,cr,vr,gonum):</div><div class="line">        self.group_num=grnum</div><div class="line">        self.goods_num=gonum</div><div class="line">        self.cross_rate=cr</div><div class="line">        self.varia_rate=vr</div><div class="line">        self.best_entity = None</div><div class="line"></div><div class="line">        self.group = []  # 群体</div><div class="line">        self.goods = []  # 物品</div><div class="line">        self.initgoods()</div><div class="line"></div><div class="line">    def get_totalfitness(self,group):</div><div class="line">        sum=0.0</div><div class="line">        for i in range(len(group)):</div><div class="line">            sum+=group[i].fitness</div><div class="line">        return sum</div><div class="line"></div><div class="line">    def print_opt(self):</div><div class="line">        print(&quot;最优解所在代数&quot;+str(self.best_entity.generation_id)+&quot;\n&quot;)</div><div class="line">        print(&quot;总重量&quot;+str(self.best_entity.sum_weight)+&quot;\n&quot;)</div><div class="line">        print(&quot;总价值&quot;+str(self.best_entity.fitness)+&quot;\n&quot;)</div><div class="line">        print(&quot;装入情况为：\n&quot;)</div><div class="line">        for i in range(len(self.best_entity.gene)):</div><div class="line">            print(self.best_entity.gene[i])</div><div class="line"></div><div class="line">    def initgoods(self):</div><div class="line">        print(&quot;物品集合信息：&quot;)</div><div class="line">        for i in range(self.goods_num):</div><div class="line">            self.goods.append(good(getRand()%150,getRand()%150))</div><div class="line">            print(&quot;物品号：&quot;+str(i)+&quot;重量：&quot;+str(self.goods[i].weight)+&quot;价值：&quot;+str(self.goods[i].value))</div><div class="line"></div><div class="line">    def initgroup(self):</div><div class="line">        self.best_entity=entity(self.goods_num)</div><div class="line"></div><div class="line">        for i in range(self.group_num):</div><div class="line"></div><div class="line">            ent=entity(self.goods_num)</div><div class="line">            #基因全零个体；</div><div class="line">            vir_capacity=PACK_MAX_CAP*random.uniform(0.5,1)</div><div class="line">            weight=0</div><div class="line">            count=0</div><div class="line">            while(weight&lt;=vir_capacity):</div><div class="line">                idx=getRand()%self.goods_num</div><div class="line">                #随机取得每个染色体上某个基因的编号；</div><div class="line">                if count==3:</div><div class="line">                    #连续三次随机到同一个基因位，该个体初始化结束；</div><div class="line">                    break;</div><div class="line">                if ent.gene[idx]==1:</div><div class="line">                    count+=1</div><div class="line">                    continue</div><div class="line">                ent.gene[idx]=1</div><div class="line">                weight+=self.goods[idx].weight</div><div class="line"></div><div class="line">            self.group.append(ent)</div><div class="line">            #初始化后加入种群；</div><div class="line"></div><div class="line">    def cal_fitness(self):</div><div class="line">        for i in range(len(self.group)):</div><div class="line">            ent=self.group[i]</div><div class="line">            wei=0;val=0</div><div class="line">            for j in range(len(ent.gene)):</div><div class="line">                if ent.gene[j]==1:</div><div class="line">                    wei+=self.goods[j].weight</div><div class="line">                    val+=self.goods[j].value</div><div class="line">            if wei&gt;PACK_MAX_CAP:</div><div class="line">                ent.fitness=0</div><div class="line">                continue</div><div class="line">            ent.fitness=val</div><div class="line">            ent.sum_weight=wei</div><div class="line"></div><div class="line">    def recordoptimalentity(self,gid):</div><div class="line">        sorted(self.group,key=lambda entity:entity.fitness)#通过fitness排序；</div><div class="line">        ent=self.group[len(self.group)-1]</div><div class="line">        if ent.fitness&gt;self.best_entity.fitness:</div><div class="line">            self.best_entity=ent</div><div class="line">            self.best_entity.generation_id=gid</div><div class="line"></div><div class="line">        print(&quot;遗传代数&quot;+str(gid)+&quot;总重量：&quot;</div><div class="line">              +str(ent.sum_weight)+&quot; 总价值:&quot;+str(ent.fitness)+&quot;\n&quot;)</div><div class="line"></div><div class="line">    def select(self):</div><div class="line">        new_group=[]</div><div class="line">        selected_rate=[]</div><div class="line">        sorted(self.group, key=lambda entity: entity.fitness)</div><div class="line">        group_num=len(self.group)</div><div class="line">        sum_fitness=self.get_totalfitness(self.group)</div><div class="line"></div><div class="line">        selected_rate.append(self.group[0].fitness/sum_fitness)</div><div class="line">        for i in range(1,group_num):</div><div class="line">            selected_rate.append(selected_rate[i-1]+self.group[i].fitness/sum_fitness)</div><div class="line">            #构造轮盘；</div><div class="line">        left_group_num=group_num*0.5</div><div class="line">        for i in range(int(left_group_num)):</div><div class="line">            rand_rate=getRand_float()</div><div class="line">            for idx in range(len(selected_rate)):</div><div class="line">                if rand_rate&lt;=selected_rate[idx]:</div><div class="line">                    new_group.append(self.group[idx])</div><div class="line">                    break;</div><div class="line"></div><div class="line">        #更新群体</div><div class="line">        self.group.clear()</div><div class="line">        self.group=new_group</div><div class="line"></div><div class="line">    def Willcross(self):</div><div class="line">        return (getRand_float()&lt;=self.cross_rate)</div><div class="line"></div><div class="line">    def cross(self):</div><div class="line">        group_num=len(self.group)</div><div class="line">        for i in range(0,(group_num-1),2):</div><div class="line">            father=self.group[i]</div><div class="line">            mother=self.group[i+1]</div><div class="line">            for j in range(len(father.gene)):</div><div class="line">                if self.Willcross():</div><div class="line">                    temp=father.gene[j]</div><div class="line">                    father.gene[j]=mother.gene[j]</div><div class="line">                    mother.gene[j]=temp</div><div class="line"></div><div class="line">            self.group.append(father)</div><div class="line">            self.group.append(mother)</div><div class="line"></div><div class="line">    def Willvaria(self):</div><div class="line">        return (getRand_float()&lt;=self.varia_rate)</div><div class="line"></div><div class="line">    def varia(self):</div><div class="line">        group_num=len(self.group)</div><div class="line">        for i in range(group_num):</div><div class="line">            if self.Willvaria():</div><div class="line">                ent=self.group[i]</div><div class="line">                for j in range(len(ent.gene)):</div><div class="line">                    if self.Willvaria():</div><div class="line">                        if ent.gene[j]==1:</div><div class="line">                            ent.gene[j]==0</div><div class="line">                        else:</div><div class="line">                            ent.gene[j]==1</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        self.initgroup()</div><div class="line">        for i in range(MAX_GENERATION):</div><div class="line">            self.cal_fitness()</div><div class="line">            self.recordoptimalentity(i)</div><div class="line">            self.select()</div><div class="line">            self.cross()</div><div class="line">            if i%5==0&amp;i!=0:</div><div class="line">                self.varia()</div><div class="line"></div><div class="line">if __name__==&apos;__main__&apos;:</div><div class="line">    ga=gene_algorithm(20,0.8,0.5,40)</div><div class="line">    ga.run()</div><div class="line">    ga.print_opt()</div></pre></td></tr></table></figure></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/10/10/遗传算法-背包问题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/" class="archive-article-date">
-  	<time datetime="2018-06-26T03:42:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/">tp中CRUD add()方法添加数据主键自增，插入为空解决</a>
-    </h1>
+  
+    <a href="/2018/06/26/tp中CRUD-add-方法添加数据主键自增，插入为空解决/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tp中CRUD add()方法添加数据主键自增，插入为空解决</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/26/轮廓检测入门/" class="archive-article-date">
-  	<time datetime="2018-06-26T03:03:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/26/轮廓检测入门/">轮廓检测入门</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/24/肤色检测/" class="archive-article-date">
-  	<time datetime="2018-06-24T12:34:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/24/肤色检测/">肤色检测</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/24/pyinstaller遇到的问题/" class="archive-article-date">
-  	<time datetime="2018-06-24T10:54:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/24/pyinstaller遇到的问题/">pyinstaller遇到的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/30/学习笔记-gxx-personality-sj0错误/" class="archive-article-date">
-  	<time datetime="2018-05-30T08:36:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/30/学习笔记-gxx-personality-sj0错误/">&lt;学习笔记&gt; gxx_personality_sj0错误</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/22/学习笔记-HOG-SVM人体识别基本框架/" class="archive-article-date">
-  	<time datetime="2018-05-22T15:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/22/学习笔记-HOG-SVM人体识别基本框架/">&lt;学习笔记&gt; HOG+SVM人体识别基本框架</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/19/学习笔记-线性回归/" class="archive-article-date">
-  	<time datetime="2018-04-19T04:46:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/19/学习笔记-线性回归/">&lt;学习笔记&gt; 线性回归</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/30/leetcode-Complex-Number-Multiplication/" class="archive-article-date">
-  	<time datetime="2018-03-30T06:59:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/30/leetcode-Complex-Number-Multiplication/">&lt;leetcode&gt; Complex Number Multiplication</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-w">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/30/学习笔记-AdaBoost元算法/" class="archive-article-date">
-  	<time datetime="2018-03-30T03:38:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/30/学习笔记-AdaBoost元算法/">&lt;学习笔记&gt; AdaBoost元算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2018/page/2/">2</a><a class="extend next" rel="next" href="/archives/2018/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +306,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

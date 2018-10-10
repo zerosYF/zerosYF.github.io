@@ -145,6 +145,56 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="w-学习笔记-核函数" class="article article-type-w  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/21/学习笔记-核函数/">&lt;学习笔记&gt; 核函数</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/21/学习笔记-核函数/" class="archive-article-date">
+  	<time datetime="2018-03-21T10:19:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们先上点干货吧。啊哈啊哈哈~<br>我们先来看看百度百科对它的定义：<br>核函数指所谓的径向基函数，就是某种沿径向对称的标量函数(其实具指的是高斯核)。<br>通常定义为空间中任一点x到某一中心xc之间的欧式距离的单调函数，可记作k(||x-xc||)，其作用往往是局部的，即当x<br>远离xc时函数的取值很小。<br>然后官方定义：<br>设X为输入空间(欧氏空间或离散集合),H为特征集合(希尔伯特空间),如果存在一个从X到H的映射,φ(x):X→H,使得所有的<br>x，y∈X，函数K(x,y)=φ(x)▪φ(y)。则称K为核函数，φ(x)为映射函数，φ(x)φ(y)为x，y映射到特征空间上的内积。<br>正文开始之前，我们还得说明白一些专业术语，免得显得那么晦涩。<br>欧氏空间：<br>定义：<br>设V是实数域R上的线性空间(或者称为向量空间)，若V上定义着正定对称双线性g(g称为内积)，则V称为内积空间或者<br>欧几里得空间，具体的说，g是V上的一个二元实值函数，满足下述关系：<br>(1)g(x,y)=g(y,x);(对称性)<br>(2)g(x+y,z)=g(x,z)+g(y,z);(第一变元线性性)<br>(3)g(kx,y)=kg(x,y);(第一变元线性性)<br>(4)g(x,x)&gt;=0，而且g(x,x)=0当且仅当x=0时成立。(正定性)<br>这里x,y,z是V中任意向量，k是任意实数。<br>希尔伯特空间：n维欧几里得空间的推广，可以看作是无限维的欧几里得空间,且具有完备性(直白点说，完备性就是指<br>在空间的极限运算中，我们的极限不会取出去)。<br>便于理解一些经常出现的词汇，奉上一个上海交大公开课的一个讲解的图片：<br><img src="/images/mypic3.png" alt=""></p>
+<p>············································手动分割··················································<br>上面就是一些晦涩的数学概念，看起来很恐怖，那就来通俗理解一下好了。<br>ps:纯属个人理解，可能不够专业吧。<br>我们所学的大部分数学课程都是以集合开始的，其实这就是近代直到现代我们研究数学的基础，学习数学，研究数学，就相当于<br>把我们现实世界存在的，看似不存在(无法感知)的东西抽象成集合，然后从不同的角度，不同的路径出发，进行研究。<br>空间，就是拥有结构的和规则的集合。<br>我们从初中开始接触坐标系，其实就已经潜移默化的接受空间的概念了，直角坐标系中有x轴，y轴，我们可以坐标化平面上<br>任意一点的位置，一个平面可以看作是由无数个点组成，而任意一个点都在我们的坐标系的”大网”之中。<br>现实世界是一个三维空间，如果我们规定一个远点，并且规定三个方向，分别取名x,y,z，然后规定它们相互垂直，那么我们每个人，<br>的位置就可以唯一确定了。这三个方向，就是我们所谓的基的概念(之前在线性代数里很多见，其实矩阵就是一种描述工具)。<br>有了对位置的描述，但是我们的元素并没有所谓的长度，于是乎，又在上面的空间当中引入特殊的长度，名为范数。<br>在此至上，又继续引入了角度的概念，于是又有了内积的概念。<br>继续的继续，引入极限的概念，但是我们所计算的极限可能跑出我们的给定的空间，所谓引入完备性，就有了我们上面所说的<br>希尔伯特空间。具体所需，据其所提。<br><img src="/images/mypic4.png" alt=""><br>············································手动分割··················································<br>进入正题了，那么我们的核函数到底是干什么的呢。<br>看上面，就是想从欧氏空间映射到希尔伯特空间，也就是从低维空间映射到高维空间。<br>便于理解，我在网上找了一个例子，原文参照：<br><a href="https://www.cnblogs.com/hezhiyao/p/7238500.html" target="_blank" rel="external">https://www.cnblogs.com/hezhiyao/p/7238500.html</a><br>我们看下面这幅图：<br><img src="/images/mypic5.png" alt=""><br>这幅图位于第一，第二象限内，讲红色门上的点看作“+”数据，紫色的字上的点看作“-”数据，它们的横纵坐标就是两个特征，<br>很明显，我们并找不到一条直线来将+-两中数据分开，也就是在这个二维空间当中，+-数据线性不可分。<br>那么我们现在考虑核函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">K(v1,v2)=&lt;v1,v2&gt;^2,即内积平方</div></pre></td></tr></table></figure></p>
+<p>这里面v1=(x1,y1),v2=(x2,v2)，是二维空间中的两点，这个核函数对应着一个二维空间到三维空间的一个映射，<br>表达式为:<br><img src="/images/mypic8.png" alt=""><br>在P这个映射下，原来的二维空间中的图就会变成下面这个样子：<br><img src="/images/mypic6.png" alt=""><br>图中绿色的平面就可以完美的将红色和紫色的数据分割开来，两类数据在三维空间中就线性可分了。<br>对应到我们的平面空间当中，这个平面的其实是一条双曲线，并不是线性的。<br><img src="/images/mypic7.png" alt=""><br>这个例子中，我们将二维空间映射到三维空间中，这是我们通过感官可以直接感受出来的，其实在我们的事实中，<br>它们的映射并不一定可以显式的表现出来，我们映射到的空间的维数可能高得多，甚至是无穷维的。<br>在我们进行使用的时候，选择核函数是很重要的一步，要根据实际而定。<br>接下来，如果我对核函数的选择又更近一步的认识，会分享在这里的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/21/学习笔记-核函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-问题笔记-Android-click与longclick冲突" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -621,54 +671,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/11/24/随笔-NASA编写代码的十条规则/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-学习笔记-各种消息下的wParam与lParam的含义总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">&lt;学习笔记&gt; 各种消息下的wParam与lParam的含义总结</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/" class="archive-article-date">
-  	<time datetime="2017-11-17T07:55:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这两个参数是两个宏定义，一般在消息函数中作为参数，通常用来存储窗口消息的参数。<br>1.WM_PAINT消息：<br>LOWORD(lParam)是客户区的宽，HIWORD(lParam)是客户区的高。<br>2.滚动条消息,<br>WM_VSCROLL和WM_HSCROLL：<br>LOWORD(wParam)指出了鼠标对滚动条的各种操作。<br>3.击键消息,<br>WM_SYSKEYUP,WM_SYSKEYDOWN,WM_KEYUP,WM_KEYDOWN:<br>wParam为虚拟键代码,lParam包含一些关于击键的其他消息。<br>4.子符消息，<br>WM_CHAR,WM_DEADCHAR,WM_SYSCHAR,WM_SYSDEADCHAR:<br>wParam为ASCII或Unicode的字符代码，lParam是包含关于击键的其他消息。<br>5.客户区鼠标消息，<br>WM_LBUTTONDOWN、WM_LBUTTONUP、WM_RBUTTONDOWN、WM_RBUTTONUP、WM_MBUTTONDOWN、WM_MBUTTONUP:<br>lParam参数的低位是鼠标在客户区的x坐标，高位是客户区的y坐标，<br>wParam参数是指示鼠标键  以及CTRL和shift键的状态。<br>wParam&amp;MK_SHIFT或者wParam&amp;MK_CTRL,如果返回值为true，就意味着对应的按键按下了。<br>6.非客户区的消息：<br>wParam参数指明了移动或点击了鼠标的非客户区位置，以HT开头，<br>lParam参数的低位则指明了屏幕坐标的横坐标，高位指明了鼠标在屏幕上的纵坐标。<br>7.鼠标滚轮消息，<br>WM_MOUSEWHEEL：<br>lParam获得鼠标的坐标位置，<br>wParam参数的低位则表明了ctrl和shift键的状态。<br>wParam参数的高位有一个“delta”值，该值可正可负，指出了滚轮的活动使屏幕滚动了几行。<br>8.计时器消息，<br>WM_TIMER:<br>wParam参数是计时器的id，lparam的值为0.<br>9.按钮子窗口的WM_COMMAND消息：<br>wParam参数低位是子窗口的id，高位是通知码，<br>lParam是子窗口的handle。<br>10.焦点消息，<br>对于正在失去焦点的窗口，会收到WM_KILLFOCUS消息：<br>wParam是即将接受输入焦点的窗口的handle，<br>对于即将获得焦点的窗口，会收到WM_SETFOCUS消息：<br>wParam是即将失去焦点的窗口的handle。<br>11.编辑控制的WM_COMMAND消息：<br>wParam参数的低位是子窗口的id，高位是通知码，<br>lParam参数是子窗口的handle。<br>12.列表框的WM_COMMAND消息：<br>wParam参数的低位是子窗口ID，高位是通知码，<br>lParam参数是子窗口handle。<br>13.菜单消息，<br>WM_INITMENU消息：<br>wParam为主菜单的handle，lParam是0.<br>WM_MENUSELECTX消息：<br>菜单跟踪消息，向窗口发送指针移动过程的消息，<br>wParam参数的低位是选中项菜单的id或者弹出式菜单的handle，高位是选择标识，<br>lParam参数是包含选中项的菜单的句柄。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/17/学习笔记-各种消息下的wParam与lParam的含义总结/">展开全文 >></a>
         </p>
       
 
